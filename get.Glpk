@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+glpk_ver=4.17
+
+wgetcount=`which wget 2>/dev/null | wc -w`
+if test ! $wgetcount = 1; then
+  echo "Utility wget not found in your PATH."
+  exit -1
+fi
+
+echo " "
+echo "Running script for downloading the source code for GLPK"
+echo " "
+
+rm -f glpk*.tgz
+
+echo "Downloading the source code from ftp.gnu.org..."
+wget ftp://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
+
+echo "Uncompressing the tarball..."
+gunzip -f glpk-${glpk_ver}.tar.gz
+
+echo "Unpacking the source code..."
+tar xf glpk-${glpk_ver}.tar
+
+echo "Deleting the tar file..."
+rm glpk-${glpk_ver}.tar
+
+mv glpk-${glpk_ver} glpk
+
+echo "Applying a patch for version 4.17"
+patch -p0 < glpk.patch
+
+echo " "
+echo "Done downloading the source code for GLPK."
+echo " "
+
+echo " "
+echo "Verify that there are no error message in the output above."

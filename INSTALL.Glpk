@@ -1,0 +1,25 @@
+Installation of Glpk subroutines within COIN-OR.
+
+**********************************************************************
+Note: It is YOUR RESPONSIBILITY to ensure that you are entitled to
+      download and use this third party package.
+**********************************************************************
+
+If you are working under Unix/Linux-like system and you have `wget'
+installed, you can downloaded the required source code for BLAS
+by executing the included script `get.Blas' in this directory.
+
+Otherwise, follow those instructions:
+
+You may download
+
+ftp://ftp.gnu.org/gnu/glpk/glpk-4.17.tar.gz
+
+and unpack it in this directory:
+
+gunzip glpk-4.17.tar.gz
+tar xf glpk-4.17.tar
+
+After this, you need to apply the patch file:
+
+patch -p0 < glpk.patch

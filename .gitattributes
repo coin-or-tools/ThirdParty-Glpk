@@ -1,0 +1,8 @@
+* text=auto !eol
+/INSTALL.Glpk -text
+/Makefile.am -text
+/Makefile.in -text
+/configure -text
+/configure.ac -text
+/get.Glpk -text
+/glpk.patch -text

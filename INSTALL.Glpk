@@ -6,8 +6,8 @@ Note: It is YOUR RESPONSIBILITY to ensure that you are entitled to
 **********************************************************************
 
 If you are working under Unix/Linux-like system and you have `wget'
-installed, you can downloaded the required source code for BLAS
-by executing the included script `get.Blas' in this directory.
+installed, you can downloaded the required source code for GLPK
+by executing the included script `get.Glpk' in this directory.
 
 Otherwise, follow those instructions:
 

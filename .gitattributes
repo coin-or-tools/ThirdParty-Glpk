@@ -5,4 +5,3 @@
 /configure -text
 /configure.ac -text
 /get.Glpk -text
-/glpk.patch -text

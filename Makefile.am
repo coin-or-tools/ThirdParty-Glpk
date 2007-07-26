@@ -8,10 +8,10 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = get.GLPK
 
-if SKIPMAKE
-  noinst_LTLIBRARIES =
-else
+if COIN_BUILD_GLPK
   noinst_LTLIBRARIES = libcoinglpk.la
+else
+  noinst_LTLIBRARIES =
 endif
 
 GLPKDIR = @GLPKDIR@
@@ -77,6 +77,10 @@ $(GLPKDIR)/src/glplux.c \
 $(GLPKDIR)/src/glpmat.c \
 $(GLPKDIR)/src/glpmip01.c \
 $(GLPKDIR)/src/glpmip02.c \
+$(GLPKDIR)/src/glpmpl01.c \
+$(GLPKDIR)/src/glpmpl02.c \
+$(GLPKDIR)/src/glpmpl03.c \
+$(GLPKDIR)/src/glpmpl04.c \
 $(GLPKDIR)/src/glpqmd.c \
 $(GLPKDIR)/src/glprng.c \
 $(GLPKDIR)/src/glpscf.c \
@@ -84,7 +88,8 @@ $(GLPKDIR)/src/glpscs.c \
 $(GLPKDIR)/src/glpspx01.c \
 $(GLPKDIR)/src/glpspx02.c \
 $(GLPKDIR)/src/glpssx01.c \
-$(GLPKDIR)/src/glpssx02.c
+$(GLPKDIR)/src/glpssx02.c \
+$(GLPKDIR)/src/glptsp.c
 
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 

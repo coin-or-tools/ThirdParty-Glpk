@@ -61,17 +61,20 @@ AC_COIN_INIT_AUTO_TOOLS
 # compiled within COIN.
 
 ## Check if GLPK is already provided by user
-AC_COIN_HAS_GLPK
+AC_COIN_HAS_GLPK(Glpk)
 
 rm -f $MAKEOKFILE
-if test $coin_has_glpk = yes && test "$use_glpk" != BUILD; then
-  AC_MSG_NOTICE([The Glpk sources don't need to be compiled])
-  MAKEOKFILE=
-else
+if test x"$use_thirdpartyglpk" = xbuild ; then
   touch $MAKEOKFILE
+else
+  if test x$coin_has_glpk = xtrue ; then
+    AC_MSG_NOTICE([The Glpk sources don't need to be compiled])
+  else
+    AC_MSG_WARN([Glpk source is available but will not be built. No valid external library is detected. Are you sure this is what you want?])
+  fi
+  MAKEOKFILE=
 fi
 AC_SUBST(MAKEOKFILE)
-AM_CONDITIONAL(SKIPMAKE, test -z "$MAKEOKFILE")
 
 GLPKDIR=glpk
 AC_SUBST(GLPKDIR)

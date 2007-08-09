@@ -3,10 +3,16 @@
 set -e
 glpk_ver=4.19
 
+wgetcmd=wget
 wgetcount=`which wget 2>/dev/null | wc -w`
 if test ! $wgetcount = 1; then
   echo "Utility wget not found in your PATH."
-  exit -1
+  if test `uname` = Darwin; then
+    wgetcmd=ftp
+    echo "Using ftp command instead."
+  else
+    exit -1
+  fi
 fi
 
 echo " "
@@ -16,7 +22,7 @@ echo " "
 rm -f glpk*.tgz
 
 echo "Downloading the source code from ftp.gnu.org..."
-wget ftp://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
+$wgetcmd ftp://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
 
 echo "Uncompressing the tarball..."
 gunzip -f glpk-${glpk_ver}.tar.gz

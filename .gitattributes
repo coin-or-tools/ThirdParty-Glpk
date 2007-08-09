@@ -1,4 +1,10 @@
 * text=auto !eol
+stable/1.0/INSTALL.Glpk -text
+stable/1.0/Makefile.am -text
+stable/1.0/Makefile.in -text
+stable/1.0/configure -text
+stable/1.0/configure.ac -text
+stable/1.0/get.Glpk -text
 trunk/INSTALL.Glpk -text
 trunk/Makefile.am -text
 trunk/Makefile.in -text

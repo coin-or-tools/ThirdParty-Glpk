@@ -38,6 +38,10 @@ AC_COIN_PROJECTDIR_INIT
 # Get the system type
 AC_CANONICAL_BUILD
 
+#turn off warnings and pedantic mode since it seem to make trouble on solaris platform
+#and we couldn't fix it anyway
+coin_skip_warn_cflags=yes
+
 # Check if user wants to produce debugging code
 AC_COIN_DEBUG_COMPILE(GLPK)
 

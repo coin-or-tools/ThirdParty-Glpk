@@ -73,19 +73,18 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcoinglpk_la_LIBADD =
 nodist_libcoinglpk_la_OBJECTS = glpapi01.lo glpapi02.lo glpapi03.lo \
 	glpapi04.lo glpapi05.lo glpapi06.lo glpapi07.lo glpapi08.lo \
-	glpapi09.lo glpapi10.lo glpavl.lo glpbfd.lo glpbfx.lo \
-	glpdmp.lo glpfhv.lo glpgmp.lo glphbm.lo glpiet.lo glpios01.lo \
-	glpios02.lo glpios03.lo glpipm.lo glpipp01.lo glpipp02.lo \
-	glplib01.lo glplib02.lo glplib03.lo glplib04.lo glplib05.lo \
-	glplib06.lo glplib07.lo glplib08.lo glplib09.lo glplpf.lo \
-	glplpp01.lo glplpp02.lo glplpx01.lo glplpx02.lo glplpx03.lo \
-	glplpx04.lo glplpx05.lo glplpx06.lo glplpx07.lo glplpx08.lo \
-	glplpx09.lo glplpx10.lo glplpx11.lo glplpx12.lo glplpx13.lo \
-	glplpx14.lo glplpx15.lo glplpx16.lo glplpx17.lo glplpx18.lo \
-	glplpx19.lo glpluf.lo glplux.lo glpmat.lo glpmip01.lo \
-	glpmip02.lo glpmpl01.lo glpmpl02.lo glpmpl03.lo glpmpl04.lo \
-	glpqmd.lo glprng.lo glpscf.lo glpscs.lo glpspx01.lo \
-	glpspx02.lo glpssx01.lo glpssx02.lo glptsp.lo
+	glpapi09.lo glpapi10.lo glpapi11.lo glpavl.lo glpbfd.lo \
+	glpbfx.lo glpdmp.lo glpfhv.lo glpgmp.lo glphbm.lo glpios01.lo \
+	glpios02.lo glpipm.lo glpipp01.lo glpipp02.lo glplib01.lo \
+	glplib02.lo glplib03.lo glplib04.lo glplib05.lo glplib06.lo \
+	glplib07.lo glplib08.lo glplib09.lo glplpf.lo glplpp01.lo \
+	glplpp02.lo glplpx01.lo glplpx02.lo glplpx03.lo glplpx04.lo \
+	glplpx05.lo glplpx06.lo glplpx07.lo glplpx08.lo glplpx09.lo \
+	glplpx10.lo glplpx11.lo glplpx12.lo glplpx13.lo glplpx14.lo \
+	glplpx15.lo glplpx16.lo glplpx17.lo glplpx18.lo glplpx19.lo \
+	glpluf.lo glplux.lo glpmat.lo glpmpl01.lo glpmpl02.lo \
+	glpmpl03.lo glpmpl04.lo glpqmd.lo glprng.lo glpscf.lo \
+	glpscs.lo glpspx01.lo glpspx02.lo glpssx01.lo glpssx02.lo
 libcoinglpk_la_OBJECTS = $(nodist_libcoinglpk_la_OBJECTS)
 @COIN_BUILD_GLPK_TRUE@am_libcoinglpk_la_rpath =
 depcomp = $(SHELL) $(top_srcdir)/../../depcomp
@@ -262,6 +261,7 @@ $(GLPKDIR)/src/glpapi07.c \
 $(GLPKDIR)/src/glpapi08.c \
 $(GLPKDIR)/src/glpapi09.c \
 $(GLPKDIR)/src/glpapi10.c \
+$(GLPKDIR)/src/glpapi11.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
@@ -269,10 +269,8 @@ $(GLPKDIR)/src/glpdmp.c \
 $(GLPKDIR)/src/glpfhv.c \
 $(GLPKDIR)/src/glpgmp.c \
 $(GLPKDIR)/src/glphbm.c \
-$(GLPKDIR)/src/glpiet.c \
 $(GLPKDIR)/src/glpios01.c \
 $(GLPKDIR)/src/glpios02.c \
-$(GLPKDIR)/src/glpios03.c \
 $(GLPKDIR)/src/glpipm.c \
 $(GLPKDIR)/src/glpipp01.c \
 $(GLPKDIR)/src/glpipp02.c \
@@ -310,8 +308,6 @@ $(GLPKDIR)/src/glplpx19.c \
 $(GLPKDIR)/src/glpluf.c \
 $(GLPKDIR)/src/glplux.c \
 $(GLPKDIR)/src/glpmat.c \
-$(GLPKDIR)/src/glpmip01.c \
-$(GLPKDIR)/src/glpmip02.c \
 $(GLPKDIR)/src/glpmpl01.c \
 $(GLPKDIR)/src/glpmpl02.c \
 $(GLPKDIR)/src/glpmpl03.c \
@@ -323,8 +319,7 @@ $(GLPKDIR)/src/glpscs.c \
 $(GLPKDIR)/src/glpspx01.c \
 $(GLPKDIR)/src/glpspx02.c \
 $(GLPKDIR)/src/glpssx01.c \
-$(GLPKDIR)/src/glpssx02.c \
-$(GLPKDIR)/src/glptsp.c
+$(GLPKDIR)/src/glpssx02.c
 
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include`
@@ -401,6 +396,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi08.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi09.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi10.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi11.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpavl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpbfd.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpbfx.Plo@am__quote@
@@ -408,10 +404,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpfhv.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpgmp.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glphbm.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpiet.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpios01.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpios02.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpios03.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpipm.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpipp01.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpipp02.Plo@am__quote@
@@ -449,8 +443,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpluf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glplux.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpmat.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpmip01.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpmip02.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpmpl01.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpmpl02.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpmpl03.Plo@am__quote@
@@ -463,7 +455,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpspx02.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpssx01.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpssx02.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glptsp.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -556,6 +547,13 @@ glpapi10.lo: $(GLPKDIR)/src/glpapi10.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpapi10.lo `test -f '$(GLPKDIR)/src/glpapi10.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpapi10.c
 
+glpapi11.lo: $(GLPKDIR)/src/glpapi11.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpapi11.lo -MD -MP -MF "$(DEPDIR)/glpapi11.Tpo" -c -o glpapi11.lo `test -f '$(GLPKDIR)/src/glpapi11.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpapi11.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpapi11.Tpo" "$(DEPDIR)/glpapi11.Plo"; else rm -f "$(DEPDIR)/glpapi11.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpapi11.c' object='glpapi11.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpapi11.lo `test -f '$(GLPKDIR)/src/glpapi11.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpapi11.c
+
 glpavl.lo: $(GLPKDIR)/src/glpavl.c
 @am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpavl.lo -MD -MP -MF "$(DEPDIR)/glpavl.Tpo" -c -o glpavl.lo `test -f '$(GLPKDIR)/src/glpavl.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpavl.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpavl.Tpo" "$(DEPDIR)/glpavl.Plo"; else rm -f "$(DEPDIR)/glpavl.Tpo"; exit 1; fi
@@ -605,13 +603,6 @@ glphbm.lo: $(GLPKDIR)/src/glphbm.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glphbm.lo `test -f '$(GLPKDIR)/src/glphbm.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glphbm.c
 
-glpiet.lo: $(GLPKDIR)/src/glpiet.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpiet.lo -MD -MP -MF "$(DEPDIR)/glpiet.Tpo" -c -o glpiet.lo `test -f '$(GLPKDIR)/src/glpiet.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpiet.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpiet.Tpo" "$(DEPDIR)/glpiet.Plo"; else rm -f "$(DEPDIR)/glpiet.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpiet.c' object='glpiet.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpiet.lo `test -f '$(GLPKDIR)/src/glpiet.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpiet.c
-
 glpios01.lo: $(GLPKDIR)/src/glpios01.c
 @am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpios01.lo -MD -MP -MF "$(DEPDIR)/glpios01.Tpo" -c -o glpios01.lo `test -f '$(GLPKDIR)/src/glpios01.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpios01.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpios01.Tpo" "$(DEPDIR)/glpios01.Plo"; else rm -f "$(DEPDIR)/glpios01.Tpo"; exit 1; fi
@@ -625,13 +616,6 @@ glpios02.lo: $(GLPKDIR)/src/glpios02.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpios02.c' object='glpios02.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpios02.lo `test -f '$(GLPKDIR)/src/glpios02.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpios02.c
-
-glpios03.lo: $(GLPKDIR)/src/glpios03.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpios03.lo -MD -MP -MF "$(DEPDIR)/glpios03.Tpo" -c -o glpios03.lo `test -f '$(GLPKDIR)/src/glpios03.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpios03.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpios03.Tpo" "$(DEPDIR)/glpios03.Plo"; else rm -f "$(DEPDIR)/glpios03.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpios03.c' object='glpios03.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpios03.lo `test -f '$(GLPKDIR)/src/glpios03.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpios03.c
 
 glpipm.lo: $(GLPKDIR)/src/glpipm.c
 @am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpipm.lo -MD -MP -MF "$(DEPDIR)/glpipm.Tpo" -c -o glpipm.lo `test -f '$(GLPKDIR)/src/glpipm.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpipm.c; \
@@ -892,20 +876,6 @@ glpmat.lo: $(GLPKDIR)/src/glpmat.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpmat.lo `test -f '$(GLPKDIR)/src/glpmat.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpmat.c
 
-glpmip01.lo: $(GLPKDIR)/src/glpmip01.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpmip01.lo -MD -MP -MF "$(DEPDIR)/glpmip01.Tpo" -c -o glpmip01.lo `test -f '$(GLPKDIR)/src/glpmip01.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpmip01.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpmip01.Tpo" "$(DEPDIR)/glpmip01.Plo"; else rm -f "$(DEPDIR)/glpmip01.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpmip01.c' object='glpmip01.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpmip01.lo `test -f '$(GLPKDIR)/src/glpmip01.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpmip01.c
-
-glpmip02.lo: $(GLPKDIR)/src/glpmip02.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpmip02.lo -MD -MP -MF "$(DEPDIR)/glpmip02.Tpo" -c -o glpmip02.lo `test -f '$(GLPKDIR)/src/glpmip02.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpmip02.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpmip02.Tpo" "$(DEPDIR)/glpmip02.Plo"; else rm -f "$(DEPDIR)/glpmip02.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpmip02.c' object='glpmip02.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpmip02.lo `test -f '$(GLPKDIR)/src/glpmip02.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpmip02.c
-
 glpmpl01.lo: $(GLPKDIR)/src/glpmpl01.c
 @am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpmpl01.lo -MD -MP -MF "$(DEPDIR)/glpmpl01.Tpo" -c -o glpmpl01.lo `test -f '$(GLPKDIR)/src/glpmpl01.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpmpl01.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpmpl01.Tpo" "$(DEPDIR)/glpmpl01.Plo"; else rm -f "$(DEPDIR)/glpmpl01.Tpo"; exit 1; fi
@@ -989,13 +959,6 @@ glpssx02.lo: $(GLPKDIR)/src/glpssx02.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpssx02.c' object='glpssx02.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpssx02.lo `test -f '$(GLPKDIR)/src/glpssx02.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpssx02.c
-
-glptsp.lo: $(GLPKDIR)/src/glptsp.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glptsp.lo -MD -MP -MF "$(DEPDIR)/glptsp.Tpo" -c -o glptsp.lo `test -f '$(GLPKDIR)/src/glptsp.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glptsp.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glptsp.Tpo" "$(DEPDIR)/glptsp.Plo"; else rm -f "$(DEPDIR)/glptsp.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glptsp.c' object='glptsp.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glptsp.lo `test -f '$(GLPKDIR)/src/glptsp.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glptsp.c
 
 mostlyclean-libtool:
 	-rm -f *.lo

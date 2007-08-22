@@ -27,6 +27,7 @@ $(GLPKDIR)/src/glpapi07.c \
 $(GLPKDIR)/src/glpapi08.c \
 $(GLPKDIR)/src/glpapi09.c \
 $(GLPKDIR)/src/glpapi10.c \
+$(GLPKDIR)/src/glpapi11.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
@@ -34,10 +35,8 @@ $(GLPKDIR)/src/glpdmp.c \
 $(GLPKDIR)/src/glpfhv.c \
 $(GLPKDIR)/src/glpgmp.c \
 $(GLPKDIR)/src/glphbm.c \
-$(GLPKDIR)/src/glpiet.c \
 $(GLPKDIR)/src/glpios01.c \
 $(GLPKDIR)/src/glpios02.c \
-$(GLPKDIR)/src/glpios03.c \
 $(GLPKDIR)/src/glpipm.c \
 $(GLPKDIR)/src/glpipp01.c \
 $(GLPKDIR)/src/glpipp02.c \
@@ -75,8 +74,6 @@ $(GLPKDIR)/src/glplpx19.c \
 $(GLPKDIR)/src/glpluf.c \
 $(GLPKDIR)/src/glplux.c \
 $(GLPKDIR)/src/glpmat.c \
-$(GLPKDIR)/src/glpmip01.c \
-$(GLPKDIR)/src/glpmip02.c \
 $(GLPKDIR)/src/glpmpl01.c \
 $(GLPKDIR)/src/glpmpl02.c \
 $(GLPKDIR)/src/glpmpl03.c \
@@ -88,8 +85,7 @@ $(GLPKDIR)/src/glpscs.c \
 $(GLPKDIR)/src/glpspx01.c \
 $(GLPKDIR)/src/glpspx02.c \
 $(GLPKDIR)/src/glpssx01.c \
-$(GLPKDIR)/src/glpssx02.c \
-$(GLPKDIR)/src/glptsp.c
+$(GLPKDIR)/src/glpssx02.c
 
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 

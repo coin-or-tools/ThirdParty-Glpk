@@ -38,6 +38,7 @@ $(GLPKDIR)/src/glphbm.c \
 $(GLPKDIR)/src/glpios01.c \
 $(GLPKDIR)/src/glpios02.c \
 $(GLPKDIR)/src/glpios03.c \
+$(GLPKDIR)/src/glpios04.c \
 $(GLPKDIR)/src/glpipm.c \
 $(GLPKDIR)/src/glpipp01.c \
 $(GLPKDIR)/src/glpipp02.c \

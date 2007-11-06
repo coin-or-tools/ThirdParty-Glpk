@@ -28,6 +28,7 @@ $(GLPKDIR)/src/glpapi08.c \
 $(GLPKDIR)/src/glpapi09.c \
 $(GLPKDIR)/src/glpapi10.c \
 $(GLPKDIR)/src/glpapi11.c \
+$(GLPKDIR)/src/glpapi12.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
@@ -73,6 +74,7 @@ $(GLPKDIR)/src/glplpx16.c \
 $(GLPKDIR)/src/glplpx17.c \
 $(GLPKDIR)/src/glplpx18.c \
 $(GLPKDIR)/src/glplpx19.c \
+$(GLPKDIR)/src/glplpx20.c \
 $(GLPKDIR)/src/glpluf.c \
 $(GLPKDIR)/src/glplux.c \
 $(GLPKDIR)/src/glpmat.c \
@@ -80,6 +82,7 @@ $(GLPKDIR)/src/glpmpl01.c \
 $(GLPKDIR)/src/glpmpl02.c \
 $(GLPKDIR)/src/glpmpl03.c \
 $(GLPKDIR)/src/glpmpl04.c \
+$(GLPKDIR)/src/glppds.c \
 $(GLPKDIR)/src/glpqmd.c \
 $(GLPKDIR)/src/glprng01.c \
 $(GLPKDIR)/src/glprng02.c \
@@ -93,7 +96,7 @@ $(GLPKDIR)/src/glpssx02.c
 
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 
-AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include`
+AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` -I$(GLPKDIR)
 
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 

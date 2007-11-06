@@ -51,6 +51,8 @@ AC_COIN_PROG_CC
 # Initialize automake
 AC_COIN_INIT_AUTO_TOOLS
 
+AC_CHECK_FUNCS([vsnprintf])
+
 ###########################################################################
 #                            COIN_HAS_GLPK                                #
 ###########################################################################
@@ -84,5 +86,7 @@ GLPKDIR=glpk
 AC_SUBST(GLPKDIR)
 
 AC_CONFIG_FILES([Makefile])
+
+AC_CONFIG_HEADER([glpk/config.h])
 
 AC_COIN_FINALIZE

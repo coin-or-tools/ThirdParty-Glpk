@@ -13,15 +13,15 @@ Otherwise, follow those instructions:
 
 You may download
 
-ftp://ftp.gnu.org/gnu/glpk/glpk-4.22.tar.gz
+ftp://ftp.gnu.org/gnu/glpk/glpk-4.23.tar.gz
 
 and unpack it in this directory:
 
-gunzip glpk-4.22.tar.gz
-tar xf glpk-4.22.tar
+gunzip glpk-4.23.tar.gz
+tar xf glpk-4.23.tar
 
 Finally you need to rename the directory
-  glpk-4.22
+  glpk-4.23
 into
   glpk
 .

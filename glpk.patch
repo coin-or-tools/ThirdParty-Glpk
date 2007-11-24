@@ -1,0 +1,46 @@
+diff -Naur glpk/include/glpk.h glpk.patched/include/glpk.h
+--- glpk/include/glpk.h	2007-11-21 10:00:00.000000000 +0100
++++ glpk.patched/include/glpk.h	2007-11-24 15:13:27.000000000 +0100
+@@ -30,7 +30,7 @@
+ 
+ /* library version numbers: */
+ #define GLP_MAJOR_VERSION  4
+-#define GLP_MINOR_VERSION  23
++#define GLP_MINOR_VERSION  24
+ 
+ #ifndef _GLP_PROB
+ #define _GLP_PROB
+diff -Naur glpk.OLD/src/glpapi08.c glpk.patched/src/glpapi08.c
+--- glpk/src/glpapi08.c	2007-11-21 10:00:00.000000000 +0100
++++ glpk.patched/src/glpapi08.c	2007-11-24 15:13:03.000000000 +0100
+@@ -345,9 +345,15 @@
+       switch (ret)
+       {  case 0:
+             if (tree->mip->mip_stat == GLP_FEAS)
+-            {  if (parm->msg_lev >= GLP_MSG_ALL)
+-                  xprintf("INTEGER OPTIMAL SOLUTION FOUND\n");
+-               tree->mip->mip_stat = GLP_OPT;
++             { if (ios_relative_gap(tree) > 0) {
++                               if (parm->msg_lev >= GLP_MSG_ALL)
++                                       xprintf("INTEGER FEASIBLE SOLUTION FOUND, GAP SMALLER THAN TOLERANCE\n");
++                               tree->mip->mip_stat = GLP_FEAS;
++               } else {
++                       if (parm->msg_lev >= GLP_MSG_ALL)
++                               xprintf("INTEGER OPTIMAL SOLUTION FOUND\n");
++                       tree->mip->mip_stat = GLP_OPT;
++               }
+             }
+             else
+             {  if (parm->msg_lev >= GLP_MSG_ALL)
+diff -Naur glpk.OLD/src/glpios03.c glpk.patched/src/glpios03.c
+--- glpk/src/glpios03.c	2007-11-21 10:00:00.000000000 +0100
++++ glpk.patched/src/glpios03.c	2007-11-24 15:13:09.000000000 +0100
+@@ -1341,7 +1341,7 @@
+          {  if (tree->parm->msg_lev >= GLP_MSG_DBG)
+                xprintf("Relative gap tolerance reached; search terminat"
+                   "ed\n");
+-            ret = GLP_ETMLIM;
++            ret = 0;
+             goto done;
+          }
+ #endif

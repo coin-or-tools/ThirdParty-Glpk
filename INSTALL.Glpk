@@ -13,15 +13,19 @@ Otherwise, follow those instructions:
 
 You may download
 
-ftp://ftp.gnu.org/gnu/glpk/glpk-4.23.tar.gz
+ftp://ftp.gnu.org/gnu/glpk/glpk-4.24.tar.gz
 
 and unpack it in this directory:
 
-gunzip glpk-4.23.tar.gz
-tar xf glpk-4.23.tar
+gunzip glpk-4.24.tar.gz
+tar xf glpk-4.24.tar
 
-Finally you need to rename the directory
-  glpk-4.23
+Then you need to rename the directory
+  glpk-4.24
 into
   glpk
+.
+
+Finally you apply a small patch file
+  patch -p0 < glpk.patch
 .

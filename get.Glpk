@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-glpk_ver=4.23
+glpk_ver=4.24
 
 wgetcmd=wget
 wgetcount=`which wget 2>/dev/null | wc -w`
@@ -46,7 +46,10 @@ mv glpk-${glpk_ver} glpk
 
 echo " "
 echo "Done downloading the source code for GLPK."
+echo "Applying patch file."
 echo " "
+
+patch -p0 < glpk.patch
 
 echo " "
 echo "Verify that there are no error message in the output above."

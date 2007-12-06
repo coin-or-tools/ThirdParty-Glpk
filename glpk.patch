@@ -1,6 +1,6 @@
-diff -Naur glpk/include/glpk.h glpk.patched/include/glpk.h
---- glpk/include/glpk.h	2007-11-21 10:00:00.000000000 +0100
-+++ glpk.patched/include/glpk.h	2007-11-24 15:13:27.000000000 +0100
+diff -Naur glpk-4.24/include/glpk.h glpk/include/glpk.h
+--- glpk-4.24/include/glpk.h	2007-11-21 10:00:00.000000000 +0100
++++ glpk/include/glpk.h	2007-11-26 10:14:41.000000000 +0100
 @@ -30,7 +30,7 @@
  
  /* library version numbers: */
@@ -10,9 +10,9 @@ diff -Naur glpk/include/glpk.h glpk.patched/include/glpk.h
  
  #ifndef _GLP_PROB
  #define _GLP_PROB
-diff -Naur glpk.OLD/src/glpapi08.c glpk.patched/src/glpapi08.c
---- glpk/src/glpapi08.c	2007-11-21 10:00:00.000000000 +0100
-+++ glpk.patched/src/glpapi08.c	2007-11-24 15:13:03.000000000 +0100
+diff -Naur glpk-4.24/src/glpapi08.c glpk/src/glpapi08.c
+--- glpk-4.24/src/glpapi08.c	2007-11-21 10:00:00.000000000 +0100
++++ glpk/src/glpapi08.c	2007-11-26 10:14:41.000000000 +0100
 @@ -345,9 +345,15 @@
        switch (ret)
        {  case 0:
@@ -32,9 +32,9 @@ diff -Naur glpk.OLD/src/glpapi08.c glpk.patched/src/glpapi08.c
              }
              else
              {  if (parm->msg_lev >= GLP_MSG_ALL)
-diff -Naur glpk.OLD/src/glpios03.c glpk.patched/src/glpios03.c
---- glpk/src/glpios03.c	2007-11-21 10:00:00.000000000 +0100
-+++ glpk.patched/src/glpios03.c	2007-11-24 15:13:09.000000000 +0100
+diff -Naur glpk-4.24/src/glpios03.c glpk/src/glpios03.c
+--- glpk-4.24/src/glpios03.c	2007-11-21 10:00:00.000000000 +0100
++++ glpk/src/glpios03.c	2007-11-26 10:14:41.000000000 +0100
 @@ -1341,7 +1341,7 @@
           {  if (tree->parm->msg_lev >= GLP_MSG_DBG)
                 xprintf("Relative gap tolerance reached; search terminat"
@@ -44,3 +44,23 @@ diff -Naur glpk.OLD/src/glpios03.c glpk.patched/src/glpios03.c
              goto done;
           }
  #endif
+diff -Naur glpk-4.24/src/glpios05.c glpk/src/glpios05.c
+--- glpk-4.24/src/glpios05.c	2007-11-21 10:00:00.000000000 +0100
++++ glpk/src/glpios05.c	2007-12-06 15:00:33.000000000 +0100
+@@ -1084,7 +1084,16 @@
+             else
+             {  /* x'[k] = x[k] - lb[k] * x[kk] */
+                jj = mir->cut_vec->pos[kk];
++#if 0
+                xassert(jj != 0);
++#else
++               if (jj == 0)
++               {  ios_set_vj(mir->cut_vec, kk, 1.0);
++                  jj = mir->cut_vec->pos[kk];
++                  xassert(jj != 0);
++                  mir->cut_vec->val[jj] = 0.0;
++               }
++#endif
+                mir->cut_vec->val[jj] -= mir->cut_vec->val[j] *
+                   mir->lb[k];
+             }

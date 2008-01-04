@@ -41,6 +41,7 @@ $(GLPKDIR)/src/glpios02.c \
 $(GLPKDIR)/src/glpios03.c \
 $(GLPKDIR)/src/glpios04.c \
 $(GLPKDIR)/src/glpios05.c \
+$(GLPKDIR)/src/glpios06.c \
 $(GLPKDIR)/src/glpipm.c \
 $(GLPKDIR)/src/glpipp01.c \
 $(GLPKDIR)/src/glpipp02.c \
@@ -89,7 +90,6 @@ $(GLPKDIR)/src/glprng01.c \
 $(GLPKDIR)/src/glprng02.c \
 $(GLPKDIR)/src/glpscf.c \
 $(GLPKDIR)/src/glpscg.c \
-$(GLPKDIR)/src/glpscs.c \
 $(GLPKDIR)/src/glpspx01.c \
 $(GLPKDIR)/src/glpspx02.c \
 $(GLPKDIR)/src/glpssx01.c \

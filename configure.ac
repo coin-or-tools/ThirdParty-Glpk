@@ -87,6 +87,4 @@ AC_SUBST(GLPKDIR)
 
 AC_CONFIG_FILES([Makefile])
 
-AC_CONFIG_HEADER([glpk/config.h])
-
 AC_COIN_FINALIZE

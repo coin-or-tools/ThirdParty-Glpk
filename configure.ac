@@ -2,7 +2,7 @@
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
-## $Id: configure.ac 130 2007-07-17 23:07:33Z andreasw $
+## $Id$
 
 #############################################################################
 #                       Names and other basic things                        #

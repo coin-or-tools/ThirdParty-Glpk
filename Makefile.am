@@ -2,7 +2,7 @@
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
-## $Id: Makefile.am 138 2007-07-22 14:02:41Z stefan $
+## $Id$
 
 AUTOMAKE_OPTIONS = foreign
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2007 Stefan Vigerske
+# Copyright (C) 2007-2008 Stefan Vigerske and others.
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -13,7 +13,7 @@ AC_PREREQ(2.59)
 AC_INIT([ThirdPartyGlpk],[0.0],[http://projects.coin-or.org/BuildTools/newticket])
 
 AC_COPYRIGHT([
-Copyright 2007 Stefan Vigerske and others.
+Copyright 2007-2008 Stefan Vigerske and others.
 All Rights Reserved.
 This file is part of the open source package Coin which is distributed
 under the Common Public License.])
@@ -30,7 +30,6 @@ AC_PREFIX_DEFAULT([`pwd`])
 
 AC_COIN_PROJECTDIR_INIT
 
-
 #############################################################################
 #                         Standard build tool stuff                         #
 #############################################################################
@@ -42,16 +41,11 @@ AC_CANONICAL_BUILD
 #and we couldn't fix it anyway
 coin_skip_warn_cflags=yes
 
-# Check if user wants to produce debugging code
-AC_COIN_DEBUG_COMPILE(GLPK)
-
 # Get the name of the C compiler
 AC_COIN_PROG_CC
 
 # Initialize automake
 AC_COIN_INIT_AUTO_TOOLS
-
-AC_CHECK_FUNCS([vsnprintf])
 
 ###########################################################################
 #                            COIN_HAS_GLPK                                #
@@ -72,6 +66,13 @@ AC_COIN_HAS_GLPK(Glpk)
 rm -f $MAKEOKFILE
 if test x"$use_thirdpartyglpk" = xbuild ; then
   touch $MAKEOKFILE
+  AC_MSG_CHECKING([GLPK version])
+  majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
+  minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
+  AC_MSG_RESULT([${majorver}.${minorver}])
+  if test $majorver != 4 || test $minorver != 26 ; then
+    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.26. Please update by rerunning get.GLPK"])
+  fi
 else
   if test x$coin_has_glpk = xtrue ; then
     AC_MSG_NOTICE([The Glpk sources don't need to be compiled])

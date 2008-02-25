@@ -27,7 +27,6 @@ $wgetcmd ftp://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
 echo "Uncompressing the tarball..."
 gunzip -f glpk-${glpk_ver}.tar.gz
 
-
 if test -d glpk ; then
   echo "Moving current glpk to glpk.OLD."
   if test -d glpk.OLD ; then
@@ -43,6 +42,9 @@ echo "Deleting the tar file..."
 rm glpk-${glpk_ver}.tar
 
 mv glpk-${glpk_ver} glpk
+
+echo "Clear previous build..."
+rm -f *.lo
 
 echo " "
 echo "Done downloading the source code for GLPK."

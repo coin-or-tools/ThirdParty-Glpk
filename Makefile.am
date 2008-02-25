@@ -6,7 +6,7 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-EXTRA_DIST = get.GLPK INSTALL.Glpk
+EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
 
 if COIN_BUILD_GLPK
   noinst_LTLIBRARIES = libcoinglpk.la

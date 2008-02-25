@@ -43,9 +43,6 @@ rm glpk-${glpk_ver}.tar
 
 mv glpk-${glpk_ver} glpk
 
-echo "Clear previous build..."
-rm -f *.lo
-
 echo " "
 echo "Done downloading the source code for GLPK."
 echo "Applying patch file."

@@ -41,6 +41,9 @@ AC_CANONICAL_BUILD
 #and we couldn't fix it anyway
 coin_skip_warn_cflags=yes
 
+# Check if user wants to produce debugging code
+AC_COIN_DEBUG_COMPILE(Glpk)
+
 # Get the name of the C compiler
 AC_COIN_PROG_CC
 

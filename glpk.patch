@@ -1,7 +1,6 @@
-diff -Naur glpk-4.25/src/glpapi08.c glpk/src/glpapi08.c
---- glpk-4.25/src/glpapi08.c	2007-12-19 10:00:00.000000000 +0100
-+++ glpk/src/glpapi08.c	2008-01-04 11:13:21.000000000 +0100
-@@ -348,9 +348,15 @@
+--- glpk/src/glpapi08.c.orig	2008-08-13 10:00:00.000000000 +0200
++++ glpk/src/glpapi08.c	2008-08-16 16:24:08.000000000 +0200
+@@ -349,9 +349,15 @@
        switch (ret)
        {  case 0:
              if (tree->mip->mip_stat == GLP_FEAS)
@@ -20,10 +19,9 @@ diff -Naur glpk-4.25/src/glpapi08.c glpk/src/glpapi08.c
              }
              else
              {  if (parm->msg_lev >= GLP_MSG_ALL)
-diff -Naur glpk-4.25/src/glpios03.c glpk/src/glpios03.c
---- glpk-4.25/src/glpios03.c	2007-12-19 10:00:00.000000000 +0100
-+++ glpk/src/glpios03.c	2008-01-04 11:13:21.000000000 +0100
-@@ -1345,7 +1345,7 @@
+--- glpk/src/glpios03.c.orig	2008-08-13 10:00:00.000000000 +0200
++++ glpk/src/glpios03.c	2008-08-16 16:24:08.000000000 +0200
+@@ -1346,7 +1346,7 @@
           {  if (tree->parm->msg_lev >= GLP_MSG_DBG)
                 xprintf("Relative gap tolerance reached; search terminat"
                    "ed\n");

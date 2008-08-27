@@ -1,5 +1,5 @@
-diff -ru glpk.OLD//src/glpapi08.c glpk/src/glpapi08.c
---- glpk.OLD//src/glpapi08.c	Fri Aug 22 08:25:51 2008
+diff -Naur glpkdummy/src/glpapi08.c glpk/src/glpapi08.c
+--- glpkdummy/src/glpapi08.c	Fri Aug 22 08:25:51 2008
 +++ glpk/src/glpapi08.c	Fri Aug 22 08:31:53 2008
 @@ -349,9 +349,15 @@
        switch (ret)
@@ -20,8 +20,8 @@ diff -ru glpk.OLD//src/glpapi08.c glpk/src/glpapi08.c
              }
              else
              {  if (parm->msg_lev >= GLP_MSG_ALL)
-diff -ru glpk.OLD//src/glpios03.c glpk/src/glpios03.c
---- glpk.OLD//src/glpios03.c	Wed Aug 13 04:00:00 2008
+diff -Naur glpkdummy/src/glpios03.c glpk/src/glpios03.c
+--- glpkdummy/src/glpios03.c	Wed Aug 13 04:00:00 2008
 +++ glpk/src/glpios03.c	Fri Aug 22 08:32:10 2008
 @@ -1346,7 +1346,7 @@
           {  if (tree->parm->msg_lev >= GLP_MSG_DBG)

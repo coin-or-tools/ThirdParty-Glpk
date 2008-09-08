@@ -20073,15 +20073,18 @@ fi
 rm -f $MAKEOKFILE
 if test x"$use_thirdpartyglpk" = xbuild ; then
   touch $MAKEOKFILE
+  #CoinUtils and SYMPHONY include glpmpl.h and have HAVE_CONFIG_H defined
+  #so we put a dummy config.h file into the glpk include directory
+  touch ${GLPKINCDIR}/config.h
   echo "$as_me:$LINENO: checking GLPK version" >&5
 echo $ECHO_N "checking GLPK version... $ECHO_C" >&6
   majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   echo "$as_me:$LINENO: result: ${majorver}.${minorver}" >&5
 echo "${ECHO_T}${majorver}.${minorver}" >&6
-  if test $majorver != 4 || test $minorver != 30 ; then
-    { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.30. Please update by rerunning get.GLPK\"" >&5
-echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.30. Please update by rerunning get.GLPK\"" >&2;}
+  if test $majorver != 4 || test $minorver != 31 ; then
+    { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.31. Please update by rerunning get.GLPK\"" >&5
+echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.31. Please update by rerunning get.GLPK\"" >&2;}
    { (exit 1); exit 1; }; }
   fi
 else

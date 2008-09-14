@@ -69,12 +69,15 @@ AC_COIN_HAS_GLPK(Glpk)
 rm -f $MAKEOKFILE
 if test x"$use_thirdpartyglpk" = xbuild ; then
   touch $MAKEOKFILE
+  #CoinUtils and SYMPHONY include glpmpl.h and have HAVE_CONFIG_H defined
+  #so we put a dummy config.h file into the glpk include directory
+  touch ${GLPKINCDIR}/config.h
   AC_MSG_CHECKING([GLPK version])
   majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   AC_MSG_RESULT([${majorver}.${minorver}])
-  if test $majorver != 4 || test $minorver != 30 ; then
-    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.30. Please update by rerunning get.GLPK"])
+  if test $majorver != 4 || test $minorver != 31 ; then
+    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.31. Please update by rerunning get.GLPK"])
   fi
 else
   if test x$coin_has_glpk = xtrue ; then

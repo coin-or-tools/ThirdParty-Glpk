@@ -32,7 +32,7 @@ diff -Naur glpkdummy/src/glpios03.c glpk/src/glpios03.c
              goto done;
           }
  #endif
-diff -Naur glpk/src/glplpx01.c.orig glpk/src/glplpx01.c
+diff -Naur glpk/src/glpios03.c.orig glpk/src/glpios03.c
 --- glpk/src/glplpx01.c.orig	2008-09-05 19:44:36.000000000 +0200
 +++ glpk/src/glplpx01.c	2008-09-05 19:42:45.000000000 +0200
 @@ -376,7 +376,7 @@

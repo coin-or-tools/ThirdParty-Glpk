@@ -79,7 +79,7 @@ if test x"$use_thirdpartyglpk" = xbuild ; then
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   AC_MSG_RESULT([${majorver}.${minorver}])
   if test $majorver != 4 || test $minorver != 32 ; then
-    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.31. Please update by rerunning get.GLPK"])
+    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.32. Please update by rerunning get.GLPK"])
   fi
 else
   if test x$coin_has_glpk = xtrue ; then

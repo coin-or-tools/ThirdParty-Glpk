@@ -1,7 +1,7 @@
 diff -Naur glpk/src/glplpx01.c.orig glpk/src/glplpx01.c
 --- glpk/src/glplpx01.c.orig	2008-09-05 19:44:36.000000000 +0200
 +++ glpk/src/glplpx01.c	2008-09-05 19:42:45.000000000 +0200
-@@ -377,7 +377,7 @@
+@@ -382,7 +382,7 @@
        ret = glp_simplex(lp, &parm);
        switch (ret)
        {  case 0:           ret = LPX_E_OK;      break;

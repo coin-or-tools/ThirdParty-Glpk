@@ -1,4 +1,3 @@
-diff -Naur glpk/src/glplpx01.c.orig glpk/src/glplpx01.c
 --- glpk/src/glplpx01.c.orig	2008-09-05 19:44:36.000000000 +0200
 +++ glpk/src/glplpx01.c	2008-09-05 19:42:45.000000000 +0200
 @@ -382,7 +382,7 @@
@@ -10,8 +9,8 @@ diff -Naur glpk/src/glplpx01.c.orig glpk/src/glplpx01.c
           case GLP_ESING:
           case GLP_ECOND:
           case GLP_EBOUND:  ret = LPX_E_FAULT;   break;
-diff -Naur glpk/src/glpmpl05.c.orig glpk/src/glpmpl05.c
---- glpk/src/glpmpl05.c	2008-12-04 10:00:00.000000000 +0100
+
+--- glpk/src/glpmpl05.c.orig	2008-12-04 10:00:00.000000000 +0100
 +++ glpk/src/glpmpl05.c	2009-01-03 18:14:11.000000000 +0100
 @@ -484,11 +484,11 @@
                    Sunday as the first day of the first week; days

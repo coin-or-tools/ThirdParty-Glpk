@@ -10,3 +10,22 @@ diff -Naur glpk/src/glplpx01.c.orig glpk/src/glplpx01.c
           case GLP_ESING:
           case GLP_ECOND:
           case GLP_EBOUND:  ret = LPX_E_FAULT;   break;
+diff -Naur glpk/src/glpmpl05.c.orig glpk/src/glpmpl05.c
+--- glpk/src/glpmpl05.c	2008-12-04 10:00:00.000000000 +0100
++++ glpk/src/glpmpl05.c	2009-01-03 18:14:11.000000000 +0100
+@@ -484,11 +484,11 @@
+                   Sunday as the first day of the first week; days
+                   preceding the first Sunday in the year are considered
+                   to be in week 00 */
+-               int sun;
++               int sunday;
+                /* sun = the first Sunday of the year */
+-               sun = jday(1, 1, year) - jday(1, 1, 1970);
+-               sun += (7 - weekday(sun));
+-               sprintf(buf, "%02d", (j + 7 - sun) / 7);
++               sunday = jday(1, 1, year) - jday(1, 1, 1970);
++               sunday += (7 - weekday(sunday));
++               sprintf(buf, "%02d", (j + 7 - sunday) / 7);
+             }
+             else if (*f == 'V')
+             {  /* the ISO week number as a decimal number (range 01

@@ -69,11 +69,6 @@ AC_COIN_HAS_GLPK(Glpk)
 rm -f $MAKEOKFILE
 if test x"$use_thirdpartyglpk" = xbuild ; then
   touch $MAKEOKFILE
-  # CoinUtils and SYMPHONY include glpmpl.h and have HAVE_CONFIG_H defined
-  # so we put a dummy config.h file into the glpk include directory. At least
-  # a newline is needed to avoid a bug in Sun Solaris Studio, 64-bit optimised
-  # build.
-  echo "" > ${GLPKINCDIR}/config.h
   AC_MSG_CHECKING([GLPK version])
   majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`

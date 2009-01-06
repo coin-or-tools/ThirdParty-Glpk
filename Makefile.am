@@ -106,6 +106,15 @@ $(GLPKDIR)/src/glpsql.c \
 $(GLPKDIR)/src/glpssx01.c \
 $(GLPKDIR)/src/glpssx02.c
 
+libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h
+
+# CoinUtils and SYMPHONY include glpmpl.h and have HAVE_CONFIG_H defined
+# so we put a dummy config.h file into the glpk include directory. At least
+# a newline is needed to avoid a bug in Sun Solaris Studio, 64-bit optimised
+# build.
+$(srcdir)/$(GLPKDIR)/include/config.h :
+	echo "" > $(srcdir)/$(GLPKDIR)/include/config.h
+
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 
 AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` -I$(GLPKDIR)

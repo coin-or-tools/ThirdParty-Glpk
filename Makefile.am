@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2008 Stefan Vigerske
+# Copyright (C) 2007-2009 Stefan Vigerske
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -34,11 +34,14 @@ $(GLPKDIR)/src/glpapi14.c \
 $(GLPKDIR)/src/glpapi15.c \
 $(GLPKDIR)/src/glpapi16.c \
 $(GLPKDIR)/src/glpapi17.c \
+$(GLPKDIR)/src/glpapi18.c \
+$(GLPKDIR)/src/glpapi19.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
 $(GLPKDIR)/src/glpcpx.c \
 $(GLPKDIR)/src/glpdmp.c \
+$(GLPKDIR)/src/glpdmx.c \
 $(GLPKDIR)/src/glpfhv.c \
 $(GLPKDIR)/src/glpgmp.c \
 $(GLPKDIR)/src/glphbm.c \
@@ -91,6 +94,11 @@ $(GLPKDIR)/src/glpmpl05.c \
 $(GLPKDIR)/src/glpmpl06.c \
 $(GLPKDIR)/src/glpmps01.c \
 $(GLPKDIR)/src/glpmps02.c \
+$(GLPKDIR)/src/glpnet01.c \
+$(GLPKDIR)/src/glpnet02.c \
+$(GLPKDIR)/src/glpnet03.c \
+$(GLPKDIR)/src/glpnet04.c \
+$(GLPKDIR)/src/glpnet05.c \
 $(GLPKDIR)/src/glppds.c \
 $(GLPKDIR)/src/glpqmd.c \
 $(GLPKDIR)/src/glprgr.c \

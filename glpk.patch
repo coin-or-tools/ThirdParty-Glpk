@@ -1,7 +1,7 @@
 diff -Naur glpkdummy/src/glpapi08.c glpk/src/glpapi08.c
 --- glpkdummy/src/glpapi08.c	Fri Aug 22 08:25:51 2008
 +++ glpk/src/glpapi08.c	Fri Aug 22 08:31:53 2008
-@@ -348,9 +348,15 @@
+@@ -349,9 +349,15 @@
        switch (ret)
        {  case 0:
              if (tree->mip->mip_stat == GLP_FEAS)
@@ -23,7 +23,7 @@ diff -Naur glpkdummy/src/glpapi08.c glpk/src/glpapi08.c
 diff -Naur glpkdummy/src/glpios03.c glpk/src/glpios03.c
 --- glpkdummy/src/glpios03.c	Wed Aug 13 04:00:00 2008
 +++ glpk/src/glpios03.c	Fri Aug 22 08:32:10 2008
-@@ -1364,7 +1364,7 @@
+@@ -1346,7 +1346,7 @@
           {  if (tree->parm->msg_lev >= GLP_MSG_DBG)
                 xprintf("Relative gap tolerance reached; search terminat"
                    "ed\n");
@@ -32,10 +32,10 @@ diff -Naur glpkdummy/src/glpios03.c glpk/src/glpios03.c
              goto done;
           }
  #endif
-diff -Naur glpk/src/glpios03.c.orig glpk/src/glpios03.c
+diff -Naur glpk/src/glplpx01.c.orig glpk/src/glplpx01.c
 --- glpk/src/glplpx01.c.orig	2008-09-05 19:44:36.000000000 +0200
 +++ glpk/src/glplpx01.c	2008-09-05 19:42:45.000000000 +0200
-@@ -376,7 +376,7 @@
+@@ -333,7 +333,7 @@
        ret = glp_simplex(lp, &parm);
        switch (ret)
        {  case 0:           ret = LPX_E_OK;      break;

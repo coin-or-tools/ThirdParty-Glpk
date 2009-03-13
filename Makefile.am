@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2008 Stefan Vigerske
+# Copyright (C) 2007 Stefan Vigerske
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -40,8 +40,6 @@ $(GLPKDIR)/src/glpdmp.c \
 $(GLPKDIR)/src/glpfhv.c \
 $(GLPKDIR)/src/glpgmp.c \
 $(GLPKDIR)/src/glphbm.c \
-$(GLPKDIR)/src/glpini01.c \
-$(GLPKDIR)/src/glpini02.c \
 $(GLPKDIR)/src/glpios01.c \
 $(GLPKDIR)/src/glpios02.c \
 $(GLPKDIR)/src/glpios03.c \
@@ -83,6 +81,8 @@ $(GLPKDIR)/src/glplpx14.c \
 $(GLPKDIR)/src/glplpx15.c \
 $(GLPKDIR)/src/glplpx16.c \
 $(GLPKDIR)/src/glplpx17.c \
+$(GLPKDIR)/src/glplpx18.c \
+$(GLPKDIR)/src/glplpx19.c \
 $(GLPKDIR)/src/glpluf.c \
 $(GLPKDIR)/src/glplux.c \
 $(GLPKDIR)/src/glpmat.c \
@@ -98,10 +98,10 @@ $(GLPKDIR)/src/glprng02.c \
 $(GLPKDIR)/src/glprgr.c \
 $(GLPKDIR)/src/glpscf.c \
 $(GLPKDIR)/src/glpscg.c \
-$(GLPKDIR)/src/glpscl.c \
 $(GLPKDIR)/src/glpspm.c \
 $(GLPKDIR)/src/glpspx01.c \
 $(GLPKDIR)/src/glpspx02.c \
+$(GLPKDIR)/src/glpspx03.c \
 $(GLPKDIR)/src/glpsql.c \
 $(GLPKDIR)/src/glpssx01.c \
 $(GLPKDIR)/src/glpssx02.c

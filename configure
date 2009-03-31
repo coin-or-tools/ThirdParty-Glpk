@@ -9,7 +9,7 @@
 # gives unlimited permission to copy, distribute and modify it.
 #
 #
-# Copyright 2007-2008 Stefan Vigerske and others.
+# Copyright 2007-2009 Stefan Vigerske and others.
 # All Rights Reserved.
 # This file is part of the open source package Coin which is distributed
 # under the Common Public License.
@@ -1214,7 +1214,7 @@ This configure script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it.
 
 
-Copyright 2007-2008 Stefan Vigerske and others.
+Copyright 2007-2009 Stefan Vigerske and others.
 All Rights Reserved.
 This file is part of the open source package Coin which is distributed
 under the Common Public License.
@@ -20079,9 +20079,9 @@ echo $ECHO_N "checking GLPK version... $ECHO_C" >&6
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   echo "$as_me:$LINENO: result: ${majorver}.${minorver}" >&5
 echo "${ECHO_T}${majorver}.${minorver}" >&6
-  if test $majorver != 4 || test $minorver != 36 ; then
-    { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.36. Please update by rerunning get.GLPK\"" >&5
-echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.36. Please update by rerunning get.GLPK\"" >&2;}
+  if test $majorver != 4 || test $minorver != 37 ; then
+    { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.37. Please update by rerunning get.GLPK\"" >&5
+echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.37. Please update by rerunning get.GLPK\"" >&2;}
    { (exit 1); exit 1; }; }
   fi
 else

@@ -13,7 +13,7 @@ AC_PREREQ(2.59)
 AC_INIT([ThirdPartyGlpk],[0.0],[http://projects.coin-or.org/BuildTools/newticket])
 
 AC_COPYRIGHT([
-Copyright 2007-2008 Stefan Vigerske and others.
+Copyright 2007-2009 Stefan Vigerske and others.
 All Rights Reserved.
 This file is part of the open source package Coin which is distributed
 under the Common Public License.])
@@ -73,8 +73,8 @@ if test x"$use_thirdpartyglpk" = xbuild ; then
   majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   AC_MSG_RESULT([${majorver}.${minorver}])
-  if test $majorver != 4 || test $minorver != 36 ; then
-    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.36. Please update by rerunning get.GLPK"])
+  if test $majorver != 4 || test $minorver != 37 ; then
+    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.37. Please update by rerunning get.GLPK"])
   fi
 else
   if test x$coin_has_glpk = xtrue ; then

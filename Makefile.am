@@ -37,7 +37,6 @@ $(GLPKDIR)/src/glpapi17.c \
 $(GLPKDIR)/src/glpapi18.c \
 $(GLPKDIR)/src/glpapi19.c \
 $(GLPKDIR)/src/glpapi20.c \
-$(GLPKDIR)/src/glpapi21.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
@@ -91,8 +90,7 @@ $(GLPKDIR)/src/glpmpl03.c \
 $(GLPKDIR)/src/glpmpl04.c \
 $(GLPKDIR)/src/glpmpl05.c \
 $(GLPKDIR)/src/glpmpl06.c \
-$(GLPKDIR)/src/glpmps01.c \
-$(GLPKDIR)/src/glpmps02.c \
+$(GLPKDIR)/src/glpmps.c \
 $(GLPKDIR)/src/glpnet01.c \
 $(GLPKDIR)/src/glpnet02.c \
 $(GLPKDIR)/src/glpnet03.c \
@@ -100,6 +98,8 @@ $(GLPKDIR)/src/glpnet04.c \
 $(GLPKDIR)/src/glpnet05.c \
 $(GLPKDIR)/src/glpnet06.c \
 $(GLPKDIR)/src/glpnet07.c \
+$(GLPKDIR)/src/glpnpp01.c \
+$(GLPKDIR)/src/glpnpp02.c \
 $(GLPKDIR)/src/glpqmd.c \
 $(GLPKDIR)/src/glprgr.c \
 $(GLPKDIR)/src/glprng01.c \
@@ -113,20 +113,61 @@ $(GLPKDIR)/src/glpspx01.c \
 $(GLPKDIR)/src/glpspx02.c \
 $(GLPKDIR)/src/glpsql.c \
 $(GLPKDIR)/src/glpssx01.c \
-$(GLPKDIR)/src/glpssx02.c
-
-libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h
+$(GLPKDIR)/src/glpssx02.c \
+$(GLPKDIR)/src/amd/amd_1.c \
+$(GLPKDIR)/src/amd/amd_2.c \
+$(GLPKDIR)/src/amd/amd_aat.c \
+$(GLPKDIR)/src/amd/amd_control.c \
+$(GLPKDIR)/src/amd/amd_defaults.c \
+$(GLPKDIR)/src/amd/amd_dump.c \
+$(GLPKDIR)/src/amd/amd_info.c \
+$(GLPKDIR)/src/amd/amd_order.c \
+$(GLPKDIR)/src/amd/amd_postorder.c \
+$(GLPKDIR)/src/amd/amd_post_tree.c \
+$(GLPKDIR)/src/amd/amd_preprocess.c \
+$(GLPKDIR)/src/amd/amd_valid.c \
+$(GLPKDIR)/src/colamd/colamd.c
 
 # CoinUtils and SYMPHONY include glpmpl.h and have HAVE_CONFIG_H defined
-# so we put a dummy config.h file into the glpk include directory. At least
-# a newline is needed to avoid a bug in Sun Solaris Studio, 64-bit optimised
-# build.
+# so we put a dummy config.h file and required include files into the glpk
+# include directory. At least a newline is needed to avoid a bug in
+# Sun Solaris Studio, 64-bit optimised build.
+libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h \
+  $(srcdir)/$(GLPKDIR)/include/glpmpl.h \
+  $(srcdir)/$(GLPKDIR)/include/glpavl.h \
+  $(srcdir)/$(GLPKDIR)/include/glprng.h \
+  $(srcdir)/$(GLPKDIR)/include/glpdmp.h \
+  $(srcdir)/$(GLPKDIR)/include/glplib.h \
+  $(srcdir)/$(GLPKDIR)/include/glpstd.h
+
 $(srcdir)/$(GLPKDIR)/include/config.h :
 	echo "" > $(srcdir)/$(GLPKDIR)/include/config.h
 
+$(srcdir)/$(GLPKDIR)/include/glpmpl.h : $(srcdir)/$(GLPKDIR)/src/glpmpl.h
+	cp $(srcdir)/$(GLPKDIR)/src/glpmpl.h $(srcdir)/$(GLPKDIR)/include/glpmpl.h
+
+$(srcdir)/$(GLPKDIR)/include/glpavl.h : $(srcdir)/$(GLPKDIR)/src/glpavl.h
+	cp $(srcdir)/$(GLPKDIR)/src/glpavl.h $(srcdir)/$(GLPKDIR)/include/glpavl.h
+
+$(srcdir)/$(GLPKDIR)/include/glprng.h : $(srcdir)/$(GLPKDIR)/src/glprng.h
+	cp $(srcdir)/$(GLPKDIR)/src/glprng.h $(srcdir)/$(GLPKDIR)/include/glprng.h
+
+$(srcdir)/$(GLPKDIR)/include/glpdmp.h : $(srcdir)/$(GLPKDIR)/src/glpdmp.h
+	cp $(srcdir)/$(GLPKDIR)/src/glpdmp.h $(srcdir)/$(GLPKDIR)/include/glpdmp.h
+
+$(srcdir)/$(GLPKDIR)/include/glplib.h : $(srcdir)/$(GLPKDIR)/src/glplib.h
+	cp $(srcdir)/$(GLPKDIR)/src/glplib.h $(srcdir)/$(GLPKDIR)/include/glplib.h
+
+$(srcdir)/$(GLPKDIR)/include/glpstd.h : $(srcdir)/$(GLPKDIR)/src/glpstd.h
+	cp $(srcdir)/$(GLPKDIR)/src/glpstd.h $(srcdir)/$(GLPKDIR)/include/glpstd.h
+
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 
-AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` -I$(GLPKDIR)
+AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
+  -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/src` \
+  -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/src/amd` \
+  -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/src/colamd` \
+  -I$(GLPKDIR)
 
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 

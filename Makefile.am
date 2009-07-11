@@ -128,10 +128,11 @@ $(GLPKDIR)/src/amd/amd_preprocess.c \
 $(GLPKDIR)/src/amd/amd_valid.c \
 $(GLPKDIR)/src/colamd/colamd.c
 
-# CoinUtils and SYMPHONY include glpmpl.h and have HAVE_CONFIG_H defined
-# so we put a dummy config.h file and required include files into the glpk
-# include directory. At least a newline is needed to avoid a bug in
-# Sun Solaris Studio, 64-bit optimised build.
+# CoinUtils and SYMPHONY include glpmpl.h, have HAVE_CONFIG_H defined,
+# and so Glpk attempts to include config.h.
+# Therefore, we put a simple config.h file into $(GLPKDIR)/include.
+# It's purpose is to include the config_glpk.h file that is generated
+# by configure.
 libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h \
   $(srcdir)/$(GLPKDIR)/include/glpmpl.h \
   $(srcdir)/$(GLPKDIR)/include/glpavl.h \
@@ -140,8 +141,8 @@ libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h \
   $(srcdir)/$(GLPKDIR)/include/glplib.h \
   $(srcdir)/$(GLPKDIR)/include/glpstd.h
 
-$(srcdir)/$(GLPKDIR)/include/config.h :
-	echo "" > $(srcdir)/$(GLPKDIR)/include/config.h
+$(srcdir)/$(GLPKDIR)/include/config.h : $(srcdir)/config.h
+	cp $(srcdir)/config.h $(srcdir)/$(GLPKDIR)/include/config.h
 
 $(srcdir)/$(GLPKDIR)/include/glpmpl.h : $(srcdir)/$(GLPKDIR)/src/glpmpl.h
 	cp $(srcdir)/$(GLPKDIR)/src/glpmpl.h $(srcdir)/$(GLPKDIR)/include/glpmpl.h

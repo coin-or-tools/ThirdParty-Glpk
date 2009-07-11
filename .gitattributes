@@ -2,7 +2,10 @@
 /INSTALL.Glpk -text
 /Makefile.am -text
 /Makefile.in -text
+/config.h -text
+/config_glpk.h.in -text
 /configure -text
 /configure.ac -text
 /get.Glpk -text
 /glpk.patch -text
+/glpk_addlibs.txt.in -text

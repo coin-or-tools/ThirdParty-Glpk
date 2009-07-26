@@ -8,15 +8,12 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
 
-if COIN_BUILD_GLPK
-  noinst_LTLIBRARIES = libcoinglpk.la
-else
-  noinst_LTLIBRARIES =
-endif
+thirdpartylibdir = $(prefix)/lib/ThirdParty
+thirdpartylib_LTLIBRARIES = libcoinglpk.la
 
 GLPKDIR = @GLPKDIR@
 
-nodist_libcoinglpk_la_SOURCES = \
+libcoinglpk_la_SOURCES = \
 $(GLPKDIR)/src/glpapi01.c \
 $(GLPKDIR)/src/glpapi02.c \
 $(GLPKDIR)/src/glpapi03.c \
@@ -171,6 +168,12 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
   -I$(GLPKDIR)
 
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
+
+thirdpartyincludedir = $(includedir)/coin/ThirdParty
+thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
+
+addlibsdir = $(prefix)/share/doc/coin/ThirdParty/Glpk
+addlibs_DATA = glpk_addlibs.txt README
 
 ########################################################################
 #                         Maintainer Stuff                             #

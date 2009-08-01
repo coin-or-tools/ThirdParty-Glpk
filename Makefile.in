@@ -58,7 +58,8 @@ DIST_COMMON = README $(am__configure_deps) \
 	$(srcdir)/../../depcomp $(srcdir)/../../install-sh \
 	$(srcdir)/../../ltmain.sh $(srcdir)/../../missing \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/config_glpk.h.in $(srcdir)/glpk_addlibs.txt.in \
+	$(srcdir)/config_glpk.h.in $(srcdir)/glpk-uninstalled.pc.in \
+	$(srcdir)/glpk.pc.in $(srcdir)/glpk_addlibs.txt.in \
 	$(thirdpartyinclude_HEADERS) $(top_srcdir)/configure
 @HAVE_EXTERNALS_TRUE@am__append_1 = Externals
 @HAVE_EXTERNALS_TRUE@am__append_2 = .Externals-stamp
@@ -72,7 +73,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config_glpk.h
-CONFIG_CLEAN_FILES = glpk_addlibs.txt
+CONFIG_CLEAN_FILES = glpk_addlibs.txt glpk.pc glpk-uninstalled.pc
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -80,7 +81,8 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(thirdpartylibdir)" \
-	"$(DESTDIR)$(addlibsdir)" "$(DESTDIR)$(thirdpartyincludedir)"
+	"$(DESTDIR)$(addlibsdir)" "$(DESTDIR)$(pkgconfiglibdir)" \
+	"$(DESTDIR)$(thirdpartyincludedir)"
 thirdpartylibLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(thirdpartylib_LTLIBRARIES)
 libcoinglpk_la_LIBADD =
@@ -120,7 +122,8 @@ LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 SOURCES = $(libcoinglpk_la_SOURCES)
 DIST_SOURCES = $(libcoinglpk_la_SOURCES)
 addlibsDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(addlibs_DATA)
+pkgconfiglibDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(addlibs_DATA) $(pkgconfiglib_DATA)
 thirdpartyincludeHEADERS_INSTALL = $(INSTALL_HEADER)
 HEADERS = $(thirdpartyinclude_HEADERS)
 ETAGS = etags
@@ -247,6 +250,8 @@ build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
 exec_prefix = @exec_prefix@
+glpkmajorver = @glpkmajorver@
+glpkminorver = @glpkminorver@
 have_autoconf = @have_autoconf@
 have_automake = @have_automake@
 have_svn = @have_svn@
@@ -410,6 +415,8 @@ thirdpartyincludedir = $(includedir)/coin/ThirdParty
 thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
 addlibsdir = $(prefix)/share/doc/coin/ThirdParty/Glpk
 addlibs_DATA = glpk_addlibs.txt README
+pkgconfiglibdir = $(prefix)/lib/ThirdParty/pkgconfig
+pkgconfiglib_DATA = glpk.pc
 
 ########################################################################
 #                         Maintainer Stuff                             #
@@ -475,6 +482,10 @@ $(srcdir)/config_glpk.h.in: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 distclean-hdr:
 	-rm -f config_glpk.h stamp-h1
 glpk_addlibs.txt: $(top_builddir)/config.status $(srcdir)/glpk_addlibs.txt.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+glpk.pc: $(top_builddir)/config.status $(srcdir)/glpk.pc.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+glpk-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/glpk-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-thirdpartylibLTLIBRARIES: $(thirdpartylib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
@@ -1416,6 +1427,23 @@ uninstall-addlibsDATA:
 	  echo " rm -f '$(DESTDIR)$(addlibsdir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(addlibsdir)/$$f"; \
 	done
+install-pkgconfiglibDATA: $(pkgconfiglib_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(pkgconfiglibdir)" || $(mkdir_p) "$(DESTDIR)$(pkgconfiglibdir)"
+	@list='$(pkgconfiglib_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(pkgconfiglibDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(pkgconfiglibdir)/$$f'"; \
+	  $(pkgconfiglibDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(pkgconfiglibdir)/$$f"; \
+	done
+
+uninstall-pkgconfiglibDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(pkgconfiglib_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(pkgconfiglibdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(pkgconfiglibdir)/$$f"; \
+	done
 install-thirdpartyincludeHEADERS: $(thirdpartyinclude_HEADERS)
 	@$(NORMAL_INSTALL)
 	test -z "$(thirdpartyincludedir)" || $(mkdir_p) "$(DESTDIR)$(thirdpartyincludedir)"
@@ -1613,7 +1641,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) config_glpk.h
 installdirs:
-	for dir in "$(DESTDIR)$(thirdpartylibdir)" "$(DESTDIR)$(addlibsdir)" "$(DESTDIR)$(thirdpartyincludedir)"; do \
+	for dir in "$(DESTDIR)$(thirdpartylibdir)" "$(DESTDIR)$(addlibsdir)" "$(DESTDIR)$(pkgconfiglibdir)" "$(DESTDIR)$(thirdpartyincludedir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
 	done
 install: install-am
@@ -1663,7 +1691,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-addlibsDATA install-thirdpartyincludeHEADERS \
+install-data-am: install-addlibsDATA install-pkgconfiglibDATA \
+	install-thirdpartyincludeHEADERS \
 	install-thirdpartylibLTLIBRARIES
 
 install-exec-am:
@@ -1695,7 +1724,7 @@ ps: ps-am
 ps-am:
 
 uninstall-am: uninstall-addlibsDATA uninstall-info-am \
-	uninstall-thirdpartyincludeHEADERS \
+	uninstall-pkgconfiglibDATA uninstall-thirdpartyincludeHEADERS \
 	uninstall-thirdpartylibLTLIBRARIES
 
 .PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
@@ -1707,13 +1736,14 @@ uninstall-am: uninstall-addlibsDATA uninstall-info-am \
 	dvi-am html html-am info info-am install install-addlibsDATA \
 	install-am install-data install-data-am install-exec \
 	install-exec-am install-info install-info-am install-man \
-	install-strip install-thirdpartyincludeHEADERS \
+	install-pkgconfiglibDATA install-strip \
+	install-thirdpartyincludeHEADERS \
 	install-thirdpartylibLTLIBRARIES installcheck installcheck-am \
 	installdirs maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
 	uninstall-addlibsDATA uninstall-am uninstall-info-am \
-	uninstall-thirdpartyincludeHEADERS \
+	uninstall-pkgconfiglibDATA uninstall-thirdpartyincludeHEADERS \
 	uninstall-thirdpartylibLTLIBRARIES
 
 

@@ -1,0 +1,10 @@
+prefix=@prefix@
+libdir=@exec_prefix@/lib/ThirdParty
+includedir=${prefix}/include/ThirdParty
+
+Name: Glpk
+Description: Gnu Linear Programming Kit
+Version: @glpkmajorver@.@glpkminorver@
+Libs: -L${libdir} -lcoinglpk
+Libs.private: @ADDLIBS@
+Cflags: -I${includedir}

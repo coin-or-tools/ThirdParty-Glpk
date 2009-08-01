@@ -172,6 +172,9 @@ thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
 addlibsdir = $(prefix)/share/doc/coin/ThirdParty/Glpk
 addlibs_DATA = glpk_addlibs.txt README
 
+pkgconfiglibdir = $(prefix)/lib/ThirdParty/pkgconfig
+pkgconfiglib_DATA = glpk.pc
+
 ########################################################################
 #                         Maintainer Stuff                             #
 ########################################################################

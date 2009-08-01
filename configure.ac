@@ -72,12 +72,14 @@ AC_COIN_HAS_PROJECT(Glpk)
 #if test x"$use_thirdpartyglpk" = xbuild ; then
 #  touch $MAKEOKFILE
   AC_MSG_CHECKING([GLPK version])
-  majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
-  minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
-  AC_MSG_RESULT([${majorver}.${minorver}])
-  if test x$majorver != x4 || test x$minorver != x39 ; then
+  glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
+  glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
+  AC_MSG_RESULT([${glpkmajorver}.${glpkminorver}])
+  if test x$glpkmajorver != x4 || test x$glpkminorver != x39 ; then
     AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.39. Please update by rerunning get.GLPK"])
   fi
+  AC_SUBST(glpkmajorver)
+  AC_SUBST(glpkminorver)
 #else
 #  if test x$coin_has_glpk = xtrue ; then
 #    AC_MSG_NOTICE([The Glpk sources don't need to be compiled])
@@ -268,7 +270,7 @@ fi
 GLPKDIR=glpk
 AC_SUBST(GLPKDIR)
 
-AC_CONFIG_FILES([Makefile glpk_addlibs.txt])
+AC_CONFIG_FILES([Makefile glpk_addlibs.txt glpk.pc glpk-uninstalled.pc])
 AC_CONFIG_HEADER([config_glpk.h])
 
 AC_COIN_FINALIZE

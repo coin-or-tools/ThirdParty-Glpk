@@ -75,8 +75,8 @@ AC_COIN_HAS_PROJECT(Glpk)
   majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
   AC_MSG_RESULT([${majorver}.${minorver}])
-  if test x$majorver != x4 || test x$minorver != x38 ; then
-    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.38. Please update by rerunning get.GLPK"])
+  if test x$majorver != x4 || test x$minorver != x39 ; then
+    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.39. Please update by rerunning get.GLPK"])
   fi
 #else
 #  if test x$coin_has_glpk = xtrue ; then

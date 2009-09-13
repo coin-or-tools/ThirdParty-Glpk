@@ -6,7 +6,7 @@
 /* Define to the debug verbosity level (0 is no output) */
 #undef COIN_GLPK_VERBOSITY
 
-/* Define to 1 if the Glpk package is used */
+/* Define to 1 if Glpk package is available */
 #undef COIN_HAS_GLPK
 
 /* Define to 1 if zlib is available */

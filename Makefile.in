@@ -28,8 +28,6 @@
 #                    Documentation installation                        #
 ########################################################################
 
-
-
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
@@ -52,15 +50,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-DIST_COMMON = README $(am__configure_deps) \
+DIST_COMMON = $(am__configure_deps) \
 	$(srcdir)/../../BuildTools/Makemain.inc \
 	$(srcdir)/../../config.guess $(srcdir)/../../config.sub \
 	$(srcdir)/../../depcomp $(srcdir)/../../install-sh \
 	$(srcdir)/../../ltmain.sh $(srcdir)/../../missing \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/config_glpk.h.in $(srcdir)/glpk-uninstalled.pc.in \
-	$(srcdir)/glpk.pc.in $(srcdir)/glpk_addlibs.txt.in \
-	$(thirdpartyinclude_HEADERS) $(top_srcdir)/configure
+	$(srcdir)/config_glpk.h.in $(srcdir)/glpk_addlibs.txt.in \
+	$(top_srcdir)/configure
 @HAVE_EXTERNALS_TRUE@am__append_1 = Externals
 @HAVE_EXTERNALS_TRUE@am__append_2 = .Externals-stamp
 subdir = .
@@ -73,20 +70,10 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config_glpk.h
-CONFIG_CLEAN_FILES = glpk_addlibs.txt glpk.pc glpk-uninstalled.pc
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(thirdpartylibdir)" \
-	"$(DESTDIR)$(addlibsdir)" "$(DESTDIR)$(pkgconfiglibdir)" \
-	"$(DESTDIR)$(thirdpartyincludedir)"
-thirdpartylibLTLIBRARIES_INSTALL = $(INSTALL)
-LTLIBRARIES = $(thirdpartylib_LTLIBRARIES)
+CONFIG_CLEAN_FILES = glpk_addlibs.txt
+LTLIBRARIES = $(noinst_LTLIBRARIES)
 libcoinglpk_la_LIBADD =
-am_libcoinglpk_la_OBJECTS = glpapi01.lo glpapi02.lo glpapi03.lo \
+nodist_libcoinglpk_la_OBJECTS = glpapi01.lo glpapi02.lo glpapi03.lo \
 	glpapi04.lo glpapi05.lo glpapi06.lo glpapi07.lo glpapi08.lo \
 	glpapi09.lo glpapi10.lo glpapi11.lo glpapi12.lo glpapi13.lo \
 	glpapi14.lo glpapi15.lo glpapi16.lo glpapi17.lo glpapi18.lo \
@@ -108,7 +95,8 @@ am_libcoinglpk_la_OBJECTS = glpapi01.lo glpapi02.lo glpapi03.lo \
 	amd_2.lo amd_aat.lo amd_control.lo amd_defaults.lo amd_dump.lo \
 	amd_info.lo amd_order.lo amd_postorder.lo amd_post_tree.lo \
 	amd_preprocess.lo amd_valid.lo colamd.lo
-libcoinglpk_la_OBJECTS = $(am_libcoinglpk_la_OBJECTS)
+libcoinglpk_la_OBJECTS = $(nodist_libcoinglpk_la_OBJECTS)
+@COIN_BUILD_GLPK_TRUE@am_libcoinglpk_la_rpath =
 depcomp = $(SHELL) $(top_srcdir)/../../depcomp
 am__depfiles_maybe = depfiles
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -119,13 +107,8 @@ LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) \
 CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(libcoinglpk_la_SOURCES)
-DIST_SOURCES = $(libcoinglpk_la_SOURCES)
-addlibsDATA_INSTALL = $(INSTALL_DATA)
-pkgconfiglibDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(addlibs_DATA) $(pkgconfiglib_DATA)
-thirdpartyincludeHEADERS_INSTALL = $(INSTALL_HEADER)
-HEADERS = $(thirdpartyinclude_HEADERS)
+SOURCES = $(nodist_libcoinglpk_la_SOURCES)
+DIST_SOURCES =
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -158,6 +141,8 @@ CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CDEFS = @CDEFS@
 CFLAGS = @CFLAGS@
+COIN_BUILD_GLPK_FALSE = @COIN_BUILD_GLPK_FALSE@
+COIN_BUILD_GLPK_TRUE = @COIN_BUILD_GLPK_TRUE@
 COIN_HAS_GLPK_FALSE = @COIN_HAS_GLPK_FALSE@
 COIN_HAS_GLPK_TRUE = @COIN_HAS_GLPK_TRUE@
 COIN_HAS_ZLIB_FALSE = @COIN_HAS_ZLIB_FALSE@
@@ -182,9 +167,9 @@ F77 = @F77@
 FADDLIBS = @FADDLIBS@
 FFLAGS = @FFLAGS@
 GLPKDIR = @GLPKDIR@
-GLPKDOCDIR = @GLPKDOCDIR@
+GLPKINCDIR = @GLPKINCDIR@
+GLPKLIB = @GLPKLIB@
 GLPKOBJDIR = @GLPKOBJDIR@
-GLPKSRCDIR = @GLPKSRCDIR@
 HAVE_EXTERNALS_FALSE = @HAVE_EXTERNALS_FALSE@
 HAVE_EXTERNALS_TRUE = @HAVE_EXTERNALS_TRUE@
 INSTALL_DATA = @INSTALL_DATA@
@@ -204,6 +189,7 @@ MAINT = @MAINT@
 MAINTAINER_MODE_FALSE = @MAINTAINER_MODE_FALSE@
 MAINTAINER_MODE_TRUE = @MAINTAINER_MODE_TRUE@
 MAKEINFO = @MAKEINFO@
+MAKEOKFILE = @MAKEOKFILE@
 MPICC = @MPICC@
 OBJEXT = @OBJEXT@
 OPT_CFLAGS = @OPT_CFLAGS@
@@ -250,8 +236,6 @@ build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
 exec_prefix = @exec_prefix@
-glpkmajorver = @glpkmajorver@
-glpkminorver = @glpkminorver@
 have_autoconf = @have_autoconf@
 have_automake = @have_automake@
 have_svn = @have_svn@
@@ -278,9 +262,9 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = foreign
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch $(am__append_1)
-thirdpartylibdir = $(prefix)/lib/ThirdParty
-thirdpartylib_LTLIBRARIES = libcoinglpk.la
-libcoinglpk_la_SOURCES = \
+@COIN_BUILD_GLPK_FALSE@noinst_LTLIBRARIES = 
+@COIN_BUILD_GLPK_TRUE@noinst_LTLIBRARIES = libcoinglpk.la
+nodist_libcoinglpk_la_SOURCES = \
 $(GLPKDIR)/src/glpapi01.c \
 $(GLPKDIR)/src/glpapi02.c \
 $(GLPKDIR)/src/glpapi03.c \
@@ -411,12 +395,6 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
   -I$(GLPKDIR)
 
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
-thirdpartyincludedir = $(includedir)/coin/ThirdParty
-thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
-addlibsdir = $(prefix)/share/doc/coin/ThirdParty/Glpk
-addlibs_DATA = glpk_addlibs.txt README
-pkgconfiglibdir = $(prefix)/lib/ThirdParty/pkgconfig
-pkgconfiglib_DATA = glpk.pc
 
 ########################################################################
 #                         Maintainer Stuff                             #
@@ -483,39 +461,17 @@ distclean-hdr:
 	-rm -f config_glpk.h stamp-h1
 glpk_addlibs.txt: $(top_builddir)/config.status $(srcdir)/glpk_addlibs.txt.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-glpk.pc: $(top_builddir)/config.status $(srcdir)/glpk.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-glpk-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/glpk-uninstalled.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-install-thirdpartylibLTLIBRARIES: $(thirdpartylib_LTLIBRARIES)
-	@$(NORMAL_INSTALL)
-	test -z "$(thirdpartylibdir)" || $(mkdir_p) "$(DESTDIR)$(thirdpartylibdir)"
-	@list='$(thirdpartylib_LTLIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    f=$(am__strip_dir) \
-	    echo " $(LIBTOOL) --mode=install $(thirdpartylibLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) '$$p' '$(DESTDIR)$(thirdpartylibdir)/$$f'"; \
-	    $(LIBTOOL) --mode=install $(thirdpartylibLTLIBRARIES_INSTALL) $(INSTALL_STRIP_FLAG) "$$p" "$(DESTDIR)$(thirdpartylibdir)/$$f"; \
-	  else :; fi; \
-	done
 
-uninstall-thirdpartylibLTLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@set -x; list='$(thirdpartylib_LTLIBRARIES)'; for p in $$list; do \
-	  p=$(am__strip_dir) \
-	  echo " $(LIBTOOL) --mode=uninstall rm -f '$(DESTDIR)$(thirdpartylibdir)/$$p'"; \
-	  $(LIBTOOL) --mode=uninstall rm -f "$(DESTDIR)$(thirdpartylibdir)/$$p"; \
-	done
-
-clean-thirdpartylibLTLIBRARIES:
-	-test -z "$(thirdpartylib_LTLIBRARIES)" || rm -f $(thirdpartylib_LTLIBRARIES)
-	@list='$(thirdpartylib_LTLIBRARIES)'; for p in $$list; do \
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+	@list='$(noinst_LTLIBRARIES)'; for p in $$list; do \
 	  dir="`echo $$p | sed -e 's|/[^/]*$$||'`"; \
 	  test "$$dir" != "$$p" || dir=.; \
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
 libcoinglpk.la: $(libcoinglpk_la_OBJECTS) $(libcoinglpk_la_DEPENDENCIES) 
-	$(LINK) -rpath $(thirdpartylibdir) $(libcoinglpk_la_LDFLAGS) $(libcoinglpk_la_OBJECTS) $(libcoinglpk_la_LIBADD) $(LIBS)
+	$(LINK) $(am_libcoinglpk_la_rpath) $(libcoinglpk_la_LDFLAGS) $(libcoinglpk_la_OBJECTS) $(libcoinglpk_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1410,57 +1366,6 @@ clean-libtool:
 distclean-libtool:
 	-rm -f libtool
 uninstall-info-am:
-install-addlibsDATA: $(addlibs_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(addlibsdir)" || $(mkdir_p) "$(DESTDIR)$(addlibsdir)"
-	@list='$(addlibs_DATA)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(addlibsDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(addlibsdir)/$$f'"; \
-	  $(addlibsDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(addlibsdir)/$$f"; \
-	done
-
-uninstall-addlibsDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(addlibs_DATA)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(addlibsdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(addlibsdir)/$$f"; \
-	done
-install-pkgconfiglibDATA: $(pkgconfiglib_DATA)
-	@$(NORMAL_INSTALL)
-	test -z "$(pkgconfiglibdir)" || $(mkdir_p) "$(DESTDIR)$(pkgconfiglibdir)"
-	@list='$(pkgconfiglib_DATA)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(pkgconfiglibDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(pkgconfiglibdir)/$$f'"; \
-	  $(pkgconfiglibDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(pkgconfiglibdir)/$$f"; \
-	done
-
-uninstall-pkgconfiglibDATA:
-	@$(NORMAL_UNINSTALL)
-	@list='$(pkgconfiglib_DATA)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(pkgconfiglibdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(pkgconfiglibdir)/$$f"; \
-	done
-install-thirdpartyincludeHEADERS: $(thirdpartyinclude_HEADERS)
-	@$(NORMAL_INSTALL)
-	test -z "$(thirdpartyincludedir)" || $(mkdir_p) "$(DESTDIR)$(thirdpartyincludedir)"
-	@list='$(thirdpartyinclude_HEADERS)'; for p in $$list; do \
-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
-	  f=$(am__strip_dir) \
-	  echo " $(thirdpartyincludeHEADERS_INSTALL) '$$d$$p' '$(DESTDIR)$(thirdpartyincludedir)/$$f'"; \
-	  $(thirdpartyincludeHEADERS_INSTALL) "$$d$$p" "$(DESTDIR)$(thirdpartyincludedir)/$$f"; \
-	done
-
-uninstall-thirdpartyincludeHEADERS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(thirdpartyinclude_HEADERS)'; for p in $$list; do \
-	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(thirdpartyincludedir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(thirdpartyincludedir)/$$f"; \
-	done
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
@@ -1513,7 +1418,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/$(GLPKDIR)/include $(distdir)/. $(distdir)/../.. $(distdir)/../../BuildTools
+	$(mkdir_p) $(distdir)/. $(distdir)/../.. $(distdir)/../../BuildTools
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -1639,11 +1544,8 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) config_glpk.h
+all-am: Makefile $(LTLIBRARIES) config_glpk.h
 installdirs:
-	for dir in "$(DESTDIR)$(thirdpartylibdir)" "$(DESTDIR)$(addlibsdir)" "$(DESTDIR)$(pkgconfiglibdir)" "$(DESTDIR)$(thirdpartyincludedir)"; do \
-	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
-	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -1671,7 +1573,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-thirdpartylibLTLIBRARIES \
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -1691,9 +1593,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-addlibsDATA install-pkgconfiglibDATA \
-	install-thirdpartyincludeHEADERS \
-	install-thirdpartylibLTLIBRARIES
+install-data-am:
 
 install-exec-am:
 
@@ -1723,28 +1623,21 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-addlibsDATA uninstall-info-am \
-	uninstall-pkgconfiglibDATA uninstall-thirdpartyincludeHEADERS \
-	uninstall-thirdpartylibLTLIBRARIES
+uninstall-am: uninstall-info-am
 
 .PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
-	clean-generic clean-libtool clean-thirdpartylibLTLIBRARIES \
-	ctags dist dist-all dist-bzip2 dist-gzip dist-shar dist-tarZ \
-	dist-zip distcheck distclean distclean-compile \
-	distclean-generic distclean-hdr distclean-libtool \
-	distclean-tags distcleancheck distdir distuninstallcheck dvi \
-	dvi-am html html-am info info-am install install-addlibsDATA \
-	install-am install-data install-data-am install-exec \
-	install-exec-am install-info install-info-am install-man \
-	install-pkgconfiglibDATA install-strip \
-	install-thirdpartyincludeHEADERS \
-	install-thirdpartylibLTLIBRARIES installcheck installcheck-am \
+	clean-generic clean-libtool clean-noinstLTLIBRARIES ctags dist \
+	dist-all dist-bzip2 dist-gzip dist-shar dist-tarZ dist-zip \
+	distcheck distclean distclean-compile distclean-generic \
+	distclean-hdr distclean-libtool distclean-tags distcleancheck \
+	distdir distuninstallcheck dvi dvi-am html html-am info \
+	info-am install install-am install-data install-data-am \
+	install-exec install-exec-am install-info install-info-am \
+	install-man install-strip installcheck installcheck-am \
 	installdirs maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
-	uninstall-addlibsDATA uninstall-am uninstall-info-am \
-	uninstall-pkgconfiglibDATA uninstall-thirdpartyincludeHEADERS \
-	uninstall-thirdpartylibLTLIBRARIES
+	uninstall-am uninstall-info-am
 
 
 $(srcdir)/$(GLPKDIR)/include/config.h : $(srcdir)/config.h

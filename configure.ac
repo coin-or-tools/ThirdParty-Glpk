@@ -20,7 +20,7 @@ under the Common Public License.])
 
 # List one file in the package so that the configure script can test
 # whether the package is actually there
-AC_CONFIG_SRCDIR(glpk/include/glpk.h)
+AC_CONFIG_SRCDIR(Makefile.am)
 
 # Where should everything be installed by default?  Here, we want it
 # to be installed directly in 'bin', 'lib', 'include' subdirectories
@@ -54,8 +54,6 @@ AC_COIN_INIT_AUTO_TOOLS
 #                            COIN_HAS_GLPK                                #
 ###########################################################################
 
-AC_COIN_HAS_PROJECT(Glpk)
-
 # This macro checks for a library containing the GLPK library.  It
 # checks if the user has provided an argument for the GLPK library,
 # and if not, it checks whether the GLPK ThirdParty/GLPK directory has
@@ -66,29 +64,27 @@ AC_COIN_HAS_PROJECT(Glpk)
 # compiled within COIN.
 
 ## Check if GLPK is already provided by user
-#AC_COIN_HAS_GLPK(Glpk)
+AC_COIN_HAS_GLPK(Glpk)
 
-#rm -f $MAKEOKFILE
-#if test x"$use_thirdpartyglpk" = xbuild ; then
-#  touch $MAKEOKFILE
+rm -f $MAKEOKFILE
+if test x"$use_thirdpartyglpk" = xbuild ; then
+  touch $MAKEOKFILE
   AC_MSG_CHECKING([GLPK version])
-  glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
-  glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
-  AC_MSG_RESULT([${glpkmajorver}.${glpkminorver}])
-  if test x$glpkmajorver != x4 || test x$glpkminorver != x39 ; then
+  majorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
+  minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
+  AC_MSG_RESULT([${majorver}.${minorver}])
+  if test x$majorver != x4 || test x$minorver != x39 ; then
     AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.39. Please update by rerunning get.GLPK"])
   fi
-  AC_SUBST(glpkmajorver)
-  AC_SUBST(glpkminorver)
-#else
-#  if test x$coin_has_glpk = xtrue ; then
-#    AC_MSG_NOTICE([The Glpk sources don't need to be compiled])
-#  else
-#    AC_MSG_WARN([Glpk source is available but will not be built. No valid external library is detected. Are you sure this is what you want?])
-#  fi
-#  MAKEOKFILE=
-#fi
-#AC_SUBST(MAKEOKFILE)
+else
+  if test x$coin_has_glpk = xtrue ; then
+    AC_MSG_NOTICE([The Glpk sources don't need to be compiled])
+  else
+    AC_MSG_WARN([Glpk source is available but will not be built. No valid external library is detected. Are you sure this is what you want?])
+  fi
+  MAKEOKFILE=
+fi
+AC_SUBST(MAKEOKFILE)
 
 ###########################################################################
 #                 GNU packages and C functions                            #
@@ -135,7 +131,7 @@ if test "$enable_dl" = "yes"; then
 fi
 
 if test "$enable_dl" = "no"; then
-  AC_COIN_CHECK_HEADER([ltdl.h],[enable_dl=yes])
+AC_COIN_CHECK_HEADER([ltdl.h],[enable_dl=yes])
   if test "$enable_dl" = "yes"; then
     #if ltdl.h is there, check also if libltdl is there; if so, set corresponding define for GLPK 
     AC_CHECK_LIB(ldtl,[lt_dlopen],[AC_DEFINE([HAVE_LTDL],[1],[Define to 1 if ltdl support is available])],[enable_dl=no])
@@ -153,41 +149,41 @@ if test "$enable_dl" = "no"; then
 fi
 
 AC_ARG_ENABLE(odbc,
-  AC_HELP_STRING([--enable-odbc],[enable MathProg ODBC support [[default=auto]]]),
-  [case $enableval in
-     yes | unix)
+ 	AC_HELP_STRING([--enable-odbc],[enable MathProg ODBC support [[default=auto]]]),
+ 	[case $enableval in
+ 	   yes | unix)
        AC_COIN_CHECK_HEADER([sql.h],,[AC_MSG_ERROR(["need sql.h to enable ODBC support"])])
        enable_odbc="$enableval"
      ;;
      no)
        enable_odbc="no"
      ;;
-     *)
-       AC_MSG_ERROR([invalid value '$enableval' for --enable-odbc])
-     ;;
+ 	   *)
+ 	     AC_MSG_ERROR([invalid value '$enableval' for --enable-odbc])
+ 	   ;;
    esac],
-  [AC_COIN_CHECK_HEADER([sql.h],[enable_odbc=yes],[enable_odbc=no])]
+ 	[AC_COIN_CHECK_HEADER([sql.h],[enable_odbc=yes],[enable_odbc=no])]
 )
 
 AC_ARG_ENABLE(mysql,
-  AC_HELP_STRING([--enable-mysql],[enable MathProg MySQL support [[default=auto]]]),
-  [case $enableval in
-     yes)
+ 	AC_HELP_STRING([--enable-mysql],[enable MathProg MySQL support [[default=auto]]]),
+ 	[case $enableval in
+ 	   yes)
        AC_COIN_CHECK_HEADER([mysql.h mysql/mysql.h],,[AC_MSG_ERROR(["need mysql.h to enable MySQL support"])])
        enable_mysql="$enableval"
      ;;
      no)
        enable_mysql="no"
      ;;
-     *)
-       AC_MSG_ERROR([invalid value '$enableval' for --enable-mysql])
-     ;;
+ 	   *)
+ 	     AC_MSG_ERROR([invalid value '$enableval' for --enable-mysql])
+ 	   ;;
    esac],
-  [AC_COIN_CHECK_HEADER([mysql.h mysql/mysql.h],[enable_mysql=yes],[enable_mysql=no])]
+ 	[AC_COIN_CHECK_HEADER([mysql.h mysql/mysql.h],[enable_mysql=yes],[enable_mysql=no])]
 )
 
 AC_LANG_POP(C)
-
+ 	
 if test "$enable_dl" = "yes" && ( test "$enable_odbc" = "yes" || test "$enable_odbc" = "unix"); then
   AC_MSG_CHECKING([checking name of ODBC library])
   case $build in
@@ -270,7 +266,7 @@ fi
 GLPKDIR=glpk
 AC_SUBST(GLPKDIR)
 
-AC_CONFIG_FILES([Makefile glpk_addlibs.txt glpk.pc glpk-uninstalled.pc])
+AC_CONFIG_FILES([Makefile glpk_addlibs.txt])
 AC_CONFIG_HEADER([config_glpk.h])
 
 AC_COIN_FINALIZE

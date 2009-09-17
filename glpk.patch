@@ -9,3 +9,14 @@
           case GLP_ESING:
           case GLP_ECOND:
           case GLP_EBOUND:  ret = LPX_E_FAULT;   break;
+--- glpk/src/glpnpp02.c.orig	2009-09-17 17:35:48.000000000 +0200
++++ glpk/src/glpnpp02.c	2009-09-17 17:36:06.000000000 +0200
+@@ -805,7 +805,7 @@
+       /* fix the column */
+       if (col->lb == -DBL_MAX && col->ub == +DBL_MAX)
+       {  /* free variable */
+-         info->stat = GLP_NS;
++         info->stat = GLP_NF;
+          col->lb = col->ub = 0.0;
+       }
+       else if (col->ub == +DBL_MAX)

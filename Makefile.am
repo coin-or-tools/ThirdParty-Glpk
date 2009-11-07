@@ -36,6 +36,7 @@ $(GLPKDIR)/src/glpapi16.c \
 $(GLPKDIR)/src/glpapi17.c \
 $(GLPKDIR)/src/glpapi18.c \
 $(GLPKDIR)/src/glpapi19.c \
+$(GLPKDIR)/src/glpapi20.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
@@ -94,6 +95,7 @@ $(GLPKDIR)/src/glpnet04.c \
 $(GLPKDIR)/src/glpnet05.c \
 $(GLPKDIR)/src/glpnet06.c \
 $(GLPKDIR)/src/glpnet07.c \
+$(GLPKDIR)/src/glpnet08.c \
 $(GLPKDIR)/src/glpnpp01.c \
 $(GLPKDIR)/src/glpnpp02.c \
 $(GLPKDIR)/src/glpnpp03.c \

@@ -77,23 +77,24 @@ nodist_libcoinglpk_la_OBJECTS = glpapi01.lo glpapi02.lo glpapi03.lo \
 	glpapi04.lo glpapi05.lo glpapi06.lo glpapi07.lo glpapi08.lo \
 	glpapi09.lo glpapi10.lo glpapi11.lo glpapi12.lo glpapi13.lo \
 	glpapi14.lo glpapi15.lo glpapi16.lo glpapi17.lo glpapi18.lo \
-	glpapi19.lo glpavl.lo glpbfd.lo glpbfx.lo glpcpx.lo glpdmp.lo \
-	glpdmx.lo glpfhv.lo glpgmp.lo glphbm.lo glpini01.lo \
-	glpini02.lo glpios01.lo glpios02.lo glpios03.lo glpios04.lo \
-	glpios05.lo glpios06.lo glpios07.lo glpios08.lo glpios09.lo \
-	glpios10.lo glpipm.lo glpipp01.lo glpipp02.lo glplib01.lo \
-	glplib02.lo glplib03.lo glplib04.lo glplib05.lo glplib06.lo \
-	glplib07.lo glplib08.lo glplib09.lo glplib10.lo glplib11.lo \
-	glplib12.lo glplpf.lo glplpx01.lo glplpx02.lo glplpx03.lo \
-	glplpx04.lo glpluf.lo glplux.lo glpmat.lo glpmpl01.lo \
-	glpmpl02.lo glpmpl03.lo glpmpl04.lo glpmpl05.lo glpmpl06.lo \
-	glpmps.lo glpnet01.lo glpnet02.lo glpnet03.lo glpnet04.lo \
-	glpnet05.lo glpnet06.lo glpnet07.lo glpnpp01.lo glpnpp02.lo \
-	glpnpp03.lo glpqmd.lo glprgr.lo glprng01.lo glprng02.lo \
-	glpscf.lo glpscg.lo glpscl.lo glpsdf.lo glpspm.lo glpspx01.lo \
-	glpspx02.lo glpsql.lo glpssx01.lo glpssx02.lo amd_1.lo \
-	amd_2.lo amd_aat.lo amd_control.lo amd_defaults.lo amd_dump.lo \
-	amd_info.lo amd_order.lo amd_postorder.lo amd_post_tree.lo \
+	glpapi19.lo glpapi20.lo glpavl.lo glpbfd.lo glpbfx.lo \
+	glpcpx.lo glpdmp.lo glpdmx.lo glpfhv.lo glpgmp.lo glphbm.lo \
+	glpini01.lo glpini02.lo glpios01.lo glpios02.lo glpios03.lo \
+	glpios04.lo glpios05.lo glpios06.lo glpios07.lo glpios08.lo \
+	glpios09.lo glpios10.lo glpipm.lo glpipp01.lo glpipp02.lo \
+	glplib01.lo glplib02.lo glplib03.lo glplib04.lo glplib05.lo \
+	glplib06.lo glplib07.lo glplib08.lo glplib09.lo glplib10.lo \
+	glplib11.lo glplib12.lo glplpf.lo glplpx01.lo glplpx02.lo \
+	glplpx03.lo glplpx04.lo glpluf.lo glplux.lo glpmat.lo \
+	glpmpl01.lo glpmpl02.lo glpmpl03.lo glpmpl04.lo glpmpl05.lo \
+	glpmpl06.lo glpmps.lo glpnet01.lo glpnet02.lo glpnet03.lo \
+	glpnet04.lo glpnet05.lo glpnet06.lo glpnet07.lo glpnet08.lo \
+	glpnpp01.lo glpnpp02.lo glpnpp03.lo glpqmd.lo glprgr.lo \
+	glprng01.lo glprng02.lo glpscf.lo glpscg.lo glpscl.lo \
+	glpsdf.lo glpspm.lo glpspx01.lo glpspx02.lo glpsql.lo \
+	glpssx01.lo glpssx02.lo amd_1.lo amd_2.lo amd_aat.lo \
+	amd_control.lo amd_defaults.lo amd_dump.lo amd_info.lo \
+	amd_order.lo amd_postorder.lo amd_post_tree.lo \
 	amd_preprocess.lo amd_valid.lo colamd.lo
 libcoinglpk_la_OBJECTS = $(nodist_libcoinglpk_la_OBJECTS)
 @COIN_BUILD_GLPK_TRUE@am_libcoinglpk_la_rpath =
@@ -284,6 +285,7 @@ $(GLPKDIR)/src/glpapi16.c \
 $(GLPKDIR)/src/glpapi17.c \
 $(GLPKDIR)/src/glpapi18.c \
 $(GLPKDIR)/src/glpapi19.c \
+$(GLPKDIR)/src/glpapi20.c \
 $(GLPKDIR)/src/glpavl.c \
 $(GLPKDIR)/src/glpbfd.c \
 $(GLPKDIR)/src/glpbfx.c \
@@ -342,6 +344,7 @@ $(GLPKDIR)/src/glpnet04.c \
 $(GLPKDIR)/src/glpnet05.c \
 $(GLPKDIR)/src/glpnet06.c \
 $(GLPKDIR)/src/glpnet07.c \
+$(GLPKDIR)/src/glpnet08.c \
 $(GLPKDIR)/src/glpnpp01.c \
 $(GLPKDIR)/src/glpnpp02.c \
 $(GLPKDIR)/src/glpnpp03.c \
@@ -511,6 +514,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi17.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi18.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi19.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpapi20.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpavl.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpbfd.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpbfx.Plo@am__quote@
@@ -569,6 +573,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnet05.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnet06.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnet07.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnet08.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnpp01.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnpp02.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/glpnpp03.Plo@am__quote@
@@ -740,6 +745,13 @@ glpapi19.lo: $(GLPKDIR)/src/glpapi19.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpapi19.c' object='glpapi19.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpapi19.lo `test -f '$(GLPKDIR)/src/glpapi19.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpapi19.c
+
+glpapi20.lo: $(GLPKDIR)/src/glpapi20.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpapi20.lo -MD -MP -MF "$(DEPDIR)/glpapi20.Tpo" -c -o glpapi20.lo `test -f '$(GLPKDIR)/src/glpapi20.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpapi20.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpapi20.Tpo" "$(DEPDIR)/glpapi20.Plo"; else rm -f "$(DEPDIR)/glpapi20.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpapi20.c' object='glpapi20.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpapi20.lo `test -f '$(GLPKDIR)/src/glpapi20.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpapi20.c
 
 glpavl.lo: $(GLPKDIR)/src/glpavl.c
 @am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpavl.lo -MD -MP -MF "$(DEPDIR)/glpavl.Tpo" -c -o glpavl.lo `test -f '$(GLPKDIR)/src/glpavl.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpavl.c; \
@@ -1146,6 +1158,13 @@ glpnet07.lo: $(GLPKDIR)/src/glpnet07.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpnet07.c' object='glpnet07.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpnet07.lo `test -f '$(GLPKDIR)/src/glpnet07.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpnet07.c
+
+glpnet08.lo: $(GLPKDIR)/src/glpnet08.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpnet08.lo -MD -MP -MF "$(DEPDIR)/glpnet08.Tpo" -c -o glpnet08.lo `test -f '$(GLPKDIR)/src/glpnet08.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpnet08.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/glpnet08.Tpo" "$(DEPDIR)/glpnet08.Plo"; else rm -f "$(DEPDIR)/glpnet08.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(GLPKDIR)/src/glpnet08.c' object='glpnet08.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o glpnet08.lo `test -f '$(GLPKDIR)/src/glpnet08.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpnet08.c
 
 glpnpp01.lo: $(GLPKDIR)/src/glpnpp01.c
 @am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT glpnpp01.lo -MD -MP -MF "$(DEPDIR)/glpnpp01.Tpo" -c -o glpnpp01.lo `test -f '$(GLPKDIR)/src/glpnpp01.c' || echo '$(srcdir)/'`$(GLPKDIR)/src/glpnpp01.c; \

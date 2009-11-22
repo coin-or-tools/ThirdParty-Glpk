@@ -51,44 +51,18 @@ AC_COIN_PROG_CC
 AC_COIN_INIT_AUTO_TOOLS
 
 ###########################################################################
-#                            COIN_HAS_GLPK                                #
+#                            check GLPK version                           #
 ###########################################################################
 
-AC_COIN_HAS_PROJECT(Glpk)
-
-# This macro checks for a library containing the GLPK library.  It
-# checks if the user has provided an argument for the GLPK library,
-# and if not, it checks whether the GLPK ThirdParty/GLPK directory has
-# been configured.  It adds to ADDLIBS any flags required to link with
-# an externally provided GLPK.  It defines the makefile conditional
-# and preprocessor macro COIN_HAS_GLPK, if GLPK is available, and it
-# defines the makefile conditional COIN_BUILD_GLPK, if GLPK is
-# compiled within COIN.
-
-## Check if GLPK is already provided by user
-#AC_COIN_HAS_GLPK(Glpk)
-
-#rm -f $MAKEOKFILE
-#if test x"$use_thirdpartyglpk" = xbuild ; then
-#  touch $MAKEOKFILE
-  AC_MSG_CHECKING([GLPK version])
-  glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
-  glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
-  AC_MSG_RESULT([${glpkmajorver}.${glpkminorver}])
-  if test x$glpkmajorver != x4 || test x$glpkminorver != x39 ; then
-    AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.39. Please update by rerunning get.GLPK"])
-  fi
-  AC_SUBST(glpkmajorver)
-  AC_SUBST(glpkminorver)
-#else
-#  if test x$coin_has_glpk = xtrue ; then
-#    AC_MSG_NOTICE([The Glpk sources don't need to be compiled])
-#  else
-#    AC_MSG_WARN([Glpk source is available but will not be built. No valid external library is detected. Are you sure this is what you want?])
-#  fi
-#  MAKEOKFILE=
-#fi
-#AC_SUBST(MAKEOKFILE)
+AC_MSG_CHECKING([GLPK version])
+glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
+glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
+AC_MSG_RESULT([${glpkmajorver}.${glpkminorver}])
+if test x$glpkmajorver != x4 || test x$glpkminorver != x39 ; then
+  AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.39. Please update by rerunning get.GLPK"])
+fi
+AC_SUBST(glpkmajorver)
+AC_SUBST(glpkminorver)
 
 ###########################################################################
 #                 GNU packages and C functions                            #

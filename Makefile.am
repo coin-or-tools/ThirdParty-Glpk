@@ -58,6 +58,8 @@ $(GLPKDIR)/src/glpios07.c \
 $(GLPKDIR)/src/glpios08.c \
 $(GLPKDIR)/src/glpios09.c \
 $(GLPKDIR)/src/glpios10.c \
+$(GLPKDIR)/src/glpios11.c \
+$(GLPKDIR)/src/glpios12.c \
 $(GLPKDIR)/src/glpipm.c \
 $(GLPKDIR)/src/glpipp01.c \
 $(GLPKDIR)/src/glpipp02.c \
@@ -99,12 +101,12 @@ $(GLPKDIR)/src/glpnet08.c \
 $(GLPKDIR)/src/glpnpp01.c \
 $(GLPKDIR)/src/glpnpp02.c \
 $(GLPKDIR)/src/glpnpp03.c \
+$(GLPKDIR)/src/glpnpp04.c \
 $(GLPKDIR)/src/glpqmd.c \
 $(GLPKDIR)/src/glprgr.c \
 $(GLPKDIR)/src/glprng01.c \
 $(GLPKDIR)/src/glprng02.c \
 $(GLPKDIR)/src/glpscf.c \
-$(GLPKDIR)/src/glpscg.c \
 $(GLPKDIR)/src/glpscl.c \
 $(GLPKDIR)/src/glpsdf.c \
 $(GLPKDIR)/src/glpspm.c \

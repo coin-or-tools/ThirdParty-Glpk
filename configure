@@ -20088,9 +20088,9 @@ echo $ECHO_N "checking GLPK version... $ECHO_C" >&6
   minorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' ${GLPKINCDIR}/glpk.h`
   echo "$as_me:$LINENO: result: ${majorver}.${minorver}" >&5
 echo "${ECHO_T}${majorver}.${minorver}" >&6
-  if test x$majorver != x4 || test x$minorver != x40 ; then
-    { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.40. Please update by rerunning get.GLPK\"" >&5
-echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.40. Please update by rerunning get.GLPK\"" >&2;}
+  if test x$majorver != x4 || test x$minorver != x41 ; then
+    { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.41. Please update by rerunning get.GLPK\"" >&5
+echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.41. Please update by rerunning get.GLPK\"" >&2;}
    { (exit 1); exit 1; }; }
   fi
 else

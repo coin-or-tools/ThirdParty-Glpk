@@ -58,8 +58,8 @@ DIST_COMMON = README $(am__configure_deps) \
 	$(srcdir)/../../depcomp $(srcdir)/../../install-sh \
 	$(srcdir)/../../ltmain.sh $(srcdir)/../../missing \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/config_glpk.h.in $(srcdir)/glpk-uninstalled.pc.in \
-	$(srcdir)/glpk.pc.in $(srcdir)/glpk_addlibs.txt.in \
+	$(srcdir)/coinglpk-uninstalled.pc.in $(srcdir)/coinglpk.pc.in \
+	$(srcdir)/config_glpk.h.in $(srcdir)/glpk_addlibs.txt.in \
 	$(thirdpartyinclude_HEADERS) $(top_srcdir)/configure
 @HAVE_EXTERNALS_TRUE@am__append_1 = Externals
 @HAVE_EXTERNALS_TRUE@am__append_2 = .Externals-stamp
@@ -73,7 +73,8 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config_glpk.h
-CONFIG_CLEAN_FILES = glpk_addlibs.txt glpk.pc glpk-uninstalled.pc
+CONFIG_CLEAN_FILES = glpk_addlibs.txt coinglpk.pc \
+	coinglpk-uninstalled.pc
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -274,7 +275,7 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = foreign
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch $(am__append_1)
-thirdpartylibdir = $(prefix)/lib/ThirdParty
+thirdpartylibdir = $(libdir)/coin/ThirdParty
 thirdpartylib_LTLIBRARIES = libcoinglpk.la
 libcoinglpk_la_SOURCES = \
 $(GLPKDIR)/src/glpapi01.c \
@@ -409,10 +410,10 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 thirdpartyincludedir = $(includedir)/coin/ThirdParty
 thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
-addlibsdir = $(prefix)/share/doc/coin/ThirdParty/Glpk
+addlibsdir = $(datadir)/coin/doc/ThirdParty/Glpk
 addlibs_DATA = glpk_addlibs.txt README
-pkgconfiglibdir = $(prefix)/lib/ThirdParty/pkgconfig
-pkgconfiglib_DATA = glpk.pc
+pkgconfiglibdir = $(libdir)/pkgconfig
+pkgconfiglib_DATA = coinglpk.pc
 
 ########################################################################
 #                         Maintainer Stuff                             #
@@ -479,9 +480,9 @@ distclean-hdr:
 	-rm -f config_glpk.h stamp-h1
 glpk_addlibs.txt: $(top_builddir)/config.status $(srcdir)/glpk_addlibs.txt.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-glpk.pc: $(top_builddir)/config.status $(srcdir)/glpk.pc.in
+coinglpk.pc: $(top_builddir)/config.status $(srcdir)/coinglpk.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-glpk-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/glpk-uninstalled.pc.in
+coinglpk-uninstalled.pc: $(top_builddir)/config.status $(srcdir)/coinglpk-uninstalled.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 install-thirdpartylibLTLIBRARIES: $(thirdpartylib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)

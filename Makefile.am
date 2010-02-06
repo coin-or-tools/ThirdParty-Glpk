@@ -8,7 +8,7 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
 
-thirdpartylibdir = $(prefix)/lib/ThirdParty
+thirdpartylibdir = $(libdir)/coin/ThirdParty
 thirdpartylib_LTLIBRARIES = libcoinglpk.la
 
 GLPKDIR = @GLPKDIR@
@@ -169,11 +169,11 @@ libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 thirdpartyincludedir = $(includedir)/coin/ThirdParty
 thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
 
-addlibsdir = $(prefix)/share/doc/coin/ThirdParty/Glpk
+addlibsdir = $(datadir)/coin/doc/ThirdParty/Glpk
 addlibs_DATA = glpk_addlibs.txt README
 
-pkgconfiglibdir = $(prefix)/lib/ThirdParty/pkgconfig
-pkgconfiglib_DATA = glpk.pc
+pkgconfiglibdir = $(libdir)/pkgconfig
+pkgconfiglib_DATA = coinglpk.pc
 
 ########################################################################
 #                         Maintainer Stuff                             #

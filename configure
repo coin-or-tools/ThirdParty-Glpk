@@ -21892,7 +21892,7 @@ fi
 GLPKDIR=glpk
 
 
-                                        ac_config_files="$ac_config_files Makefile glpk_addlibs.txt glpk.pc glpk-uninstalled.pc"
+                                        ac_config_files="$ac_config_files Makefile glpk_addlibs.txt coinglpk.pc coinglpk-uninstalled.pc"
 
           ac_config_headers="$ac_config_headers config_glpk.h"
 
@@ -22550,8 +22550,8 @@ do
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "glpk_addlibs.txt" ) CONFIG_FILES="$CONFIG_FILES glpk_addlibs.txt" ;;
-  "glpk.pc" ) CONFIG_FILES="$CONFIG_FILES glpk.pc" ;;
-  "glpk-uninstalled.pc" ) CONFIG_FILES="$CONFIG_FILES glpk-uninstalled.pc" ;;
+  "coinglpk.pc" ) CONFIG_FILES="$CONFIG_FILES coinglpk.pc" ;;
+  "coinglpk-uninstalled.pc" ) CONFIG_FILES="$CONFIG_FILES coinglpk-uninstalled.pc" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
   "config_glpk.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config_glpk.h" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5

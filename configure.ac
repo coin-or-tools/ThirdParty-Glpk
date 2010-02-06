@@ -244,7 +244,7 @@ fi
 GLPKDIR=glpk
 AC_SUBST(GLPKDIR)
 
-AC_CONFIG_FILES([Makefile glpk_addlibs.txt glpk.pc glpk-uninstalled.pc])
+AC_CONFIG_FILES([Makefile glpk_addlibs.txt coinglpk.pc coinglpk-uninstalled.pc])
 AC_CONFIG_HEADER([config_glpk.h])
 
 AC_COIN_FINALIZE

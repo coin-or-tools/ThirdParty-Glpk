@@ -39,6 +39,14 @@ $(GLPKDIR)/src/glpbfx.c \
 $(GLPKDIR)/src/glpcpx.c \
 $(GLPKDIR)/src/glpdmp.c \
 $(GLPKDIR)/src/glpdmx.c \
+$(GLPKDIR)/src/glpenv01.c \
+$(GLPKDIR)/src/glpenv02.c \
+$(GLPKDIR)/src/glpenv03.c \
+$(GLPKDIR)/src/glpenv04.c \
+$(GLPKDIR)/src/glpenv05.c \
+$(GLPKDIR)/src/glpenv06.c \
+$(GLPKDIR)/src/glpenv07.c \
+$(GLPKDIR)/src/glpenv08.c \
 $(GLPKDIR)/src/glpfhv.c \
 $(GLPKDIR)/src/glpgmp.c \
 $(GLPKDIR)/src/glphbm.c \
@@ -54,26 +62,16 @@ $(GLPKDIR)/src/glpios07.c \
 $(GLPKDIR)/src/glpios08.c \
 $(GLPKDIR)/src/glpios09.c \
 $(GLPKDIR)/src/glpios10.c \
+$(GLPKDIR)/src/glpios11.c \
+$(GLPKDIR)/src/glpios12.c \
 $(GLPKDIR)/src/glpipm.c \
-$(GLPKDIR)/src/glpipp01.c \
-$(GLPKDIR)/src/glpipp02.c \
 $(GLPKDIR)/src/glplib01.c \
 $(GLPKDIR)/src/glplib02.c \
 $(GLPKDIR)/src/glplib03.c \
-$(GLPKDIR)/src/glplib04.c \
-$(GLPKDIR)/src/glplib05.c \
-$(GLPKDIR)/src/glplib06.c \
-$(GLPKDIR)/src/glplib07.c \
-$(GLPKDIR)/src/glplib08.c \
-$(GLPKDIR)/src/glplib09.c \
-$(GLPKDIR)/src/glplib10.c \
-$(GLPKDIR)/src/glplib11.c \
-$(GLPKDIR)/src/glplib12.c \
 $(GLPKDIR)/src/glplpf.c \
 $(GLPKDIR)/src/glplpx01.c \
 $(GLPKDIR)/src/glplpx02.c \
 $(GLPKDIR)/src/glplpx03.c \
-$(GLPKDIR)/src/glplpx04.c \
 $(GLPKDIR)/src/glpluf.c \
 $(GLPKDIR)/src/glplux.c \
 $(GLPKDIR)/src/glpmat.c \
@@ -91,15 +89,18 @@ $(GLPKDIR)/src/glpnet04.c \
 $(GLPKDIR)/src/glpnet05.c \
 $(GLPKDIR)/src/glpnet06.c \
 $(GLPKDIR)/src/glpnet07.c \
+$(GLPKDIR)/src/glpnet08.c \
+$(GLPKDIR)/src/glpnet09.c \
 $(GLPKDIR)/src/glpnpp01.c \
 $(GLPKDIR)/src/glpnpp02.c \
 $(GLPKDIR)/src/glpnpp03.c \
+$(GLPKDIR)/src/glpnpp04.c \
+$(GLPKDIR)/src/glpnpp05.c \
 $(GLPKDIR)/src/glpqmd.c \
 $(GLPKDIR)/src/glprgr.c \
 $(GLPKDIR)/src/glprng01.c \
 $(GLPKDIR)/src/glprng02.c \
 $(GLPKDIR)/src/glpscf.c \
-$(GLPKDIR)/src/glpscg.c \
 $(GLPKDIR)/src/glpscl.c \
 $(GLPKDIR)/src/glpsdf.c \
 $(GLPKDIR)/src/glpspm.c \
@@ -132,6 +133,7 @@ libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h \
   $(srcdir)/$(GLPKDIR)/include/glpavl.h \
   $(srcdir)/$(GLPKDIR)/include/glprng.h \
   $(srcdir)/$(GLPKDIR)/include/glpdmp.h \
+  $(srcdir)/$(GLPKDIR)/include/glpenv.h \
   $(srcdir)/$(GLPKDIR)/include/glplib.h \
   $(srcdir)/$(GLPKDIR)/include/glpstd.h
 
@@ -149,6 +151,9 @@ $(srcdir)/$(GLPKDIR)/include/glprng.h : $(srcdir)/$(GLPKDIR)/src/glprng.h
 
 $(srcdir)/$(GLPKDIR)/include/glpdmp.h : $(srcdir)/$(GLPKDIR)/src/glpdmp.h
 	cp $(srcdir)/$(GLPKDIR)/src/glpdmp.h $(srcdir)/$(GLPKDIR)/include/glpdmp.h
+
+$(srcdir)/$(GLPKDIR)/include/glpenv.h : $(srcdir)/$(GLPKDIR)/src/glpenv.h
+	cp $(srcdir)/$(GLPKDIR)/src/glpenv.h $(srcdir)/$(GLPKDIR)/include/glpenv.h
 
 $(srcdir)/$(GLPKDIR)/include/glplib.h : $(srcdir)/$(GLPKDIR)/src/glplib.h
 	cp $(srcdir)/$(GLPKDIR)/src/glplib.h $(srcdir)/$(GLPKDIR)/include/glplib.h

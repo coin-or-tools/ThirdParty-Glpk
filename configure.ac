@@ -1,4 +1,4 @@
-# Copyright (C) 2007-2009 Stefan Vigerske and others.
+# Copyright (C) 2007-2010 Stefan Vigerske and others.
 # All Rights Reserved.
 # This file is distributed under the Common Public License.
 
@@ -13,7 +13,7 @@ AC_PREREQ(2.59)
 AC_INIT([ThirdPartyGlpk],[0.0],[http://projects.coin-or.org/BuildTools/newticket])
 
 AC_COPYRIGHT([
-Copyright 2007-2009 Stefan Vigerske and others.
+Copyright 2007-2010 Stefan Vigerske and others.
 All Rights Reserved.
 This file is part of the open source package Coin which is distributed
 under the Common Public License.])

@@ -47,6 +47,9 @@ AC_COIN_DEBUG_COMPILE(Glpk)
 # Get the name of the C compiler
 AC_COIN_PROG_CC
 
+# Check if pkg-config is available (to setup addlibs file)
+AC_COIN_HAS_PKGCONFIG
+
 # Initialize automake
 AC_COIN_INIT_AUTO_TOOLS
 
@@ -244,7 +247,7 @@ fi
 GLPKDIR=glpk
 AC_SUBST(GLPKDIR)
 
-AC_CONFIG_FILES([Makefile glpk_addlibs.txt coinglpk.pc coinglpk-uninstalled.pc])
+AC_CONFIG_FILES([Makefile coinglpk.pc coinglpk-uninstalled.pc])
 AC_CONFIG_HEADER([config_glpk.h])
 
 AC_COIN_FINALIZE

@@ -136,8 +136,13 @@ libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 thirdpartyincludedir = $(includedir)/coin/ThirdParty
 thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
 
+if COIN_HAS_PKGCONFIG
 addlibsdir = $(datadir)/coin/doc/ThirdParty/Glpk
-addlibs_DATA = glpk_addlibs.txt README
+addlibs_DATA = glpk_addlibs.txt
+
+glpk_addlibs.txt : coinglpk.pc
+	PKG_CONFIG_PATH=.:$(libdir)/pkgconfig:${PKG_CONFIG_PATH} $(PKG_CONFIG) --libs coinglpk > glpk_addlibs.txt
+endif
 
 pkgconfiglibdir = $(libdir)/pkgconfig
 pkgconfiglib_DATA = coinglpk.pc
@@ -145,6 +150,8 @@ pkgconfiglib_DATA = coinglpk.pc
 ########################################################################
 #                         Maintainer Stuff                             #
 ########################################################################
+
+CLEANFILES = glpk_addlibs.txt
 
 # Files that are generated and should be cleaned with make distclean
 DISTCLEANFILES = $(MAKEOKFILE)

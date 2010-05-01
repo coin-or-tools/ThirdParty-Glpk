@@ -141,7 +141,7 @@ addlibsdir = $(datadir)/coin/doc/ThirdParty/Glpk
 addlibs_DATA = glpk_addlibs.txt
 
 glpk_addlibs.txt : coinglpk.pc
-	PKG_CONFIG_PATH=.:$(libdir)/pkgconfig:${PKG_CONFIG_PATH} $(PKG_CONFIG) --libs coinglpk > glpk_addlibs.txt
+	PKG_CONFIG_PATH=.:@COIN_PKG_CONFIG_PATH@ $(PKG_CONFIG) --libs coinglpk > glpk_addlibs.txt
 endif
 
 pkgconfiglibdir = $(libdir)/pkgconfig

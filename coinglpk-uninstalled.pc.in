@@ -1,0 +1,8 @@
+prefix=@prefix@
+libdir=@ABSBUILDDIR@
+
+Name: Glpk
+Description: Gnu Linear Programming Kit
+Version: @glpkmajorver@.@glpkminorver@
+Libs: -L${libdir} -lcoinglpk @ADDLIBS@
+Cflags: -I@ABSBUILDDIR@ -I@abs_source_dir@/glpk/include

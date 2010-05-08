@@ -8,15 +8,12 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
 
-if COIN_BUILD_GLPK
-  noinst_LTLIBRARIES = libcoinglpk.la
-else
-  noinst_LTLIBRARIES =
-endif
+thirdpartylibdir = $(libdir)/coin/ThirdParty
+thirdpartylib_LTLIBRARIES = libcoinglpk.la
 
 GLPKDIR = @GLPKDIR@
 
-nodist_libcoinglpk_la_SOURCES = \
+libcoinglpk_la_SOURCES = \
 $(GLPKDIR)/src/glpapi01.c \
 $(GLPKDIR)/src/glpapi02.c \
 $(GLPKDIR)/src/glpapi03.c \
@@ -126,44 +123,6 @@ $(GLPKDIR)/src/amd/amd_preprocess.c \
 $(GLPKDIR)/src/amd/amd_valid.c \
 $(GLPKDIR)/src/colamd/colamd.c
 
-# CoinUtils and SYMPHONY include glpmpl.h, have HAVE_CONFIG_H defined,
-# and so Glpk attempts to include config.h.
-# Therefore, we put a simple config.h file into $(GLPKDIR)/include.
-# It's purpose is to include the config_glpk.h file that is generated
-# by configure.
-libcoinglpk_la_DEPENDENCIES = $(srcdir)/$(GLPKDIR)/include/config.h \
-  $(srcdir)/$(GLPKDIR)/include/glpmpl.h \
-  $(srcdir)/$(GLPKDIR)/include/glpavl.h \
-  $(srcdir)/$(GLPKDIR)/include/glprng.h \
-  $(srcdir)/$(GLPKDIR)/include/glpdmp.h \
-  $(srcdir)/$(GLPKDIR)/include/glpenv.h \
-  $(srcdir)/$(GLPKDIR)/include/glplib.h \
-  $(srcdir)/$(GLPKDIR)/include/glpstd.h
-
-$(srcdir)/$(GLPKDIR)/include/config.h : $(srcdir)/config.h
-	cp $(srcdir)/config.h $(srcdir)/$(GLPKDIR)/include/config.h
-
-$(srcdir)/$(GLPKDIR)/include/glpmpl.h : $(srcdir)/$(GLPKDIR)/src/glpmpl.h
-	cp $(srcdir)/$(GLPKDIR)/src/glpmpl.h $(srcdir)/$(GLPKDIR)/include/glpmpl.h
-
-$(srcdir)/$(GLPKDIR)/include/glpavl.h : $(srcdir)/$(GLPKDIR)/src/glpavl.h
-	cp $(srcdir)/$(GLPKDIR)/src/glpavl.h $(srcdir)/$(GLPKDIR)/include/glpavl.h
-
-$(srcdir)/$(GLPKDIR)/include/glprng.h : $(srcdir)/$(GLPKDIR)/src/glprng.h
-	cp $(srcdir)/$(GLPKDIR)/src/glprng.h $(srcdir)/$(GLPKDIR)/include/glprng.h
-
-$(srcdir)/$(GLPKDIR)/include/glpdmp.h : $(srcdir)/$(GLPKDIR)/src/glpdmp.h
-	cp $(srcdir)/$(GLPKDIR)/src/glpdmp.h $(srcdir)/$(GLPKDIR)/include/glpdmp.h
-
-$(srcdir)/$(GLPKDIR)/include/glpenv.h : $(srcdir)/$(GLPKDIR)/src/glpenv.h
-	cp $(srcdir)/$(GLPKDIR)/src/glpenv.h $(srcdir)/$(GLPKDIR)/include/glpenv.h
-
-$(srcdir)/$(GLPKDIR)/include/glplib.h : $(srcdir)/$(GLPKDIR)/src/glplib.h
-	cp $(srcdir)/$(GLPKDIR)/src/glplib.h $(srcdir)/$(GLPKDIR)/include/glplib.h
-
-$(srcdir)/$(GLPKDIR)/include/glpstd.h : $(srcdir)/$(GLPKDIR)/src/glpstd.h
-	cp $(srcdir)/$(GLPKDIR)/src/glpstd.h $(srcdir)/$(GLPKDIR)/include/glpstd.h
-
 DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
 
 AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
@@ -174,9 +133,25 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
 
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 
+thirdpartyincludedir = $(includedir)/coin/ThirdParty
+thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
+
+if COIN_HAS_PKGCONFIG
+addlibsdir = $(datadir)/coin/doc/ThirdParty/Glpk
+addlibs_DATA = glpk_addlibs.txt
+
+glpk_addlibs.txt : coinglpk.pc
+	PKG_CONFIG_PATH=.:@COIN_PKG_CONFIG_PATH@ $(PKG_CONFIG) --libs coinglpk > glpk_addlibs.txt
+endif
+
+pkgconfiglibdir = $(libdir)/pkgconfig
+pkgconfiglib_DATA = coinglpk.pc
+
 ########################################################################
 #                         Maintainer Stuff                             #
 ########################################################################
+
+CLEANFILES = glpk_addlibs.txt
 
 # Files that are generated and should be cleaned with make distclean
 DISTCLEANFILES = $(MAKEOKFILE)

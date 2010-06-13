@@ -4,10 +4,16 @@
 /Makefile.in -text
 /coinglpk-uninstalled.pc.in -text
 /coinglpk.pc.in -text
+/config.guess -text
 /config.h -text
+/config.sub -text
 /config_glpk.h.in -text
 /configure -text
 /configure.ac -text
+/depcomp -text
 /get.Glpk -text
 /glpk.patch -text
 /glpk_addlibs.txt.in -text
+/install-sh -text
+/ltmain.sh -text
+/missing -text

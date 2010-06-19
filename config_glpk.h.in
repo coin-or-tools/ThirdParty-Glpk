@@ -9,6 +9,12 @@
 /* Define to 1 if zlib is available */
 #undef COIN_HAS_ZLIB
 
+/* SVN revision number of project */
+#undef GLPK_SVN_REV
+
+/* Version number of project */
+#undef GLPK_VERSION
+
 /* Define to 1 if dlfcn support is available */
 #undef HAVE_DLFCN
 
@@ -101,12 +107,6 @@
 
 /* Version number of package */
 #undef VERSION
-
-/* SVN revision number of project */
-#undef _SVN_REV
-
-/* Version number of project */
-#undef _VERSION
 
 /* Define to 1 if windows dll support is available */
 #undef __WOE__

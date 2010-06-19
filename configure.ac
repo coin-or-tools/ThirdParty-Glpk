@@ -28,7 +28,7 @@ AC_CONFIG_SRCDIR(glpk/include/glpk.h)
 # /usr/local.
 AC_PREFIX_DEFAULT([`pwd`])
 
-AC_COIN_PROJECTDIR_INIT
+AC_COIN_PROJECTDIR_INIT(Glpk)
 
 #############################################################################
 #                         Standard build tool stuff                         #

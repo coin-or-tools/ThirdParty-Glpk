@@ -71,11 +71,9 @@ AC_SUBST(glpkminorver)
 #                 GNU packages and C functions                            #
 ###########################################################################
 
-ADDLIBS=
-
 AC_LANG_PUSH(C)
 
-AC_COIN_CHECK_GNU_ZLIB
+AC_COIN_CHECK_GNU_ZLIB(GLPK)
 if test $coin_has_zlib = "yes"; then
   AC_DEFINE([HAVE_ZLIB], [1], [Define to 1 if GNU zlib is available])
 fi
@@ -85,7 +83,8 @@ if test $coin_enable_gnu = yes; then
   AC_COIN_CHECK_HEADER([gmp.h],[AC_CHECK_LIB([gmp],[__gmpz_init],[coin_has_gmp=yes])])
   if test $coin_has_gmp = yes; then
     AC_DEFINE([HAVE_GMP],[1],[Define to 1 if GMP is available])
-    ADDLIBS="-lgmp $ADDLIBS"
+    GLPK_LIBS="-lgmp $GLPK_LIBS"
+    GLPK_PCLIBS="-lgmp $GLPK_PCLIBS"
   fi
 fi
 
@@ -107,7 +106,8 @@ if test "$enable_dl" = "yes"; then
   #if dlfcn.h is there, check also if libdl is there; if so, set corresponding define for GLPK 
   AC_CHECK_LIB(dl,[dlopen],[AC_DEFINE([HAVE_DLFCN],[1],[Define to 1 if dlfcn support is available])],[enable_dl=no])
   if test $enable_dl = yes; then
-    ADDLIBS="-ldl $ADDLIBS"
+    GLPK_LIBS="-ldl $GLPK_LIBS"
+    GLPK_PCLIBS="-ldl $GLPK_PCLIBS"
   fi
 fi
 
@@ -117,7 +117,8 @@ if test "$enable_dl" = "no"; then
     #if ltdl.h is there, check also if libltdl is there; if so, set corresponding define for GLPK 
     AC_CHECK_LIB(ldtl,[lt_dlopen],[AC_DEFINE([HAVE_LTDL],[1],[Define to 1 if ltdl support is available])],[enable_dl=no])
     if test $enable_dl = yes; then
-      ADDLIBS="-lltdl $ADDLIBS"
+      GLPK_LIBS="-lltdl $GLPK_LIBS"
+      GLPK_PCLIBS="-lltdl $GLPK_PCLIBS"
     fi
   fi
 fi
@@ -249,5 +250,7 @@ AC_SUBST(GLPKDIR)
 
 AC_CONFIG_FILES([Makefile coinglpk.pc coinglpk-uninstalled.pc])
 AC_CONFIG_HEADER([config_glpk.h])
+
+AC_SUBST(GLPK_PCLIBS)
 
 AC_COIN_FINALIZE

@@ -61,8 +61,8 @@ AC_MSG_CHECKING([GLPK version])
 glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
 glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/include/glpk.h`
 AC_MSG_RESULT([${glpkmajorver}.${glpkminorver}])
-if test x$glpkmajorver != x4 || test x$glpkminorver != x43 ; then
-  AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.43. Please update by rerunning get.GLPK"])
+if test x$glpkmajorver != x4 || test x$glpkminorver != x44 ; then
+  AC_MSG_ERROR(["Incorrect GLPK version. This build system is made for GLPK 4.44. Please update by rerunning get.GLPK"])
 fi
 AC_SUBST(glpkmajorver)
 AC_SUBST(glpkminorver)

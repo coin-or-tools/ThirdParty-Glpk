@@ -4,5 +4,5 @@ libdir=@ABSBUILDDIR@
 Name: Glpk
 Description: Gnu Linear Programming Kit
 Version: @glpkmajorver@.@glpkminorver@
-Libs: -L${libdir} -lcoinglpk @GLPK_PCLIBS@
+Libs: ${libdir}/libcoinglpk.la @GLPK_PCLIBS@
 Cflags: -I@ABSBUILDDIR@ -I@abs_source_dir@/glpk/include

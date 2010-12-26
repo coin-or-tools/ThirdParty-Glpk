@@ -8,8 +8,7 @@ AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
 
-thirdpartylibdir = $(libdir)/coin/ThirdParty
-thirdpartylib_LTLIBRARIES = libcoinglpk.la
+lib_LTLIBRARIES = libcoinglpk.la
 
 GLPKDIR = @GLPKDIR@
 

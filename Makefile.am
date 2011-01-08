@@ -138,19 +138,7 @@ thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
 pkgconfiglibdir = $(libdir)/pkgconfig
 pkgconfiglib_DATA = coinglpk.pc
 
-if COIN_HAS_PKGCONFIG
-addlibsdir = $(DESTDIR)$(datadir)/coin/doc/ThirdParty/Glpk
-	
-install-data-hook:
-	@$(mkdir_p) "$(addlibsdir)"
-	PKG_CONFIG_PATH=@COIN_PKG_CONFIG_PATH@ \
-	$(PKG_CONFIG) --libs coinglpk > $(addlibsdir)/glpk_addlibs.txt
-	
-uninstall-hook:
-	rm -f $(addlibsdir)/glpk_addlibs.txt
-endif
-
-test: $(libampl)
+test:
 	@echo "No test available for Glpk."
 
 ########################################################################

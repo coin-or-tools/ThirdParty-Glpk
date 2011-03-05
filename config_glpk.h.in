@@ -15,6 +15,15 @@
 /* Version number of project */
 #undef GLPK_VERSION
 
+/* Major Version number of project */
+#undef GLPK_VERSION_MAJOR
+
+/* Minor Version number of project */
+#undef GLPK_VERSION_MINOR
+
+/* Release Version number of project */
+#undef GLPK_VERSION_RELEASE
+
 /* Define to 1 if dlfcn support is available */
 #undef HAVE_DLFCN
 

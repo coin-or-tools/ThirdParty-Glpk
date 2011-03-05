@@ -133,7 +133,7 @@ AM_CPPFLAGS = -I`$(CYGPATH_W) $(srcdir)/$(GLPKDIR)/include` \
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 
 thirdpartyincludedir = $(includedir)/coin/ThirdParty
-thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h
+thirdpartyinclude_HEADERS = $(GLPKDIR)/include/glpk.h $(GLPKDIR)/src/amd/amd.h
 
 pkgconfiglibdir = $(libdir)/pkgconfig
 pkgconfiglib_DATA = coinglpk.pc

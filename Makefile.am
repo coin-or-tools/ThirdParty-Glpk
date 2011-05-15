@@ -150,7 +150,7 @@ uninstall-hook:
 	rm -f $(addlibsdir)/glpk_addlibs.txt
 endif
 
-test: $(libampl)
+test:
 	@echo "No test available for Glpk."
 
 ########################################################################

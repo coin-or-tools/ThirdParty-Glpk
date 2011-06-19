@@ -6,4 +6,4 @@ Description: Gnu Linear Programming Kit
 URL: https://projects.coin-or.org/BuildTools
 Version: @glpkmajorver@.@glpkminorver@
 Libs: ${libdir}/libcoinglpk.la @GLPK_PCLIBS@
-Cflags: -I@ABSBUILDDIR@ -I@abs_source_dir@/glpk/include
+Cflags: -I@ABSBUILDDIR@ -I@abs_source_dir@/glpk/include -I@abs_source_dir@/glpk/src/amd

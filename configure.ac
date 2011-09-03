@@ -68,7 +68,7 @@ AC_SUBST(glpkmajorver)
 AC_SUBST(glpkminorver)
 
 ###########################################################################
-#                 GNU packages and C functions                            #
+#                 Other packages and C functions                          #
 ###########################################################################
 
 AC_LANG_PUSH(C)
@@ -78,14 +78,9 @@ if test $coin_has_zlib = "yes"; then
   AC_DEFINE([HAVE_ZLIB], [1], [Define to 1 if GNU zlib is available])
 fi
 
-if test $coin_enable_gnu = yes; then
-  coin_has_gmp=no
-  AC_COIN_CHECK_HEADER([gmp.h],[AC_CHECK_LIB([gmp],[__gmpz_init],[coin_has_gmp=yes])])
-  if test $coin_has_gmp = yes; then
-    AC_DEFINE([HAVE_GMP],[1],[Define to 1 if GMP is available])
-    GLPK_LIBS="-lgmp $GLPK_LIBS"
-    GLPK_PCLIBS="-lgmp $GLPK_PCLIBS"
-  fi
+AC_COIN_CHECK_GMP(Glpk)
+if test $coin_has_gmp = yes; then
+  AC_DEFINE([HAVE_GMP],[1],[Define to 1 if GMP is available])
 fi
 
 AC_CHECK_FUNC([vsnprintf])

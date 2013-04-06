@@ -20149,9 +20149,9 @@ glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/src/glpk.
 glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/src/glpk.h`
 echo "$as_me:$LINENO: result: ${glpkmajorver}.${glpkminorver}" >&5
 echo "${ECHO_T}${glpkmajorver}.${glpkminorver}" >&6
-if test x$glpkmajorver != x4 || test x$glpkminorver != x47 ; then
-  { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.47. Please update by rerunning get.GLPK\"" >&5
-echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.47. Please update by rerunning get.GLPK\"" >&2;}
+if test x$glpkmajorver != x4 || test x$glpkminorver != x48 ; then
+  { { echo "$as_me:$LINENO: error: \"Incorrect GLPK version. This build system is made for GLPK 4.48. Please update by rerunning get.GLPK\"" >&5
+echo "$as_me: error: \"Incorrect GLPK version. This build system is made for GLPK 4.48. Please update by rerunning get.GLPK\"" >&2;}
    { (exit 1); exit 1; }; }
 fi
 

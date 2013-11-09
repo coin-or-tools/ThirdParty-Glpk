@@ -82,7 +82,7 @@ AC_CHECK_FUNC([vsnprintf])
 
 AC_LANG_POP(C)
 
-AC_COIN_CHECK_LIBM
+AC_COIN_CHECK_LIBM(Glpk)
 
 ###########################################################################
 #                     Database connectivity                               #

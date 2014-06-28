@@ -643,6 +643,7 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+GLPK_PCLIBS
 GLPKDIR
 glpkminorver
 glpkmajorver
@@ -11995,7 +11996,7 @@ ac_config_files="$ac_config_files Makefile coinglpk.pc"
 ac_config_headers="$ac_config_headers config_glpk.h"
 
 
-#AC_SUBST(GLPK_PCLIBS)
+
 
 
 # need to come before AC_OUTPUT

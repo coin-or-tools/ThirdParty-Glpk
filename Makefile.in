@@ -141,7 +141,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfiglibdir)" \
 	"$(DESTDIR)$(thirdpartyincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libcoinglpk_la_DEPENDENCIES =
+am__DEPENDENCIES_1 =
+libcoinglpk_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_libcoinglpk_la_OBJECTS = @GLPKDIR@/src/glpapi01.lo \
 	@GLPKDIR@/src/glpapi02.lo @GLPKDIR@/src/glpapi03.lo \
@@ -328,6 +329,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GLPKDIR = @GLPKDIR@
+GLPK_PCLIBS = @GLPK_PCLIBS@
 GLPK_SVN_REV = @GLPK_SVN_REV@
 GREP = @GREP@
 INSTALL = @INSTALL@

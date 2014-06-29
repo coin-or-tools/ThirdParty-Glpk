@@ -40,13 +40,6 @@ AC_PROG_CC
 # Check if pkg-config is available (to setup addlibs file)
 #AC_COIN_HAS_PKGCONFIG
 
-# Initialize automake
-#AC_COIN_INIT_AUTO_TOOLS
-AM_INIT_AUTOMAKE
-AM_MAINTAINER_MODE
-
-AC_PROG_LIBTOOL
-
 ###########################################################################
 #                            check GLPK version                           #
 ###########################################################################

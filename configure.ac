@@ -8,8 +8,6 @@
 #                       Names and other basic things                        #
 #############################################################################
 
-AC_PREREQ(2.59)
-
 AC_INIT([ThirdPartyGlpk],[trunk],[http://projects.coin-or.org/BuildTools/newticket])
 
 AC_COPYRIGHT([
@@ -22,20 +20,11 @@ under the Eclipse Public License.])
 # whether the package is actually there
 AC_CONFIG_SRCDIR(glpk/src/glpk.h)
 
-# Where should everything be installed by default?  Here, we want it
-# to be installed directly in 'bin', 'lib', 'include' subdirectories
-# of the directory where configure is run.  The default would be
-# /usr/local.
-AC_PREFIX_DEFAULT([`pwd`])
-
-AC_COIN_INITIALIZE(Glpk)
+AC_COIN_PROJECTDIR_INITIALIZE(Glpk)
 
 #############################################################################
 #                         Standard build tool stuff                         #
 #############################################################################
-
-# Get the system type
-AC_CANONICAL_BUILD
 
 #turn off warnings and pedantic mode since it seem to make trouble on solaris platform
 #and we couldn't fix it anyway

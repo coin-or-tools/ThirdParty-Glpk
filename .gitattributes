@@ -2,7 +2,6 @@
 /INSTALL.Glpk -text
 /Makefile.am -text
 /Makefile.in -text
-/coinglpk-uninstalled.pc.in -text
 /coinglpk.pc.in -text
 /config.guess -text
 /config.h -text

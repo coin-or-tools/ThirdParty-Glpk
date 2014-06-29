@@ -20,25 +20,15 @@ under the Eclipse Public License.])
 # whether the package is actually there
 AC_CONFIG_SRCDIR(glpk/src/glpk.h)
 
+# Do some generic initialization work.
 AC_COIN_PROJECTDIR_INITIALIZE(Glpk)
 
 #############################################################################
 #                         Standard build tool stuff                         #
 #############################################################################
 
-#turn off warnings and pedantic mode since it seem to make trouble on solaris platform
-#and we couldn't fix it anyway
-#coin_skip_warn_cflags=yes
-
-# Check if user wants to produce debugging code
-#AC_COIN_DEBUG_COMPILE(Glpk)
-
 # Get the name of the C compiler
-#AC_COIN_PROG_CC
 AC_PROG_CC
-
-# Check if pkg-config is available (to setup addlibs file)
-#AC_COIN_HAS_PKGCONFIG
 
 ###########################################################################
 #                            check GLPK version                           #
@@ -86,7 +76,6 @@ if test "$enable_dl" = "yes"; then
   AC_CHECK_LIB(dl,[dlopen],[AC_DEFINE([HAVE_DLFCN],[1],[Define to 1 if dlfcn support is available])],[enable_dl=no])
   if test $enable_dl = yes; then
     GLPK_LIBS="-ldl $GLPK_LIBS"
-    GLPK_PCLIBS="-ldl $GLPK_PCLIBS"
   fi
 fi
 
@@ -97,7 +86,6 @@ if test "$enable_dl" = "no"; then
     AC_CHECK_LIB(ldtl,[lt_dlopen],[AC_DEFINE([HAVE_LTDL],[1],[Define to 1 if ltdl support is available])],[enable_dl=no])
     if test $enable_dl = yes; then
       GLPK_LIBS="-lltdl $GLPK_LIBS"
-      GLPK_PCLIBS="-lltdl $GLPK_PCLIBS"
     fi
   fi
 fi
@@ -230,6 +218,6 @@ AC_SUBST(GLPKDIR)
 AC_CONFIG_FILES([Makefile coinglpk.pc])
 AC_CONFIG_HEADER([config_glpk.h])
 
-AC_SUBST(GLPK_PCLIBS)
+AC_SUBST(GLPK_LIBS)
 
 AC_COIN_FINALIZE

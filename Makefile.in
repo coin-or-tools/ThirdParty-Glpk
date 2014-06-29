@@ -329,7 +329,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GLPKDIR = @GLPKDIR@
-GLPK_PCLIBS = @GLPK_PCLIBS@
+GLPK_LIBS = @GLPK_LIBS@
 GLPK_SVN_REV = @GLPK_SVN_REV@
 GREP = @GREP@
 INSTALL = @INSTALL@
@@ -565,7 +565,7 @@ AM_CPPFLAGS = \
   -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src/minisat` \
   -I@GLPKDIR@
 
-libcoinglpk_la_LIBADD = $(GLPK_PCLIBS)
+libcoinglpk_la_LIBADD = $(GLPK_LIBS)
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 thirdpartyincludedir = $(includedir)/coin/ThirdParty
 thirdpartyinclude_HEADERS = @GLPKDIR@/src/glpk.h @GLPKDIR@/src/amd/amd.h

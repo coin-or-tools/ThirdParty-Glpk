@@ -8,5 +8,5 @@ Description: Gnu Linear Programming Kit
 URL: https://projects.coin-or.org/BuildTools
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -lcoinglpk
-Libs.private: @GLPK_PCLIBS@
+Libs.private: @GLPK_LIBS@
 Cflags: -I${includedir}

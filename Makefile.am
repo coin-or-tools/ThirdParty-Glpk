@@ -149,7 +149,7 @@ AM_CPPFLAGS = \
   -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src/minisat` \
   -I@GLPKDIR@
 
-libcoinglpk_la_LIBADD = $(GLPK_PCLIBS)
+libcoinglpk_la_LIBADD = $(GLPK_LIBS)
 libcoinglpk_la_LDFLAGS = $(LT_LDFLAGS)
 
 thirdpartyincludedir = $(includedir)/coin/ThirdParty

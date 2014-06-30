@@ -50,16 +50,16 @@ AC_SUBST(glpkminorver)
 
 AC_LANG_PUSH(C)
 
-#AC_COIN_CHECK_GMP(Glpk)
-#if test $coin_has_gmp = yes; then
-#  AC_DEFINE([HAVE_GMP],[1],[Define to 1 if GMP is available])
-#fi
+AC_COIN_CHECK_GMP(Glpk)
+if test $coin_has_gmp = yes; then
+  AC_DEFINE([HAVE_GMP],[1],[Define to 1 if GMP is available])
+fi
 
 AC_CHECK_FUNC([vsnprintf])
 
 AC_LANG_POP(C)
 
-#AC_COIN_CHECK_LIBM(Glpk)
+#Does Glpk needs -lm? AC_COIN_CHECK_LIBM(Glpk)
 
 ###########################################################################
 #                     Database connectivity                               #

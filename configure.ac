@@ -21,7 +21,7 @@ under the Eclipse Public License.])
 AC_CONFIG_SRCDIR(glpk/src/glpk.h)
 
 # Do some generic initialization work.
-AC_COIN_PROJECTDIR_INITIALIZE(Glpk)
+AC_COIN_INITIALIZE(Glpk)
 
 #############################################################################
 #                         Standard build tool stuff                         #

@@ -7554,6 +7554,7 @@ fi
 done
 
 
+# required autoconf version
 
 
 # Set the project's version numbers
@@ -13284,17 +13285,6 @@ ac_config_headers="$ac_config_headers config_glpk.h"
 
 
 
-
-# need to come before AC_OUTPUT
-if test "x$coin_subdirs" != x; then
-  # write coin_subdirs to a file so that project configuration knows where to find uninstalled projects
-  echo $coin_subdirs > .coin_subdirs.txt
-else
-  # substitute for OBJDIR, needed to setup .pc file for uninstalled project
-  #ABSBUILDDIR="`pwd`"
-  #AC_SUBST(ABSBUILDDIR)
-  :
-fi
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

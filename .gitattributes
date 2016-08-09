@@ -3,6 +3,7 @@
 /Makefile.am -text
 /Makefile.in -text
 /coinglpk.pc.in -text
+/compile -text
 /config.guess -text
 /config.h -text
 /config.sub -text

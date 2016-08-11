@@ -7670,8 +7670,10 @@ fi
 # Get the system type
 
 
-# initialize automake, don't define PACKAGE or VERSION
-# TODO should we enable warnings by passing an option like -Wall
+# initialize automake
+# - don't define PACKAGE or VERSION
+# - disable dist target
+# - enable more automake warnings (all except override)
 if test "`cd $srcdir && pwd`" != "`pwd`"; then
   # Use -I$(srcdir) only when $(srcdir) != ., so that make's output
   # is not polluted with repeated "-I."

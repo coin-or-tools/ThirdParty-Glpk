@@ -2252,6 +2252,15 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 # Do some generic initialization work.
+
+# change default compiler flags (should we have an enable-debug again?)
+# - some compilers doesn't understand -g
+# - set -DNDEBUG for C/C++ code
+: ${FFLAGS:=""}
+: ${FCFLAGS:=""}
+: ${CFLAGS:="-DNDEBUG"}
+: ${CXXFLAGS:="-DNDEBUG"}
+
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
   if test -f "$ac_dir/install-sh"; then
@@ -7554,6 +7563,8 @@ fi
 done
 
 
+
+
 # required autoconf version
 
 
@@ -12150,14 +12161,6 @@ CC=$lt_save_CC
 
 # create libtool
 
-
-# change default compiler flags (should we have an enable-debug again?)
-# - some compilers doesn't understand -g
-# - set -DNDEBUG for C/C++ code
-: ${FFLAGS:=""}
-: ${FCFLAGS:=""}
-: ${CFLAGS:="-DNDEBUG"}
-: ${CXXFLAGS:="-DNDEBUG"}
 
 
 #############################################################################

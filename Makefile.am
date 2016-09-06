@@ -140,8 +140,6 @@ libcoinglpk_la_SOURCES = \
 @GLPKDIR@/src/zlib/zio.c \
 @GLPKDIR@/src/zlib/zutil.c
 
-DEFAULT_INCLUDES = -I. -I`$(CYGPATH_W) $(srcdir)`
-
 AM_CPPFLAGS = \
   -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src` \
   -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src/amd` \

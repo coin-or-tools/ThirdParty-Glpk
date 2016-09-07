@@ -28,7 +28,10 @@ AC_COIN_INITIALIZE(Glpk)
 #############################################################################
 
 # Get the name of the C compiler
-AC_PROG_CC
+AC_COIN_PROG_CC
+
+# Initialize libtool
+AC_COIN_PROG_LIBTOOL
 
 ###########################################################################
 #                            check GLPK version                           #

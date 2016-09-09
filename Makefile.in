@@ -548,10 +548,10 @@ libcoinglpk_la_SOURCES = \
 @GLPKDIR@/src/zlib/zutil.c
 
 AM_CPPFLAGS = \
-  -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src` \
-  -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src/amd` \
-  -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src/colamd` \
-  -I`$(CYGPATH_W) $(srcdir)/@GLPKDIR@/src/minisat` \
+  -I$(srcdir)/@GLPKDIR@/src \
+  -I$(srcdir)/@GLPKDIR@/src/amd \
+  -I$(srcdir)/@GLPKDIR@/src/colamd \
+  -I$(srcdir)/@GLPKDIR@/src/minisat \
   -I@GLPKDIR@
 
 libcoinglpk_la_LIBADD = $(GLPK_LIBS)

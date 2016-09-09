@@ -2282,6 +2282,8 @@ if test "$enable_msvc" = yes ; then
   : ${FCFLAGS:=""}
   : ${CFLAGS:="-DNDEBUG -nologo"}
   : ${CXXFLAGS:="-DNDEBUG -EHsc -nologo"}
+  : ${AR:="lib"}
+  : ${AR_FLAGS:="-nologo -out:"}
 else
   : ${FFLAGS:=""}
   : ${FCFLAGS:=""}
@@ -12024,6 +12026,15 @@ CC=$lt_save_CC
 # create libtool
 
 
+# setup patch-up for libtool (need to be run after config.status created libtool)
+case "$AR" in
+  *lib* | *LIB* )
+     ac_config_commands="$ac_config_commands libtoolpatch"
+
+	 ;;
+esac
+
+
 
 ###########################################################################
 #                            check GLPK version                           #
@@ -13490,6 +13501,7 @@ do
   case $ac_config_target in
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
+    "libtoolpatch") CONFIG_COMMANDS="$CONFIG_COMMANDS libtoolpatch" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "coinglpk.pc") CONFIG_FILES="$CONFIG_FILES coinglpk.pc" ;;
     "config_glpk.h") CONFIG_HEADERS="$CONFIG_HEADERS config_glpk.h" ;;
@@ -14724,6 +14736,12 @@ ltmain=$ac_aux_dir/ltmain.sh
   chmod +x "$ofile"
 
  ;;
+    "libtoolpatch":C)
+       # eliminate space after AR_FLAGS
+       sed -e 's|AR_FLAGS |AR_FLAGS|g' libtool > libtool.tmp
+       mv libtool.tmp libtool
+       chmod 755 libtool
+	  ;;
 
   esac
 done # for ac_tag

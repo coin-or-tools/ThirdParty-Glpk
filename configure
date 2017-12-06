@@ -14,8 +14,8 @@
 #
 # Copyright 2007-2010 Stefan Vigerske and others.
 # All Rights Reserved.
-# This file is part of the open source package ThirdParty/Glpk which is distributed
-# under the Eclipse Public License.
+# This file is part of the open source package ThirdParty/Glpk which is
+# distributed under the Eclipse Public License.
 ## -------------------- ##
 ## M4sh Initialization. ##
 ## -------------------- ##
@@ -599,7 +599,7 @@ PACKAGE_TARNAME='thirdpartyglpk'
 PACKAGE_VERSION='trunk'
 PACKAGE_STRING='ThirdPartyGlpk trunk'
 PACKAGE_BUGREPORT='http://projects.coin-or.org/BuildTools/newticket'
-PACKAGE_URL=''
+PACKAGE_URL='http://projects.coin-or.org/BuildTools/browser/ThirdParty/Glpk'
 
 ac_unique_file="glpk/src/glpk.h"
 ac_default_prefix=`pwd`
@@ -639,14 +639,14 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
+enable_option_checking=no
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 GLPK_LIBS
 GLPKDIR
-glpkminorver
-glpkmajorver
+subdirs
 LT_LDFLAGS
 CPP
 LT_SYS_LIBRARY_PATH
@@ -691,10 +691,6 @@ CC
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
-AM_BACKSLASH
-AM_DEFAULT_VERBOSITY
-AM_DEFAULT_V
-AM_V
 am__untar
 am__tar
 AMTAR
@@ -718,6 +714,10 @@ am__isrc
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
+AM_BACKSLASH
+AM_DEFAULT_VERBOSITY
+AM_DEFAULT_V
+AM_V
 host_os
 host_vendor
 host_cpu
@@ -783,9 +783,6 @@ with_aix_soname
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
-enable_gmp
-enable_odbc
-enable_mysql
 '
       ac_precious_vars='build_alias
 host_alias
@@ -797,7 +794,7 @@ LIBS
 CPPFLAGS
 LT_SYS_LIBRARY_PATH
 CPP'
-
+ac_subdirs_all='glpk'
 
 # Initialize some variables set by options.
 ac_init_help=
@@ -1431,9 +1428,6 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
-  --disable-gmp           do not compile with GNU multiple precision library
-  --enable-odbc           enable MathProg ODBC support [[default=auto]]
-  --enable-mysql          enable MathProg MySQL support [[default=auto]]
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -1463,6 +1457,7 @@ Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
 
 Report bugs to <http://projects.coin-or.org/BuildTools/newticket>.
+ThirdPartyGlpk home page: <http://projects.coin-or.org/BuildTools/browser/ThirdParty/Glpk>.
 _ACEOF
 ac_status=$?
 fi
@@ -1535,8 +1530,8 @@ gives unlimited permission to copy, distribute and modify it.
 
 Copyright 2007-2010 Stefan Vigerske and others.
 All Rights Reserved.
-This file is part of the open source package ThirdParty/Glpk which is distributed
-under the Eclipse Public License.
+This file is part of the open source package ThirdParty/Glpk which is
+distributed under the Eclipse Public License.
 _ACEOF
   exit
 fi
@@ -1805,97 +1800,6 @@ $as_echo "$ac_res" >&6; }
   eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
 
 } # ac_fn_c_check_func
-
-# ac_fn_c_check_header_mongrel LINENO HEADER VAR INCLUDES
-# -------------------------------------------------------
-# Tests whether HEADER exists, giving a warning if it cannot be compiled using
-# the include files in INCLUDES and setting the cache variable VAR
-# accordingly.
-ac_fn_c_check_header_mongrel ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  if eval \${$3+:} false; then :
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
-$as_echo_n "checking for $2... " >&6; }
-if eval \${$3+:} false; then :
-  $as_echo_n "(cached) " >&6
-fi
-eval ac_res=\$$3
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-else
-  # Is the header compilable?
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 usability" >&5
-$as_echo_n "checking $2 usability... " >&6; }
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-$4
-#include <$2>
-_ACEOF
-if ac_fn_c_try_compile "$LINENO"; then :
-  ac_header_compiler=yes
-else
-  ac_header_compiler=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_compiler" >&5
-$as_echo "$ac_header_compiler" >&6; }
-
-# Is the header present?
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 presence" >&5
-$as_echo_n "checking $2 presence... " >&6; }
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-#include <$2>
-_ACEOF
-if ac_fn_c_try_cpp "$LINENO"; then :
-  ac_header_preproc=yes
-else
-  ac_header_preproc=no
-fi
-rm -f conftest.err conftest.i conftest.$ac_ext
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_preproc" >&5
-$as_echo "$ac_header_preproc" >&6; }
-
-# So?  What about this header?
-case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in #((
-  yes:no: )
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&5
-$as_echo "$as_me: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&2;}
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
-$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
-    ;;
-  no:yes:* )
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: present but cannot be compiled" >&5
-$as_echo "$as_me: WARNING: $2: present but cannot be compiled" >&2;}
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     check for missing prerequisite headers?" >&5
-$as_echo "$as_me: WARNING: $2:     check for missing prerequisite headers?" >&2;}
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: see the Autoconf documentation" >&5
-$as_echo "$as_me: WARNING: $2: see the Autoconf documentation" >&2;}
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&5
-$as_echo "$as_me: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&2;}
-    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
-$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
-( $as_echo "## --------------------------------------------------------------- ##
-## Report this to http://projects.coin-or.org/BuildTools/newticket ##
-## --------------------------------------------------------------- ##"
-     ) | sed "s/^/$as_me: WARNING:     /" >&2
-    ;;
-esac
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
-$as_echo_n "checking for $2... " >&6; }
-if eval \${$3+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  eval "$3=\$ac_header_compiler"
-fi
-eval ac_res=\$$3
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-fi
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-
-} # ac_fn_c_check_header_mongrel
 cat >config.log <<_ACEOF
 This file contains any messages produced by compilers while
 running configure, to aid debugging if configure makes a mistake.
@@ -2251,11 +2155,13 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-# List one file in the package so that the configure script can test
-# whether the package is actually there
+# List one file in the package so that the configure script can test whether
+# the package is actually there.
+
 
 
 # Do some generic initialization work.
+
 
   # Check whether --enable-msvc was given.
 if test "${enable_msvc+set}" = set; then :
@@ -2266,10 +2172,13 @@ fi
 
 
 
-# we want --enable-msvc setup and checked
+# We want --enable-msvc setup and checked
 
 
-# this macro should run before the compiler checks (doesn't seem to be sufficient for CFLAGS)
+
+# This macro should run before the compiler checks (doesn't seem to be
+# sufficient for CFLAGS)
+
 
 
 
@@ -2278,19 +2187,20 @@ fi
 # change default compiler flags (TODO bring back --enable-debug)
 # - disable debugging (remove -g, set -DNDEBUG)
 # - enable exceptions for (i)cl
-if test "$enable_msvc" = yes ; then
-  : ${FFLAGS:=""}
-  : ${FCFLAGS:=""}
-  : ${CFLAGS:="-DNDEBUG -nologo"}
-  : ${CXXFLAGS:="-DNDEBUG -EHsc -nologo"}
-  : ${AR:="lib"}
-  : ${AR_FLAGS:="-nologo -out:"}
-else
-  : ${FFLAGS:=""}
-  : ${FCFLAGS:=""}
-  : ${CFLAGS:="-DNDEBUG"}
-  : ${CXXFLAGS:="-DNDEBUG"}
-fi
+
+  if test "$enable_msvc" = yes ; then
+    : ${FFLAGS:=""}
+    : ${FCFLAGS:=""}
+    : ${CFLAGS:="-DNDEBUG -nologo"}
+    : ${CXXFLAGS:="-DNDEBUG -EHsc -nologo"}
+    : ${AR:="lib"}
+    : ${AR_FLAGS:="-nologo -out:"}
+  else
+    : ${FFLAGS:=""}
+    : ${FCFLAGS:=""}
+    : ${CFLAGS:="-DNDEBUG"}
+    : ${CXXFLAGS:="-DNDEBUG"}
+  fi
 
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
@@ -2817,56 +2727,23 @@ else
 fi
 rmdir .tst 2>/dev/null
 
-# Check whether --enable-silent-rules was given.
-if test "${enable_silent_rules+set}" = set; then :
-  enableval=$enable_silent_rules;
-fi
 
-case $enable_silent_rules in # (((
-  yes) AM_DEFAULT_VERBOSITY=0;;
-   no) AM_DEFAULT_VERBOSITY=1;;
-    *) AM_DEFAULT_VERBOSITY=1;;
-esac
-am_make=${MAKE-make}
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
-$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
-if ${am_cv_make_support_nested_variables+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if $as_echo 'TRUE=$(BAR$(V))
-BAR0=false
-BAR1=true
-V=1
-am__doit:
-	@$(TRUE)
-.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
-  am_cv_make_support_nested_variables=yes
-else
-  am_cv_make_support_nested_variables=no
-fi
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
-$as_echo "$am_cv_make_support_nested_variables" >&6; }
-if test $am_cv_make_support_nested_variables = yes; then
-    AM_V='$(V)'
-  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
-else
-  AM_V=$AM_DEFAULT_VERBOSITY
-  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
-fi
-AM_BACKSLASH='\'
+# Enforce the required autoconf version
 
-
-# required autoconf version
 
 
 # Set the project's version numbers
+
 
 
 cat >>confdefs.h <<_ACEOF
 #define GLPK_VERSION "$PACKAGE_VERSION"
 _ACEOF
 
+
+# Parse package version, assuming major.minor.release. PACKAGE_VERSION is set
+# by AC_INIT. Force components to 9999 if they're empty; this deals with
+# things like `trunk' and other nonstandard forms.
 
   coin_majorver=`echo $PACKAGE_VERSION | sed -n -e 's/^\([0-9]*\).*/\1/gp'`
   coin_minorver=`echo $PACKAGE_VERSION | sed -n -e 's/^[0-9]*\.\([0-9]*\).*/\1/gp'`
@@ -2890,13 +2767,14 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-  # We use the following variable to have a string with the upper case
-  # version of the project name
+# Create a variable set to the upper case version of the project name
+
   COIN_PRJCT=GLPK
 
-  # Set the project's SVN revision number. The complicated sed expression
-  # (made worse by quadrigraphs) ensures that things like 4123:4168MS end up
-  # as a single number.
+# Set the project's SVN revision number. The complicated sed expression
+# (made worse by quadrigraphs) ensures that things like 4123:4168MS end up
+# as a single number.
+
   # Extract the first word of "svnversion", so it can be a program name with args.
 set dummy svnversion; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -2950,12 +2828,14 @@ _ACEOF
 
 
 
-# Capture libtool library version, if given.
+# Capture the libtool library version, if given.
+
 
 
 
 # A useful makefile conditional that is always false
- if false; then
+
+   if false; then
   ALWAYS_FALSE_TRUE=
   ALWAYS_FALSE_FALSE='#'
 else
@@ -2964,30 +2844,79 @@ else
 fi
 
 
-# Where should everything be installed by default?  Here, we want it
-# to be installed directly in 'bin', 'lib', 'include' subdirectories
-# of the directory where configure is run.  The default would be
-# /usr/local.
+# Where should everything be installed by default?  The COIN default is to
+# install directly into subdirectories of the directory where configure is
+# run. The default would be to install under /usr/local.
 
 
-# change default compiler flags; this needs to run very early (before AC_CANONICAL_BUILD)
+
+# Change the default compiler flags. This needs to run before
+# AC_CANONICAL_BUILD.
+
 
 
 # Get the build and host types
 
 
 
+
 # libtool has some magic for host_os=mingw, but doesn't know about msys
-if test $host_os = msys ; then
-  host_os=mingw
-  host=`echo $host | sed -e 's/msys/mingw/'`
+
+  if test $host_os = msys ; then
+    host_os=mingw
+    host=`echo $host | sed -e 's/msys/mingw/'`
+  fi
+
+# Make silent build rules the default (https://www.gnu.org/software/automake/
+# manual/html_node/Automake-Silent-Rules.html). Run before AM_INIT_AUTOMAKE,
+# which will AC_REQUIRE it anyway.
+
+  # Check whether --enable-silent-rules was given.
+if test "${enable_silent_rules+set}" = set; then :
+  enableval=$enable_silent_rules;
 fi
 
-# initialize automake
+case $enable_silent_rules in # (((
+  yes) AM_DEFAULT_VERBOSITY=0;;
+   no) AM_DEFAULT_VERBOSITY=1;;
+    *) AM_DEFAULT_VERBOSITY=0;;
+esac
+am_make=${MAKE-make}
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
+$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
+if ${am_cv_make_support_nested_variables+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if $as_echo 'TRUE=$(BAR$(V))
+BAR0=false
+BAR1=true
+V=1
+am__doit:
+	@$(TRUE)
+.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
+  am_cv_make_support_nested_variables=yes
+else
+  am_cv_make_support_nested_variables=no
+fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
+$as_echo "$am_cv_make_support_nested_variables" >&6; }
+if test $am_cv_make_support_nested_variables = yes; then
+    AM_V='$(V)'
+  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
+else
+  AM_V=$AM_DEFAULT_VERBOSITY
+  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
+fi
+AM_BACKSLASH='\'
+
+
+# Initialize automake
 # - don't define PACKAGE or VERSION
 # - disable dist target
 # - enable all automake warnings
-if test "`cd $srcdir && pwd`" != "`pwd`"; then
+
+  if test "`cd $srcdir && pwd`" != "`pwd`"; then
   # Use -I$(srcdir) only when $(srcdir) != ., so that make's output
   # is not polluted with repeated "-I."
   am__isrc=' -I$(srcdir)'
@@ -3094,48 +3023,8 @@ END
 fi
 
 
-# make silent build rules the default (https://www.gnu.org/software/automake/manual/html_node/Automake-Silent-Rules.html)
-# Check whether --enable-silent-rules was given.
-if test "${enable_silent_rules+set}" = set; then :
-  enableval=$enable_silent_rules;
-fi
+# Disable automatic rebuild of configure/Makefile. Use run_autotools.
 
-case $enable_silent_rules in # (((
-  yes) AM_DEFAULT_VERBOSITY=0;;
-   no) AM_DEFAULT_VERBOSITY=1;;
-    *) AM_DEFAULT_VERBOSITY=0;;
-esac
-am_make=${MAKE-make}
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
-$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
-if ${am_cv_make_support_nested_variables+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if $as_echo 'TRUE=$(BAR$(V))
-BAR0=false
-BAR1=true
-V=1
-am__doit:
-	@$(TRUE)
-.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
-  am_cv_make_support_nested_variables=yes
-else
-  am_cv_make_support_nested_variables=no
-fi
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
-$as_echo "$am_cv_make_support_nested_variables" >&6; }
-if test $am_cv_make_support_nested_variables = yes; then
-    AM_V='$(V)'
-  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
-else
-  AM_V=$AM_DEFAULT_VERBOSITY
-  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
-fi
-AM_BACKSLASH='\'
-
-
-# disable automatic rebuild of configure/Makefile
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
 $as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
@@ -3161,11 +3050,17 @@ fi
 
 
 
+# Make it appear as if --includedir was part of the command line, so that
+# glpk's install will put glpk.h in the proper place.
+
+ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin/ThirdParty"
+
 #############################################################################
 #                         Standard build tool stuff                         #
 #############################################################################
 
-# Get the name of the C compiler
+# Get the name of the C compiler and appropriate compiler options.
+
 DEPDIR="${am__leading_dot}deps"
 
 ac_config_commands="$ac_config_commands depfiles"
@@ -3231,20 +3126,24 @@ fi
 
 
 
-# setting up libtool invokes AC_PROG_CC, but as we may want to change the
-# order of compilers, we want to invoke it from this macro first
+
+# Setting up libtool with LT_INIT will AC_REQUIRE AC_PROG_CC, but we want
+# to invoke it from this macro first so that we can supply a parameter.
 
 
 
-# if enable-msvc, then test only for MS and Intel (on Windows) C compiler
+
+# If enable-msvc, then test only for MS and Intel (on Windows) C compiler
 # otherwise, test a long list of C compilers that comes into our mind
-if test $enable_msvc = yes ; then
-  comps="icl cl"
-else
-  # TODO old buildtools was doing some $build specific logic here, we still need this?
-  comps="gcc clang cc icc icl cl cc xlc xlc_r pgcc"
-fi
-ac_ext=c
+
+  if test $enable_msvc = yes ; then
+    comps="icl cl"
+  else
+    # TODO old buildtools was doing some $build specific logic here, do we
+    # still need this?
+    comps="gcc clang cc icc icl cl cc xlc xlc_r pgcc"
+  fi
+  ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
@@ -4031,6 +3930,7 @@ fi
 
 
 # Initialize libtool
+
 case `pwd` in
   *\ * | *\	*)
     { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Libtool does not cope well with whitespace in \`pwd\`" >&5
@@ -7730,12 +7630,13 @@ fi
 done
 
 
-# setup libtool parameters (https://www.gnu.org/software/libtool/manual/html_node/LT_005fINIT.html)
+# On Windows, shared C++ libraries do not work with the current libtool (it
+# handles only exports for C functions, not C++). On all other systems, build
+# shared libraries.
 
-case $host_os in
-  cygwin* | mingw* | msys* )
-    # on Windows, shared C++ libraries do not work with current libtool (handles only exports for C functions, not C++)
-    # Check whether --enable-shared was given.
+  case $host_os in
+    cygwin* | mingw* | msys* )
+      # Check whether --enable-shared was given.
 if test "${enable_shared+set}" = set; then :
   enableval=$enable_shared; p=${PACKAGE-default}
     case $enableval in
@@ -7766,9 +7667,9 @@ fi
 
 
 
-	;;
-  *)
-    # Check whether --enable-static was given.
+      ;;
+    *)
+      # Check whether --enable-static was given.
 if test "${enable_static+set}" = set; then :
   enableval=$enable_static; p=${PACKAGE-default}
     case $enableval in
@@ -7799,10 +7700,11 @@ fi
 
 
 
-	;;
-esac
+      ;;
+  esac
 
-# create libtool
+# Create libtool
+
 
 
 
@@ -11016,6 +10918,9 @@ fi
   # before this can be enabled.
   hardcode_into_libs=yes
 
+  # Add ABI-specific directories to the system library path.
+  sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib"
+
   # Ideally, we could use ldconfig to report *all* directores which are
   # searched for libraries, however this is still not possible.  Aside from not
   # being certain /sbin/ldconfig is available, command
@@ -11024,7 +10929,7 @@ fi
   # appending ld.so.conf contents (and includes) to the search path.
   if test -f /etc/ld.so.conf; then
     lt_ld_extra=`awk '/^include / { system(sprintf("cd /etc; cat %s 2>/dev/null", \$2)); skip = 1; } { if (!skip) print \$0; skip = 0; }' < /etc/ld.so.conf | $SED -e 's/#.*//;/^[	 ]*hwcap[	 ]/d;s/[:,	]/ /g;s/=[^=]*$//;s/=[^= ]* / /g;s/"//g;/^$/d' | tr '\n' ' '`
-    sys_lib_dlsearch_path_spec="/lib /usr/lib $lt_ld_extra"
+    sys_lib_dlsearch_path_spec="$sys_lib_dlsearch_path_spec $lt_ld_extra"
   fi
 
   # We used to test for /lib/ld.so.1 and disable shared libraries on
@@ -12044,454 +11949,31 @@ CC=$lt_save_CC
 
 
 
-# setup patch-up for libtool (need to be run after config.status created libtool)
-case "$AR" in
-  *lib* | *LIB* )
-     ac_config_commands="$ac_config_commands libtoolpatch"
+# Patch libtool to eliminate a trailing space after AR_FLAGS. This needs to be
+# run after config.status has created libtool. Apparently necessary on
+# Windows when lib.exe is the archive tool.
 
-	 ;;
-esac
+  case "$AR" in
+    *lib* | *LIB* )
+      ac_config_commands="$ac_config_commands libtoolpatch"
+
+      ;;
+  esac
 
 # -no-undefined is required for DLLs on Windows
-LT_LDFLAGS="-no-undefined"
 
+  LT_LDFLAGS="-no-undefined"
 
 
-###########################################################################
-#                            check GLPK version                           #
-###########################################################################
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking GLPK version" >&5
-$as_echo_n "checking GLPK version... " >&6; }
-glpkmajorver=`awk '/define GLP_MAJOR_VERSION/ {print $3}' $srcdir/glpk/src/glpk.h`
-glpkminorver=`awk '/define GLP_MINOR_VERSION/ {print $3}' $srcdir/glpk/src/glpk.h`
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: ${glpkmajorver}.${glpkminorver}" >&5
-$as_echo "${glpkmajorver}.${glpkminorver}" >&6; }
-if test x$glpkmajorver != x4 || test x$glpkminorver != x48 ; then
-  as_fn_error $? "\"Incorrect GLPK version. This build system is made for GLPK 4.48. Please update by rerunning get.GLPK\"" "$LINENO" 5
-fi
+# Invoke glpk's native configuration
 
 
 
-###########################################################################
-#                 Other packages and C functions                          #
-###########################################################################
+subdirs="$subdirs glpk"
 
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
-
-
-
-# Check whether --enable-gmp was given.
-if test "${enable_gmp+set}" = set; then :
-  enableval=$enable_gmp; coin_enable_gmp=$enableval
-else
-  coin_enable_gmp=yes
-fi
-
-
-coin_has_gmp=no
-if test $coin_enable_gmp = yes; then
-  ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-  ac_fn_c_check_header_mongrel "$LINENO" "gmp.h" "ac_cv_header_gmp_h" "$ac_includes_default"
-if test "x$ac_cv_header_gmp_h" = xyes; then :
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for __gmpz_init in -lgmp" >&5
-$as_echo_n "checking for __gmpz_init in -lgmp... " >&6; }
-if ${ac_cv_lib_gmp___gmpz_init+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lgmp  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char __gmpz_init ();
-int
-main ()
-{
-return __gmpz_init ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_gmp___gmpz_init=yes
-else
-  ac_cv_lib_gmp___gmpz_init=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_gmp___gmpz_init" >&5
-$as_echo "$ac_cv_lib_gmp___gmpz_init" >&6; }
-if test "x$ac_cv_lib_gmp___gmpz_init" = xyes; then :
-  coin_has_gmp=yes
-fi
-
-fi
-
-
-
-  if test $coin_has_gmp = yes ; then
-    GLPK_LIBS="-lgmp $GLPK_LIBS"
-
-$as_echo "#define COIN_HAS_GMP 1" >>confdefs.h
-
-  fi
-  ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-fi
-
-if test $coin_has_gmp = yes; then
-
-$as_echo "#define HAVE_GMP 1" >>confdefs.h
-
-fi
-
-ac_fn_c_check_func "$LINENO" "vsnprintf" "ac_cv_func_vsnprintf"
-if test "x$ac_cv_func_vsnprintf" = xyes; then :
-
-fi
-
-
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-
-#Does Glpk needs -lm? AC_COIN_CHECK_LIBM(Glpk)
-
-###########################################################################
-#                     Database connectivity                               #
-###########################################################################
-
-#whether we have any means to load shared libraries
-enable_dl=no
-
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-
-ac_fn_c_check_header_mongrel "$LINENO" "dlfcn.h" "ac_cv_header_dlfcn_h" "$ac_includes_default"
-if test "x$ac_cv_header_dlfcn_h" = xyes; then :
-  enable_dl=yes
-fi
-
-
-if test "$enable_dl" = "yes"; then
-  #if dlfcn.h is there, check also if libdl is there; if so, set corresponding define for GLPK
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for dlopen in -ldl" >&5
-$as_echo_n "checking for dlopen in -ldl... " >&6; }
-if ${ac_cv_lib_dl_dlopen+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-ldl  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char dlopen ();
-int
-main ()
-{
-return dlopen ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_dl_dlopen=yes
-else
-  ac_cv_lib_dl_dlopen=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_dl_dlopen" >&5
-$as_echo "$ac_cv_lib_dl_dlopen" >&6; }
-if test "x$ac_cv_lib_dl_dlopen" = xyes; then :
-
-$as_echo "#define HAVE_DLFCN 1" >>confdefs.h
-
-else
-  enable_dl=no
-fi
-
-  if test $enable_dl = yes; then
-    GLPK_LIBS="-ldl $GLPK_LIBS"
-  fi
-fi
-
-if test "$enable_dl" = "no"; then
-  ac_fn_c_check_header_mongrel "$LINENO" "ltdl.h" "ac_cv_header_ltdl_h" "$ac_includes_default"
-if test "x$ac_cv_header_ltdl_h" = xyes; then :
-  enable_dl=yes
-fi
-
-
-  if test "$enable_dl" = "yes"; then
-    #if ltdl.h is there, check also if libltdl is there; if so, set corresponding define for GLPK
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for lt_dlopen in -lldtl" >&5
-$as_echo_n "checking for lt_dlopen in -lldtl... " >&6; }
-if ${ac_cv_lib_ldtl_lt_dlopen+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lldtl  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char lt_dlopen ();
-int
-main ()
-{
-return lt_dlopen ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_ldtl_lt_dlopen=yes
-else
-  ac_cv_lib_ldtl_lt_dlopen=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_ldtl_lt_dlopen" >&5
-$as_echo "$ac_cv_lib_ldtl_lt_dlopen" >&6; }
-if test "x$ac_cv_lib_ldtl_lt_dlopen" = xyes; then :
-
-$as_echo "#define HAVE_LTDL 1" >>confdefs.h
-
-else
-  enable_dl=no
-fi
-
-    if test $enable_dl = yes; then
-      GLPK_LIBS="-lltdl $GLPK_LIBS"
-    fi
-  fi
-fi
-
-if test "$enable_dl" = "no"; then
-  ac_fn_c_check_header_mongrel "$LINENO" "windows.h" "ac_cv_header_windows_h" "$ac_includes_default"
-if test "x$ac_cv_header_windows_h" = xyes; then :
-  enable_dl=yes
-fi
-
-
-  if test "$enable_dl" = "yes"; then
-
-$as_echo "#define __WOE__ 1" >>confdefs.h
-
-  fi
-fi
-
-# Check whether --enable-odbc was given.
-if test "${enable_odbc+set}" = set; then :
-  enableval=$enable_odbc; case $enableval in
-     yes | unix)
-       ac_fn_c_check_header_mongrel "$LINENO" "sql.h" "ac_cv_header_sql_h" "$ac_includes_default"
-if test "x$ac_cv_header_sql_h" = xyes; then :
-
-else
-  as_fn_error $? "\"need sql.h to enable ODBC support\"" "$LINENO" 5
-fi
-
-
-       enable_odbc="$enableval"
-     ;;
-     no)
-       enable_odbc="no"
-     ;;
-     *)
-       as_fn_error $? "invalid value '$enableval' for --enable-odbc" "$LINENO" 5
-     ;;
-   esac
-else
-  ac_fn_c_check_header_mongrel "$LINENO" "sql.h" "ac_cv_header_sql_h" "$ac_includes_default"
-if test "x$ac_cv_header_sql_h" = xyes; then :
-  enable_odbc=yes
-else
-  enable_odbc=no
-fi
-
-
-
-fi
-
-
-# Check whether --enable-mysql was given.
-if test "${enable_mysql+set}" = set; then :
-  enableval=$enable_mysql; case $enableval in
-     yes)
-       ac_fn_c_check_header_mongrel "$LINENO" "mysql.h mysql/mysql.h" "ac_cv_header_mysql_h_mysql_mysql_h" "$ac_includes_default"
-if test "x$ac_cv_header_mysql_h_mysql_mysql_h" = xyes; then :
-
-else
-  as_fn_error $? "\"need mysql.h to enable MySQL support\"" "$LINENO" 5
-fi
-
-
-       enable_mysql="$enableval"
-     ;;
-     no)
-       enable_mysql="no"
-     ;;
-     *)
-       as_fn_error $? "invalid value '$enableval' for --enable-mysql" "$LINENO" 5
-     ;;
-   esac
-else
-  ac_fn_c_check_header_mongrel "$LINENO" "mysql.h mysql/mysql.h" "ac_cv_header_mysql_h_mysql_mysql_h" "$ac_includes_default"
-if test "x$ac_cv_header_mysql_h_mysql_mysql_h" = xyes; then :
-  enable_mysql=yes
-else
-  enable_mysql=no
-fi
-
-
-
-fi
-
-
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-
-if test "$enable_dl" = "yes" && ( test "$enable_odbc" = "yes" || test "$enable_odbc" = "unix"); then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking checking name of ODBC library" >&5
-$as_echo_n "checking checking name of ODBC library... " >&6; }
-  case $build in
-    *-cygwin* |  *-mingw32*)
-       case "$CC" in
-         *cl* )
-            odbclibname="odbc32.dll"
-         ;;
-         *) #FIXME: what are the correct library names for using ODBC with gnu compiler under Windows?
-            if test "$enable_odbc" = "yes"; then
-              odbclibname="libiodbc.dll"
-            else
-              odbclibname="libodbc.dll"
-            fi
-         ;;
-       esac
-    ;;
-    *-mingw64*)
-       case "$CC" in
-         *cl* )
-            odbclibname="odbc64.dll"
-         ;;
-         *) #FIXME: what are the correct library names for using ODBC with gnu compiler under Windows?
-            if test "$enable_odbc" = "yes"; then
-              odbclibname="libiodbc.dll"
-            else
-              odbclibname="libodbc.dll"
-            fi
-         ;;
-       esac
-    ;;
-    *-darwin*)
-       if test "$enable_odbc" = "yes"; then
-          odbclibname="libiodbc.dylib"
-       else
-          odbclibname="libodbc.dylib"
-       fi
-    ;;
-    *)
-       if test "$enable_odbc" = "yes"; then
-          odbclibname="libiodbc.so"
-       else
-          odbclibname="libodbc.so"
-       fi
-    ;;
-  esac
-
-
-cat >>confdefs.h <<_ACEOF
-#define ODBC_DLNAME "$odbclibname"
-_ACEOF
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $odbclibname" >&5
-$as_echo "$odbclibname" >&6; }
-fi
-
-if test "$enable_dl" = "yes" && test "$enable_mysql" = "yes" ; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking checking name of MySQL library" >&5
-$as_echo_n "checking checking name of MySQL library... " >&6; }
-  case $build in
-    *-cygwin* |  *-mingw*)
-       case "$CC" in
-         *cl* )
-            mysqllibname="libmysql.dll"
-         ;;
-         *) #FIXME: what is the correct library name for using MySQL with gnu compiler under Windows?
-            mysqllibname="libmysqlclient.dll"
-            CFLAGS="-I/usr/include/mysql $CFLAGS"
-         ;;
-       esac
-    ;;
-    *-darwin*)
-       mysqllibname="libmysqlclient.dylib"
-       CFLAGS="-I/usr/include/mysql $CFLAGS"
-    ;;
-    *)
-       mysqllibname="libmysqlclient.so"
-       CFLAGS="-I/usr/include/mysql $CFLAGS"
-    ;;
-  esac
-
-
-cat >>confdefs.h <<_ACEOF
-#define MYSQL_DLNAME "$mysqllibname"
-_ACEOF
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $mysqllibname" >&5
-$as_echo "$mysqllibname" >&6; }
-fi
+# Finish up
 
 GLPKDIR=glpk
 
@@ -12504,7 +11986,7 @@ ac_config_headers="$ac_config_headers config_glpk.h"
 
 
 
-cat >confcache <<\_ACEOF
+  cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
 # scripts and configure runs, see configure's option --config-cache.
@@ -13102,7 +12584,8 @@ $config_headers
 Configuration commands:
 $config_commands
 
-Report bugs to <http://projects.coin-or.org/BuildTools/newticket>."
+Report bugs to <http://projects.coin-or.org/BuildTools/newticket>.
+ThirdPartyGlpk home page: <http://projects.coin-or.org/BuildTools/browser/ThirdParty/Glpk>."
 
 _ACEOF
 cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
@@ -14757,12 +14240,9 @@ ltmain=$ac_aux_dir/ltmain.sh
   chmod +x "$ofile"
 
  ;;
-    "libtoolpatch":C)
-       # eliminate space after AR_FLAGS
-       sed -e 's|AR_FLAGS |AR_FLAGS|g' libtool > libtool.tmp
-       mv libtool.tmp libtool
-       chmod 755 libtool
-	  ;;
+    "libtoolpatch":C) sed -e 's|AR_FLAGS |AR_FLAGS|g' libtool > libtool.tmp
+	 mv libtool.tmp libtool
+	 chmod 755 libtool ;;
 
   esac
 done # for ac_tag
@@ -14796,15 +14276,161 @@ if test "$no_create" != yes; then
   # would make configure fail if this is the last instruction.
   $ac_cs_success || as_fn_exit 1
 fi
+
+#
+# CONFIG_SUBDIRS section.
+#
+if test "$no_recursion" != yes; then
+
+  # Remove --cache-file, --srcdir, and --disable-option-checking arguments
+  # so they do not pile up.
+  ac_sub_configure_args=
+  ac_prev=
+  eval "set x $ac_configure_args"
+  shift
+  for ac_arg
+  do
+    if test -n "$ac_prev"; then
+      ac_prev=
+      continue
+    fi
+    case $ac_arg in
+    -cache-file | --cache-file | --cache-fil | --cache-fi \
+    | --cache-f | --cache- | --cache | --cach | --cac | --ca | --c)
+      ac_prev=cache_file ;;
+    -cache-file=* | --cache-file=* | --cache-fil=* | --cache-fi=* \
+    | --cache-f=* | --cache-=* | --cache=* | --cach=* | --cac=* | --ca=* \
+    | --c=*)
+      ;;
+    --config-cache | -C)
+      ;;
+    -srcdir | --srcdir | --srcdi | --srcd | --src | --sr)
+      ac_prev=srcdir ;;
+    -srcdir=* | --srcdir=* | --srcdi=* | --srcd=* | --src=* | --sr=*)
+      ;;
+    -prefix | --prefix | --prefi | --pref | --pre | --pr | --p)
+      ac_prev=prefix ;;
+    -prefix=* | --prefix=* | --prefi=* | --pref=* | --pre=* | --pr=* | --p=*)
+      ;;
+    --disable-option-checking)
+      ;;
+    *)
+      case $ac_arg in
+      *\'*) ac_arg=`$as_echo "$ac_arg" | sed "s/'/'\\\\\\\\''/g"` ;;
+      esac
+      as_fn_append ac_sub_configure_args " '$ac_arg'" ;;
+    esac
+  done
+
+  # Always prepend --prefix to ensure using the same prefix
+  # in subdir configurations.
+  ac_arg="--prefix=$prefix"
+  case $ac_arg in
+  *\'*) ac_arg=`$as_echo "$ac_arg" | sed "s/'/'\\\\\\\\''/g"` ;;
+  esac
+  ac_sub_configure_args="'$ac_arg' $ac_sub_configure_args"
+
+  # Pass --silent
+  if test "$silent" = yes; then
+    ac_sub_configure_args="--silent $ac_sub_configure_args"
+  fi
+
+  # Always prepend --disable-option-checking to silence warnings, since
+  # different subdirs can have different --enable and --with options.
+  ac_sub_configure_args="--disable-option-checking $ac_sub_configure_args"
+
+  ac_popdir=`pwd`
+  for ac_dir in : $subdirs; do test "x$ac_dir" = x: && continue
+
+    # Do not complain, so a configure script can configure whichever
+    # parts of a large source tree are present.
+    test -d "$srcdir/$ac_dir" || continue
+
+    ac_msg="=== configuring in $ac_dir (`pwd`/$ac_dir)"
+    $as_echo "$as_me:${as_lineno-$LINENO}: $ac_msg" >&5
+    $as_echo "$ac_msg" >&6
+    as_dir="$ac_dir"; as_fn_mkdir_p
+    ac_builddir=.
+
+case "$ac_dir" in
+.) ac_dir_suffix= ac_top_builddir_sub=. ac_top_build_prefix= ;;
+*)
+  ac_dir_suffix=/`$as_echo "$ac_dir" | sed 's|^\.[\\/]||'`
+  # A ".." for each directory in $ac_dir_suffix.
+  ac_top_builddir_sub=`$as_echo "$ac_dir_suffix" | sed 's|/[^\\/]*|/..|g;s|/||'`
+  case $ac_top_builddir_sub in
+  "") ac_top_builddir_sub=. ac_top_build_prefix= ;;
+  *)  ac_top_build_prefix=$ac_top_builddir_sub/ ;;
+  esac ;;
+esac
+ac_abs_top_builddir=$ac_pwd
+ac_abs_builddir=$ac_pwd$ac_dir_suffix
+# for backward compatibility:
+ac_top_builddir=$ac_top_build_prefix
+
+case $srcdir in
+  .)  # We are building in place.
+    ac_srcdir=.
+    ac_top_srcdir=$ac_top_builddir_sub
+    ac_abs_top_srcdir=$ac_pwd ;;
+  [\\/]* | ?:[\\/]* )  # Absolute name.
+    ac_srcdir=$srcdir$ac_dir_suffix;
+    ac_top_srcdir=$srcdir
+    ac_abs_top_srcdir=$srcdir ;;
+  *) # Relative name.
+    ac_srcdir=$ac_top_build_prefix$srcdir$ac_dir_suffix
+    ac_top_srcdir=$ac_top_build_prefix$srcdir
+    ac_abs_top_srcdir=$ac_pwd/$srcdir ;;
+esac
+ac_abs_srcdir=$ac_abs_top_srcdir$ac_dir_suffix
+
+
+    cd "$ac_dir"
+
+    # Check for guested configure; otherwise get Cygnus style configure.
+    if test -f "$ac_srcdir/configure.gnu"; then
+      ac_sub_configure=$ac_srcdir/configure.gnu
+    elif test -f "$ac_srcdir/configure"; then
+      ac_sub_configure=$ac_srcdir/configure
+    elif test -f "$ac_srcdir/configure.in"; then
+      # This should be Cygnus configure.
+      ac_sub_configure=$ac_aux_dir/configure
+    else
+      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: no configuration information is in $ac_dir" >&5
+$as_echo "$as_me: WARNING: no configuration information is in $ac_dir" >&2;}
+      ac_sub_configure=
+    fi
+
+    # The recursion is here.
+    if test -n "$ac_sub_configure"; then
+      # Make the cache file name correct relative to the subdirectory.
+      case $cache_file in
+      [\\/]* | ?:[\\/]* ) ac_sub_cache_file=$cache_file ;;
+      *) # Relative name.
+	ac_sub_cache_file=$ac_top_build_prefix$cache_file ;;
+      esac
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: running $SHELL $ac_sub_configure $ac_sub_configure_args --cache-file=$ac_sub_cache_file --srcdir=$ac_srcdir" >&5
+$as_echo "$as_me: running $SHELL $ac_sub_configure $ac_sub_configure_args --cache-file=$ac_sub_cache_file --srcdir=$ac_srcdir" >&6;}
+      # The eval makes quoting arguments work.
+      eval "\$SHELL \"\$ac_sub_configure\" $ac_sub_configure_args \
+	   --cache-file=\"\$ac_sub_cache_file\" --srcdir=\"\$ac_srcdir\"" ||
+	as_fn_error $? "$ac_sub_configure failed for $ac_dir" "$LINENO" 5
+    fi
+
+    cd "$ac_popdir"
+  done
+fi
 if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&5
+  { $as_echo "$as_me:${as_lineno-$LINENO}: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&5
 $as_echo "$as_me: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&6;}
-{ $as_echo "$as_me:${as_lineno-$LINENO}: Configuration of $PACKAGE_NAME successful" >&5
+  { $as_echo "$as_me:${as_lineno-$LINENO}: Configuration of $PACKAGE_NAME successful" >&5
 $as_echo "$as_me: Configuration of $PACKAGE_NAME successful" >&6;}
+
 
 

@@ -1,37 +1,25 @@
 /* config_glpk.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define to 1 if GMP is available */
-#undef COIN_HAS_GMP
-
 /* SVN revision number of project */
 #undef GLPK_SVN_REV
 
 /* Version number of project */
 #undef GLPK_VERSION
 
-/* Major Version number of project */
+/* Major version number of project. */
 #undef GLPK_VERSION_MAJOR
 
-/* Minor Version number of project */
+/* Minor version number of project. */
 #undef GLPK_VERSION_MINOR
 
-/* Release Version number of project */
+/* Release version number of project. */
 #undef GLPK_VERSION_RELEASE
-
-/* Define to 1 if dlfcn support is available */
-#undef HAVE_DLFCN
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Define to 1 if GMP is available */
-#undef HAVE_GMP
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
-
-/* Define to 1 if ltdl support is available */
-#undef HAVE_LTDL
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
@@ -60,12 +48,6 @@
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
 
-/* "Set to the name of the MySQL dynamic library" */
-#undef MYSQL_DLNAME
-
-/* "Set to the name of the ODBC dynamic library" */
-#undef ODBC_DLNAME
-
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
 
@@ -86,6 +68,3 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
-
-/* Define to 1 if windows dll support is available */
-#undef __WOE__

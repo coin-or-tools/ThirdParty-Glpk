@@ -644,8 +644,6 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-GLPK_LIBS
-GLPKDIR
 subdirs
 LT_LDFLAGS
 CPP
@@ -11975,14 +11973,9 @@ subdirs="$subdirs glpk"
 
 # Finish up
 
-GLPKDIR=glpk
-
-
 ac_config_files="$ac_config_files Makefile coinglpk.pc"
 
 ac_config_headers="$ac_config_headers config_glpk.h"
-
-
 
 
 

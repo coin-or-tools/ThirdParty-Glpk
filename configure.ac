@@ -50,13 +50,8 @@ AC_CONFIG_SUBDIRS(glpk)
 
 # Finish up
 
-GLPKDIR=glpk
-AC_SUBST(GLPKDIR)
-
 AC_CONFIG_FILES([Makefile coinglpk.pc])
 AC_CONFIG_HEADER([config_glpk.h])
-
-AC_SUBST(GLPK_LIBS)
 
 AC_COIN_FINALIZE
 

@@ -30,7 +30,7 @@ AC_COIN_INITIALIZE(Glpk)
 # Make it appear as if --includedir was part of the command line, so that
 # glpk's install will put glpk.h in the proper place.
 
-ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin/ThirdParty"
+ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin-or/ThirdParty"
 
 #############################################################################
 #                         Standard build tool stuff                         #

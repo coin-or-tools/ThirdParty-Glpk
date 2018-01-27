@@ -2910,7 +2910,8 @@ AM_BACKSLASH='\'
 
 
 # Initialize automake
-# - don't define PACKAGE or VERSION
+# - don't AC_DEFINE PACKAGE or VERSION (but there're still defined as shell
+#   variables in configure, and as make variables).
 # - disable dist target
 # - enable all automake warnings
 
@@ -3051,7 +3052,7 @@ fi
 # Make it appear as if --includedir was part of the command line, so that
 # glpk's install will put glpk.h in the proper place.
 
-ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin/ThirdParty"
+ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin-or/ThirdParty"
 
 #############################################################################
 #                         Standard build tool stuff                         #

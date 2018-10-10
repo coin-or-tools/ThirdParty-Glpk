@@ -645,6 +645,8 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 subdirs
+DEPENDENCY_LINKING_FALSE
+DEPENDENCY_LINKING_TRUE
 LT_LDFLAGS
 CPP
 LT_SYS_LIBRARY_PATH
@@ -781,6 +783,7 @@ with_aix_soname
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
+enable_dependency_linking
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1421,11 +1424,14 @@ Optional Features:
                           do not reject slow dependency extractors
   --disable-dependency-tracking
                           speeds up one-time build
-  --enable-shared[=PKGS]  build shared libraries [default=no]
-  --enable-static[=PKGS]  build static libraries [default=no]
+  --enable-shared[=PKGS]  build shared libraries [default=yes]
+  --enable-static[=PKGS]  build static libraries [default=yes]
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
+  --enable-dependency-linking
+                          Link all library dependencies into shared libraries
+                          at creation (default=yes)
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -3128,7 +3134,6 @@ fi
 
 # Setting up libtool with LT_INIT will AC_REQUIRE AC_PROG_CC, but we want
 # to invoke it from this macro first so that we can supply a parameter.
-
 
 
 
@@ -7631,11 +7636,42 @@ done
 
 # On Windows, shared C++ libraries do not work with the current libtool (it
 # handles only exports for C functions, not C++). On all other systems, build
-# shared libraries.
+# only shared libraries.
 
-  case $host_os in
-    cygwin* | mingw* | msys* )
-      # Check whether --enable-shared was given.
+# (lh, 180302) Sadly, we can't use the obvious libtool macros
+# (AC_{ENABLE,DISABLE}_{SHARED,STATIC}, nor parameters to LT_INIT,
+# precisely because these macros record the default behaviour by defining
+# a macro, _LT_ENABLE_{SHARED,STATIC}_DEFAULT. No shell code involved, hence
+# any shell conditional has no effect. Either we trust libtool or we need
+# something more inventive. The relevant libtool macros are in ltoptions.m4,
+# _LT_ENABLE_SHARED and _LT_ENABLE_STATIC.
+
+# case $host_os in
+#   cygwin* | mingw* | msys* )
+#     AC_DISABLE_SHARED
+#     ;;
+#   *)
+#     AC_DISABLE_STATIC
+#     ;;
+# esac
+
+# Create libtool.
+
+
+
+
+
+# Set options
+
+
+
+        enable_dlopen=no
+
+
+  enable_win32_dll=no
+
+
+            # Check whether --enable-shared was given.
 if test "${enable_shared+set}" = set; then :
   enableval=$enable_shared; p=${PACKAGE-default}
     case $enableval in
@@ -7655,7 +7691,7 @@ if test "${enable_shared+set}" = set; then :
       ;;
     esac
 else
-  enable_shared=no
+  enable_shared=yes
 fi
 
 
@@ -7666,9 +7702,7 @@ fi
 
 
 
-      ;;
-    *)
-      # Check whether --enable-static was given.
+  # Check whether --enable-static was given.
 if test "${enable_static+set}" = set; then :
   enableval=$enable_static; p=${PACKAGE-default}
     case $enableval in
@@ -7688,34 +7722,13 @@ if test "${enable_static+set}" = set; then :
       ;;
     esac
 else
-  enable_static=no
+  enable_static=yes
 fi
 
 
 
 
 
-
-
-
-
-      ;;
-  esac
-
-# Create libtool
-
-
-
-
-
-# Set options
-
-
-
-        enable_dlopen=no
-
-
-  enable_win32_dll=no
 
 
 
@@ -11955,9 +11968,46 @@ CC=$lt_save_CC
       ;;
   esac
 
-# -no-undefined is required for DLLs on Windows
+# Set up LT_LDFLAGS. Add the library version string to LT_LDFLAGS, if one
+# is supplied.
 
-  LT_LDFLAGS="-no-undefined"
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if the library version is set" >&5
+$as_echo_n "checking if the library version is set... " >&6; }
+  if test x"$coin_libversion" != x ; then
+    LT_LDFLAGS="$LT_LDFLAGS -version-info $coin_libversion"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $coin_libversion" >&5
+$as_echo "$coin_libversion" >&6; }
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+  fi
+
+# Check if dependency linking is enabled or disabled.
+
+
+  # Check whether --enable-dependency-linking was given.
+if test "${enable_dependency_linking+set}" = set; then :
+  enableval=$enable_dependency_linking; dependency_linking="$enableval"
+else
+  dependency_linking=yes
+fi
+
+
+# AC_SUBST([LT_LDFLAGS])
+# if test "$dependency_linking" = yes ; then
+#   LT_LDFLAGS="$LT_LDFLAGS -no-undefined"
+# fi
+
+   if test "$dependency_linking" = yes; then
+  DEPENDENCY_LINKING_TRUE=
+  DEPENDENCY_LINKING_FALSE='#'
+else
+  DEPENDENCY_LINKING_TRUE='#'
+  DEPENDENCY_LINKING_FALSE=
+fi
+
+
 
 
 
@@ -12115,6 +12165,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${DEPENDENCY_LINKING_TRUE}" && test -z "${DEPENDENCY_LINKING_FALSE}"; then
+  as_fn_error $? "conditional \"DEPENDENCY_LINKING\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
@@ -12710,10 +12764,10 @@ AMDEP_TRUE="$AMDEP_TRUE" ac_aux_dir="$ac_aux_dir"
 sed_quote_subst='$sed_quote_subst'
 double_quote_subst='$double_quote_subst'
 delay_variable_subst='$delay_variable_subst'
-enable_shared='`$ECHO "$enable_shared" | $SED "$delay_single_quote_subst"`'
-enable_static='`$ECHO "$enable_static" | $SED "$delay_single_quote_subst"`'
 macro_version='`$ECHO "$macro_version" | $SED "$delay_single_quote_subst"`'
 macro_revision='`$ECHO "$macro_revision" | $SED "$delay_single_quote_subst"`'
+enable_shared='`$ECHO "$enable_shared" | $SED "$delay_single_quote_subst"`'
+enable_static='`$ECHO "$enable_static" | $SED "$delay_single_quote_subst"`'
 pic_mode='`$ECHO "$pic_mode" | $SED "$delay_single_quote_subst"`'
 enable_fast_install='`$ECHO "$enable_fast_install" | $SED "$delay_single_quote_subst"`'
 shared_archive_member_spec='`$ECHO "$shared_archive_member_spec" | $SED "$delay_single_quote_subst"`'
@@ -13739,15 +13793,15 @@ available_tags=''
 
 # ### BEGIN LIBTOOL CONFIG
 
+# Which release of libtool.m4 was used?
+macro_version=$macro_version
+macro_revision=$macro_revision
+
 # Whether or not to build shared libraries.
 build_libtool_libs=$enable_shared
 
 # Whether or not to build static libraries.
 build_old_libs=$enable_static
-
-# Which release of libtool.m4 was used?
-macro_version=$macro_version
-macro_revision=$macro_revision
 
 # What type of objects to build.
 pic_mode=$pic_mode

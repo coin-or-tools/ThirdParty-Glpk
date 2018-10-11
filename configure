@@ -645,6 +645,10 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 subdirs
+GLPK_DATA_PUB
+GLPK_PCFILES_PUB
+GLPK_CFLAGS_PUB
+GLPK_LFLAGS_PUB
 DEPENDENCY_LINKING_FALSE
 DEPENDENCY_LINKING_TRUE
 LT_LDFLAGS
@@ -3933,7 +3937,7 @@ fi
 
 
 
-# Initialize libtool
+# Initialise libtool
 
 case `pwd` in
   *\ * | *\	*)
@@ -12008,6 +12012,19 @@ else
 fi
 
 
+
+
+
+# Initialise variables for Glpk
+
+
+  GLPK_LFLAGS_PUB="-L\${libdir} -lcoinglpk"
+
+  GLPK_CFLAGS_PUB="-I\${includedir}"
+
+  GLPK_PCFILES_PUB=""
+
+  GLPK_DATA_PUB=\${datarootdir}/$PACKAGE_TARNAME
 
 
 

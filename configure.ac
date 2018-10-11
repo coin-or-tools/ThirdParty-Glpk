@@ -40,9 +40,13 @@ ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin-or/
 
 AC_COIN_PROG_CC
 
-# Initialize libtool
+# Initialise libtool
 
 AC_COIN_PROG_LIBTOOL
+
+# Initialise variables for Glpk
+
+AC_COIN_INIT_LIBVARS([Glpk],[-L\${libdir} -lcoinglpk],[-I\${includedir}])
 
 # Invoke glpk's native configuration
 

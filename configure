@@ -693,10 +693,6 @@ CC
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
-AM_BACKSLASH
-AM_DEFAULT_VERBOSITY
-AM_DEFAULT_V
-AM_V
 am__untar
 am__tar
 AMTAR
@@ -720,6 +716,10 @@ am__isrc
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
+AM_BACKSLASH
+AM_DEFAULT_VERBOSITY
+AM_DEFAULT_V
+AM_V
 host_os
 host_vendor
 host_cpu
@@ -1425,8 +1425,8 @@ Optional Features:
                           do not reject slow dependency extractors
   --disable-dependency-tracking
                           speeds up one-time build
-  --enable-shared[=PKGS]  build shared libraries [default=no]
-  --enable-static[=PKGS]  build static libraries [default=no]
+  --enable-shared[=PKGS]  build shared libraries [default=yes]
+  --enable-static[=PKGS]  build static libraries [default=yes]
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
@@ -2174,10 +2174,13 @@ fi
 
 
 
-# we want --enable-msvc setup and checked
+# We want --enable-msvc setup and checked
 
 
-# this macro should run before the compiler checks (doesn't seem to be sufficient for CFLAGS)
+
+# This macro should run before the compiler checks (doesn't seem to be
+# sufficient for CFLAGS)
+
 
 
 
@@ -2186,19 +2189,20 @@ fi
 # change default compiler flags (TODO bring back --enable-debug)
 # - disable debugging (remove -g, set -DNDEBUG)
 # - enable exceptions for (i)cl
-if test "$enable_msvc" = yes ; then
-  : ${FFLAGS:=""}
-  : ${FCFLAGS:=""}
-  : ${CFLAGS:="-DNDEBUG -nologo"}
-  : ${CXXFLAGS:="-DNDEBUG -EHsc -nologo"}
-  : ${AR:="lib"}
-  : ${AR_FLAGS:="-nologo -out:"}
-else
-  : ${FFLAGS:=""}
-  : ${FCFLAGS:=""}
-  : ${CFLAGS:="-DNDEBUG"}
-  : ${CXXFLAGS:="-DNDEBUG"}
-fi
+
+  if test "$enable_msvc" = yes ; then
+    : ${FFLAGS:=""}
+    : ${FCFLAGS:=""}
+    : ${CFLAGS:="-DNDEBUG -nologo"}
+    : ${CXXFLAGS:="-DNDEBUG -EHsc -nologo"}
+    : ${AR:="lib"}
+    : ${AR_FLAGS:="-nologo -out:"}
+  else
+    : ${FFLAGS:=""}
+    : ${FCFLAGS:=""}
+    : ${CFLAGS:="-DNDEBUG"}
+    : ${CXXFLAGS:="-DNDEBUG"}
+  fi
 
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
@@ -2725,56 +2729,23 @@ else
 fi
 rmdir .tst 2>/dev/null
 
-# Check whether --enable-silent-rules was given.
-if test "${enable_silent_rules+set}" = set; then :
-  enableval=$enable_silent_rules;
-fi
 
-case $enable_silent_rules in # (((
-  yes) AM_DEFAULT_VERBOSITY=0;;
-   no) AM_DEFAULT_VERBOSITY=1;;
-    *) AM_DEFAULT_VERBOSITY=1;;
-esac
-am_make=${MAKE-make}
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
-$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
-if ${am_cv_make_support_nested_variables+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if $as_echo 'TRUE=$(BAR$(V))
-BAR0=false
-BAR1=true
-V=1
-am__doit:
-	@$(TRUE)
-.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
-  am_cv_make_support_nested_variables=yes
-else
-  am_cv_make_support_nested_variables=no
-fi
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
-$as_echo "$am_cv_make_support_nested_variables" >&6; }
-if test $am_cv_make_support_nested_variables = yes; then
-    AM_V='$(V)'
-  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
-else
-  AM_V=$AM_DEFAULT_VERBOSITY
-  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
-fi
-AM_BACKSLASH='\'
+# Enforce the required autoconf version
 
-
-# required autoconf version
 
 
 # Set the project's version numbers
+
 
 
 cat >>confdefs.h <<_ACEOF
 #define GLPK_VERSION "$PACKAGE_VERSION"
 _ACEOF
 
+
+# Parse package version, assuming major.minor.release. PACKAGE_VERSION is set
+# by AC_INIT. Force components to 9999 if they're empty; this deals with
+# things like `trunk' and other nonstandard forms.
 
   coin_majorver=`echo $PACKAGE_VERSION | sed -n -e 's/^\([0-9]*\).*/\1/gp'`
   coin_minorver=`echo $PACKAGE_VERSION | sed -n -e 's/^[0-9]*\.\([0-9]*\).*/\1/gp'`
@@ -2798,13 +2769,14 @@ cat >>confdefs.h <<_ACEOF
 _ACEOF
 
 
-  # We use the following variable to have a string with the upper case
-  # version of the project name
+# Create a variable set to the upper case version of the project name
+
   COIN_PRJCT=GLPK
 
-  # Set the project's SVN revision number. The complicated sed expression
-  # (made worse by quadrigraphs) ensures that things like 4123:4168MS end up
-  # as a single number.
+# Set the project's SVN revision number. The complicated sed expression
+# (made worse by quadrigraphs) ensures that things like 4123:4168MS end up
+# as a single number.
+
   # Extract the first word of "svnversion", so it can be a program name with args.
 set dummy svnversion; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -2858,12 +2830,14 @@ _ACEOF
 
 
 
-# Capture libtool library version, if given.
+# Capture the libtool library version, if given.
+
 
 
 
 # A useful makefile conditional that is always false
- if false; then
+
+   if false; then
   ALWAYS_FALSE_TRUE=
   ALWAYS_FALSE_FALSE='#'
 else
@@ -2872,30 +2846,80 @@ else
 fi
 
 
-# Where should everything be installed by default?  Here, we want it
-# to be installed directly in 'bin', 'lib', 'include' subdirectories
-# of the directory where configure is run.  The default would be
-# /usr/local.
+# Where should everything be installed by default?  The COIN default is to
+# install directly into subdirectories of the directory where configure is
+# run. The default would be to install under /usr/local.
 
 
-# change default compiler flags; this needs to run very early (before AC_CANONICAL_BUILD)
+
+# Change the default compiler flags. This needs to run before
+# AC_CANONICAL_BUILD.
+
 
 
 # Get the build and host types
 
 
 
+
 # libtool has some magic for host_os=mingw, but doesn't know about msys
-if test $host_os = msys ; then
-  host_os=mingw
-  host=`echo $host | sed -e 's/msys/mingw/'`
+
+  if test $host_os = msys ; then
+    host_os=mingw
+    host=`echo $host | sed -e 's/msys/mingw/'`
+  fi
+
+# Make silent build rules the default (https://www.gnu.org/software/automake/
+# manual/html_node/Automake-Silent-Rules.html). Run before AM_INIT_AUTOMAKE,
+# which will AC_REQUIRE it anyway.
+
+  # Check whether --enable-silent-rules was given.
+if test "${enable_silent_rules+set}" = set; then :
+  enableval=$enable_silent_rules;
 fi
 
-# initialize automake
-# - don't define PACKAGE or VERSION
+case $enable_silent_rules in # (((
+  yes) AM_DEFAULT_VERBOSITY=0;;
+   no) AM_DEFAULT_VERBOSITY=1;;
+    *) AM_DEFAULT_VERBOSITY=0;;
+esac
+am_make=${MAKE-make}
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
+$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
+if ${am_cv_make_support_nested_variables+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if $as_echo 'TRUE=$(BAR$(V))
+BAR0=false
+BAR1=true
+V=1
+am__doit:
+	@$(TRUE)
+.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
+  am_cv_make_support_nested_variables=yes
+else
+  am_cv_make_support_nested_variables=no
+fi
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
+$as_echo "$am_cv_make_support_nested_variables" >&6; }
+if test $am_cv_make_support_nested_variables = yes; then
+    AM_V='$(V)'
+  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
+else
+  AM_V=$AM_DEFAULT_VERBOSITY
+  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
+fi
+AM_BACKSLASH='\'
+
+
+# Initialize automake
+# - don't AC_DEFINE PACKAGE or VERSION (but there're still defined as shell
+#   variables in configure, and as make variables).
 # - disable dist target
 # - enable all automake warnings
-if test "`cd $srcdir && pwd`" != "`pwd`"; then
+
+  if test "`cd $srcdir && pwd`" != "`pwd`"; then
   # Use -I$(srcdir) only when $(srcdir) != ., so that make's output
   # is not polluted with repeated "-I."
   am__isrc=' -I$(srcdir)'
@@ -3002,48 +3026,8 @@ END
 fi
 
 
-# make silent build rules the default (https://www.gnu.org/software/automake/manual/html_node/Automake-Silent-Rules.html)
-# Check whether --enable-silent-rules was given.
-if test "${enable_silent_rules+set}" = set; then :
-  enableval=$enable_silent_rules;
-fi
+# Disable automatic rebuild of configure/Makefile. Use run_autotools.
 
-case $enable_silent_rules in # (((
-  yes) AM_DEFAULT_VERBOSITY=0;;
-   no) AM_DEFAULT_VERBOSITY=1;;
-    *) AM_DEFAULT_VERBOSITY=0;;
-esac
-am_make=${MAKE-make}
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
-$as_echo_n "checking whether $am_make supports nested variables... " >&6; }
-if ${am_cv_make_support_nested_variables+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if $as_echo 'TRUE=$(BAR$(V))
-BAR0=false
-BAR1=true
-V=1
-am__doit:
-	@$(TRUE)
-.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
-  am_cv_make_support_nested_variables=yes
-else
-  am_cv_make_support_nested_variables=no
-fi
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
-$as_echo "$am_cv_make_support_nested_variables" >&6; }
-if test $am_cv_make_support_nested_variables = yes; then
-    AM_V='$(V)'
-  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
-else
-  AM_V=$AM_DEFAULT_VERBOSITY
-  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
-fi
-AM_BACKSLASH='\'
-
-
-# disable automatic rebuild of configure/Makefile
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
 $as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
@@ -3145,20 +3129,23 @@ fi
 
 
 
-# setting up libtool invokes AC_PROG_CC, but as we may want to change the
-# order of compilers, we want to invoke it from this macro first
+
+# Setting up libtool with LT_INIT will AC_REQUIRE AC_PROG_CC, but we want
+# to invoke it from this macro first so that we can supply a parameter.
 
 
 
-# if enable-msvc, then test only for MS and Intel (on Windows) C compiler
+# If enable-msvc, then test only for MS and Intel (on Windows) C compiler
 # otherwise, test a long list of C compilers that comes into our mind
-if test $enable_msvc = yes ; then
-  comps="icl cl"
-else
-  # TODO old buildtools was doing some $build specific logic here, we still need this?
-  comps="gcc clang cc icc icl cl cc xlc xlc_r pgcc"
-fi
-ac_ext=c
+
+  if test $enable_msvc = yes ; then
+    comps="icl cl"
+  else
+    # TODO old buildtools was doing some $build specific logic here, do we
+    # still need this?
+    comps="gcc clang cc icc icl cl cc xlc xlc_r pgcc"
+  fi
+  ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
@@ -7645,12 +7632,44 @@ fi
 done
 
 
-# setup libtool parameters (https://www.gnu.org/software/libtool/manual/html_node/LT_005fINIT.html)
+# On Windows, shared C++ libraries do not work with the current libtool (it
+# handles only exports for C functions, not C++). On all other systems, build
+# only shared libraries.
 
-case $host_os in
-  cygwin* | mingw* | msys* )
-    # on Windows, shared C++ libraries do not work with current libtool (handles only exports for C functions, not C++)
-    # Check whether --enable-shared was given.
+# (lh, 180302) Sadly, we can't use the obvious libtool macros
+# (AC_{ENABLE,DISABLE}_{SHARED,STATIC}, nor parameters to LT_INIT,
+# precisely because these macros record the default behaviour by defining
+# a macro, _LT_ENABLE_{SHARED,STATIC}_DEFAULT. No shell code involved, hence
+# any shell conditional has no effect. Either we trust libtool or we need
+# something more inventive. The relevant libtool macros are in ltoptions.m4,
+# _LT_ENABLE_SHARED and _LT_ENABLE_STATIC.
+
+# case $host_os in
+#   cygwin* | mingw* | msys* )
+#     AC_DISABLE_SHARED
+#     ;;
+#   *)
+#     AC_DISABLE_STATIC
+#     ;;
+# esac
+
+# Create libtool.
+
+
+
+
+
+# Set options
+
+
+
+        enable_dlopen=no
+
+
+  enable_win32_dll=no
+
+
+            # Check whether --enable-shared was given.
 if test "${enable_shared+set}" = set; then :
   enableval=$enable_shared; p=${PACKAGE-default}
     case $enableval in
@@ -7670,7 +7689,7 @@ if test "${enable_shared+set}" = set; then :
       ;;
     esac
 else
-  enable_shared=no
+  enable_shared=yes
 fi
 
 
@@ -7681,9 +7700,7 @@ fi
 
 
 
-	;;
-  *)
-    # Check whether --enable-static was given.
+  # Check whether --enable-static was given.
 if test "${enable_static+set}" = set; then :
   enableval=$enable_static; p=${PACKAGE-default}
     case $enableval in
@@ -7703,33 +7720,13 @@ if test "${enable_static+set}" = set; then :
       ;;
     esac
 else
-  enable_static=no
+  enable_static=yes
 fi
 
 
 
 
 
-
-
-
-
-	;;
-esac
-
-# create libtool
-
-
-
-
-# Set options
-
-
-
-        enable_dlopen=no
-
-
-  enable_win32_dll=no
 
 
 
@@ -8166,10 +8163,6 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
-## CAVEAT EMPTOR:
-## There is no encapsulation within the following macros, do not change
-## the running order or otherwise move them around unless you know exactly
-## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -11959,17 +11952,34 @@ CC=$lt_save_CC
 
 
 
-# setup patch-up for libtool (need to be run after config.status created libtool)
-case "$AR" in
-  *lib* | *LIB* )
-     ac_config_commands="$ac_config_commands libtoolpatch"
+# Patch libtool to eliminate a trailing space after AR_FLAGS. This needs to be
+# run after config.status has created libtool. Apparently necessary on
+# Windows when lib.exe is the archive tool.
 
-	 ;;
-esac
+  case "$AR" in
+    *lib* | *LIB* )
+      ac_config_commands="$ac_config_commands libtoolpatch"
 
-# -no-undefined is required for DLLs on Windows
-LT_LDFLAGS="-no-undefined"
+      ;;
+  esac
 
+# Set up LT_LDFLAGS. Add the library version string to LT_LDFLAGS, if one
+# is supplied.
+
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if the library version is set" >&5
+$as_echo_n "checking if the library version is set... " >&6; }
+  if test x"$coin_libversion" != x ; then
+    LT_LDFLAGS="$LT_LDFLAGS -version-info $coin_libversion"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $coin_libversion" >&5
+$as_echo "$coin_libversion" >&6; }
+  else
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+  fi
+
+  #TODO we should be able to add this flag
+  #LT_LDFLAGS="$LT_LDFLAGS -no-undefined"
 
 
 # Initialise variables for Glpk
@@ -12000,7 +12010,7 @@ ac_config_headers="$ac_config_headers config_glpk.h"
 
 
 
-cat >confcache <<\_ACEOF
+  cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
 # scripts and configure runs, see configure's option --config-cache.
@@ -12734,10 +12744,10 @@ AMDEP_TRUE="$AMDEP_TRUE" ac_aux_dir="$ac_aux_dir"
 sed_quote_subst='$sed_quote_subst'
 double_quote_subst='$double_quote_subst'
 delay_variable_subst='$delay_variable_subst'
-enable_shared='`$ECHO "$enable_shared" | $SED "$delay_single_quote_subst"`'
-enable_static='`$ECHO "$enable_static" | $SED "$delay_single_quote_subst"`'
 macro_version='`$ECHO "$macro_version" | $SED "$delay_single_quote_subst"`'
 macro_revision='`$ECHO "$macro_revision" | $SED "$delay_single_quote_subst"`'
+enable_shared='`$ECHO "$enable_shared" | $SED "$delay_single_quote_subst"`'
+enable_static='`$ECHO "$enable_static" | $SED "$delay_single_quote_subst"`'
 pic_mode='`$ECHO "$pic_mode" | $SED "$delay_single_quote_subst"`'
 enable_fast_install='`$ECHO "$enable_fast_install" | $SED "$delay_single_quote_subst"`'
 shared_archive_member_spec='`$ECHO "$shared_archive_member_spec" | $SED "$delay_single_quote_subst"`'
@@ -13763,15 +13773,15 @@ available_tags=''
 
 # ### BEGIN LIBTOOL CONFIG
 
+# Which release of libtool.m4 was used?
+macro_version=$macro_version
+macro_revision=$macro_revision
+
 # Whether or not to build shared libraries.
 build_libtool_libs=$enable_shared
 
 # Whether or not to build static libraries.
 build_old_libs=$enable_static
-
-# Which release of libtool.m4 was used?
-macro_version=$macro_version
-macro_revision=$macro_revision
 
 # What type of objects to build.
 pic_mode=$pic_mode
@@ -14254,12 +14264,9 @@ ltmain=$ac_aux_dir/ltmain.sh
   chmod +x "$ofile"
 
  ;;
-    "libtoolpatch":C)
-       # eliminate space after AR_FLAGS
-       sed -e 's|AR_FLAGS |AR_FLAGS|g' libtool > libtool.tmp
-       mv libtool.tmp libtool
-       chmod 755 libtool
-	  ;;
+    "libtoolpatch":C) sed -e 's|AR_FLAGS |AR_FLAGS|g' libtool > libtool.tmp
+         mv libtool.tmp libtool
+         chmod 755 libtool ;;
 
   esac
 done # for ac_tag
@@ -14444,9 +14451,9 @@ $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&5
+  { $as_echo "$as_me:${as_lineno-$LINENO}: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&5
 $as_echo "$as_me: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&6;}
-{ $as_echo "$as_me:${as_lineno-$LINENO}: Configuration of $PACKAGE_NAME successful" >&5
+  { $as_echo "$as_me:${as_lineno-$LINENO}: Configuration of $PACKAGE_NAME successful" >&5
 $as_echo "$as_me: Configuration of $PACKAGE_NAME successful" >&6;}
 
 

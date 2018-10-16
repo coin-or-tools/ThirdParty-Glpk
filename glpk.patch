@@ -57,3 +57,14 @@
           case GLP_ESING:
           case GLP_ECOND:
           case GLP_EBOUND:  ret = LPX_E_FAULT;   break;
+--- glpk/src/Makefile.in.orig	2018-10-16 21:18:30.860327447 +0200
++++ glpk/src/Makefile.in	2018-10-16 21:19:44.163286871 +0200
+@@ -262,7 +262,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-include_HEADERS = glpk.h
++include_HEADERS = glpk.h amd/amd.h
+ lib_LTLIBRARIES = libcoinglpk.la
+ libglpk_la_LDFLAGS = -version-info 33:0:0 \
+ -export-symbols-regex '^(glp_|_glp_lpx_).*'

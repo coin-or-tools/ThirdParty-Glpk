@@ -6,13 +6,13 @@
 /* Version number of project */
 #undef GLPK_VERSION
 
-/* Major version number of project. */
+/* Major Version number of project */
 #undef GLPK_VERSION_MAJOR
 
-/* Minor version number of project. */
+/* Minor Version number of project */
 #undef GLPK_VERSION_MINOR
 
-/* Release version number of project. */
+/* Release Version number of project */
 #undef GLPK_VERSION_RELEASE
 
 /* Define to 1 if you have the <dlfcn.h> header file. */

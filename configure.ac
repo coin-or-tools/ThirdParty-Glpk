@@ -44,10 +44,6 @@ AC_COIN_PROG_CC
 
 AC_COIN_PROG_LIBTOOL
 
-# Initialise variables for Glpk
-
-AC_COIN_INIT_LIBVARS([Glpk],[-L\${libdir} -lcoinglpk],[-I\${includedir}])
-
 # Invoke glpk's native configuration
 
 AC_CONFIG_SUBDIRS(glpk)

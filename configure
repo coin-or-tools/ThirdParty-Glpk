@@ -645,10 +645,6 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 subdirs
-GLPK_DATA_PUB
-GLPK_PCFILES_PUB
-GLPK_CFLAGS_PUB
-GLPK_LFLAGS_PUB
 LT_LDFLAGS
 CPP
 LT_SYS_LIBRARY_PATH
@@ -12272,19 +12268,6 @@ $as_echo "no" >&6; }
   # shared libraries should have no undefined symbols
   # for Windows DLLs, it is mandatory to add this
   LT_LDFLAGS="$LT_LDFLAGS -no-undefined"
-
-
-# Initialise variables for Glpk
-
-
-  GLPK_LFLAGS_PUB="-L\${libdir} -lcoinglpk"
-
-  GLPK_CFLAGS_PUB="-I\${includedir}"
-
-  GLPK_PCFILES_PUB=""
-
-  GLPK_DATA_PUB=\${datarootdir}/$PACKAGE_TARNAME
-
 
 
 # Invoke glpk's native configuration

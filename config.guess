@@ -2,7 +2,7 @@
 # Attempt to guess a canonical system name.
 #   Copyright 1992-2016 Free Software Foundation, Inc.
 
-timestamp='2016-10-02'
+timestamp='2018-03-08'
 
 # This file is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -107,9 +107,9 @@ trap "rm -f \$tmpfiles 2>/dev/null; rmdir \$tmp 2>/dev/null; exit 1" 1 2 13 15 ;
 dummy=$tmp/dummy ;
 tmpfiles="$dummy.c $dummy.o $dummy.rel $dummy" ;
 case $CC_FOR_BUILD,$HOST_CC,$CC in
- ,,)    echo "int x;" > $dummy.c ;
+ ,,)    echo "int x;" > "$dummy.c" ;
 	for c in cc gcc c89 c99 ; do
-	  if ($c -c -o $dummy.o $dummy.c) >/dev/null 2>&1 ; then
+	  if ($c -c -o "$dummy.o" "$dummy.c") >/dev/null 2>&1 ; then
 	     CC_FOR_BUILD="$c"; break ;
 	  fi ;
 	done ;
@@ -138,8 +138,8 @@ Linux|GNU|GNU/*)
 	# We could probably try harder.
 	LIBC=gnu
 
-	eval $set_cc_for_build
-	cat <<-EOF > $dummy.c
+	eval "$set_cc_for_build"
+	cat <<-EOF > "$dummy.c"
 	#include <features.h>
 	#if defined(__UCLIBC__)
 	LIBC=uclibc
@@ -192,7 +192,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
 		os=netbsdelf
 		;;
 	    arm*|i386|m68k|ns32k|sh3*|sparc|vax)
-		eval $set_cc_for_build
+		eval "$set_cc_for_build"
 		if echo __ELF__ | $CC_FOR_BUILD -E - 2>/dev/null \
 			| grep -q __ELF__
 		then
@@ -230,7 +230,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
 	# Since CPU_TYPE-MANUFACTURER-KERNEL-OPERATING_SYSTEM:
 	# contains redundant information, the shorter form:
 	# CPU_TYPE-MANUFACTURER-OPERATING_SYSTEM is used.
-	echo "${machine}-${os}${release}${abi}"
+	echo "$machine-${os}${release}${abi}"
 	exit ;;
     *:Bitrig:*:*)
 	UNAME_MACHINE_ARCH=`arch | sed 's/Bitrig.//'`
@@ -382,7 +382,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
 	echo i386-pc-auroraux${UNAME_RELEASE}
 	exit ;;
     i86pc:SunOS:5.*:* | i86xen:SunOS:5.*:*)
-	eval $set_cc_for_build
+	eval "$set_cc_for_build"
 	SUN_ARCH=i386
 	# If there is a compiler, see if it is configured for 64-bit objects.
 	# Note that the Sun cc does not turn __LP64__ into 1 like gcc does.
@@ -395,7 +395,7 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
 		SUN_ARCH=x86_64
 	    fi
 	fi
-	echo ${SUN_ARCH}-pc-solaris2`echo ${UNAME_RELEASE}|sed -e 's/[^.]*//'`
+	echo "$SUN_ARCH"-pc-solaris2"`echo "$UNAME_RELEASE"|sed -e 's/[^.]*//'`"
 	exit ;;
     sun4*:SunOS:6*:*)
 	# According to config.sub, this is the proper way to canonicalize
@@ -475,8 +475,8 @@ case "${UNAME_MACHINE}:${UNAME_SYSTEM}:${UNAME_RELEASE}:${UNAME_VERSION}" in
 	echo clipper-intergraph-clix${UNAME_RELEASE}
 	exit ;;
     mips:*:*:UMIPS | mips:*:*:RISCos)
-	eval $set_cc_for_build
-	sed 's/^	//' << EOF >$dummy.c
+	eval "$set_cc_for_build"
+	sed 's/^	//' << EOF > "$dummy.c"
 #ifdef __cplusplus
 #include <stdio.h>  /* for printf() prototype */
 	int main (int argc, char *argv[]) {
@@ -572,8 +572,8 @@ EOF
 	exit ;;
     *:AIX:2:3)
 	if grep bos325 /usr/include/stdio.h >/dev/null 2>&1; then
-		eval $set_cc_for_build
-		sed 's/^		//' << EOF >$dummy.c
+		eval "$set_cc_for_build"
+		sed 's/^		//' << EOF > "$dummy.c"
 		#include <sys/systemcfg.h>
 
 		main()
@@ -652,9 +652,9 @@ EOF
 			esac ;;
 		    esac
 		fi
-		if [ "${HP_ARCH}" = "" ]; then
-		    eval $set_cc_for_build
-		    sed 's/^		//' << EOF >$dummy.c
+		if [ "$HP_ARCH" = "" ]; then
+		    eval "$set_cc_for_build"
+		    sed 's/^		//' << EOF > "$dummy.c"
 
 		#define _HPUX_SOURCE
 		#include <stdlib.h>
@@ -693,7 +693,7 @@ EOF
 	esac
 	if [ ${HP_ARCH} = hppa2.0w ]
 	then
-	    eval $set_cc_for_build
+	    eval "$set_cc_for_build"
 
 	    # hppa2.0w-hp-hpux* has a 64-bit kernel and a compiler generating
 	    # 32-bit code.  hppa64-hp-hpux* has the same kernel and a compiler
@@ -719,8 +719,8 @@ EOF
 	echo ia64-hp-hpux${HPUX_REV}
 	exit ;;
     3050*:HI-UX:*:*)
-	eval $set_cc_for_build
-	sed 's/^	//' << EOF >$dummy.c
+	eval "$set_cc_for_build"
+	sed 's/^	//' << EOF > "$dummy.c"
 	#include <unistd.h>
 	int
 	main ()
@@ -831,7 +831,7 @@ EOF
 	echo sparc-unknown-bsdi${UNAME_RELEASE}
 	exit ;;
     *:BSD/OS:*:*)
-	echo ${UNAME_MACHINE}-unknown-bsdi${UNAME_RELEASE}
+	echo "$UNAME_MACHINE"-unknown-bsdi"$UNAME_RELEASE"
 	exit ;;
     *:FreeBSD:*:*)
 	UNAME_PROCESSOR=`/usr/bin/uname -p`
@@ -891,8 +891,8 @@ EOF
     amd64:CYGWIN*:*:* | x86_64:CYGWIN*:*:*)
 	echo x86_64-unknown-cygwin
 	exit ;;
-    p*:CYGWIN*:*)
-	echo powerpcle-unknown-cygwin
+    amd64:MSYS*:*:* | x86_64:MSYS*:*:*)
+	echo x86_64-unknown-msys
 	exit ;;
     prep*:SunOS:5.*:*)
 	echo powerpcle-unknown-solaris2`echo ${UNAME_RELEASE}|sed -e 's/[^.]*//'`
@@ -906,7 +906,7 @@ EOF
 	echo ${UNAME_MACHINE}-unknown-`echo ${UNAME_SYSTEM} | sed 's,^[^/]*/,,' | tr "[:upper:]" "[:lower:]"``echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'`-${LIBC}
 	exit ;;
     i*86:Minix:*:*)
-	echo ${UNAME_MACHINE}-pc-minix
+	echo "$UNAME_MACHINE"-pc-minix
 	exit ;;
     aarch64:Linux:*:*)
 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
@@ -933,7 +933,7 @@ EOF
 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
 	exit ;;
     arm*:Linux:*:*)
-	eval $set_cc_for_build
+	eval "$set_cc_for_build"
 	if echo __ARM_EABI__ | $CC_FOR_BUILD -E - 2>/dev/null \
 	    | grep -q __ARM_EABI__
 	then
@@ -982,8 +982,8 @@ EOF
 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
 	exit ;;
     mips:Linux:*:* | mips64:Linux:*:*)
-	eval $set_cc_for_build
-	sed 's/^	//' << EOF >$dummy.c
+	eval "$set_cc_for_build"
+	sed 's/^	//' << EOF > "$dummy.c"
 	#undef CPU
 	#undef ${UNAME_MACHINE}
 	#undef ${UNAME_MACHINE}el
@@ -1296,7 +1296,7 @@ EOF
 	exit ;;
     *:Darwin:*:*)
 	UNAME_PROCESSOR=`uname -p` || UNAME_PROCESSOR=unknown
-	eval $set_cc_for_build
+	eval "$set_cc_for_build"
 	if test "$UNAME_PROCESSOR" = unknown ; then
 	    UNAME_PROCESSOR=powerpc
 	fi

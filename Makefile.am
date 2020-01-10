@@ -4,7 +4,7 @@
 
 ## $Id$
 
-AUTOMAKE_OPTIONS = foreign subdir-objects
+AUTOMAKE_OPTIONS = foreign
 
 EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
 
@@ -26,5 +26,3 @@ unitTest test:
 CLEANFILES =
 
 DISTCLEANFILES =
-
-include BuildTools/Makemain.inc

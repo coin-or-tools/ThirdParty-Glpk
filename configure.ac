@@ -60,4 +60,3 @@ AC_CONFIG_FILES([Makefile coinglpk.pc])
 AC_CONFIG_HEADER([config_glpk.h])
 
 AC_COIN_FINALIZE
-

@@ -2,6 +2,7 @@
 /INSTALL.Glpk -text
 /Makefile.am -text
 /Makefile.in -text
+/captureConfigFiles -text
 /coinglpk.pc.in -text
 /compile -text
 /config.guess -text
@@ -12,7 +13,7 @@
 /configure.ac -text
 /depcomp -text
 /get.Glpk -text
-/glpk.patch -text
+/glpk-4.65_config.patch -text
 /install-sh -text
 /ltmain.sh -text
 /missing -text

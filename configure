@@ -684,7 +684,6 @@ ac_ct_CC
 CPPFLAGS
 LDFLAGS
 CFLAGS
-CC
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
@@ -719,14 +718,13 @@ host_os
 host_vendor
 host_cpu
 host
+CC
 build_os
 build_vendor
 build_cpu
 build
 ALWAYS_FALSE_FALSE
 ALWAYS_FALSE_TRUE
-GLPK_SVN_REV
-have_svnversion
 target_alias
 host_alias
 build_alias
@@ -770,6 +768,7 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 enable_msvc
+enable_debug
 enable_silent_rules
 enable_maintainer_mode
 enable_dependency_tracking
@@ -1410,8 +1409,10 @@ Optional Features:
   --disable-option-checking  ignore unrecognized --enable/--with options
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
-  --enable-msvc           Allow only Intel/Microsoft compilers on
-                          MinGW/MSys/Cygwin.
+  --enable-msvc           look for and allow only Intel/Microsoft compilers on
+                          MinGW/MSys/Cygwin
+  --enable-debug          build debugging symbols and turn off compiler
+                          optimization
   --enable-silent-rules   less verbose build output (undo: "make V=1")
   --disable-silent-rules  verbose build output (undo: "make V=0")
   --enable-maintainer-mode
@@ -2160,46 +2161,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 # Do some generic initialization work.
 
-
-  # Check whether --enable-msvc was given.
-if test "${enable_msvc+set}" = set; then :
-  enableval=$enable_msvc; enable_msvc=$enableval
-else
-  enable_msvc=no
-fi
-
-
-
-# We want --enable-msvc setup and checked
-
-
-
-# This macro should run before the compiler checks (doesn't seem to be
-# sufficient for CFLAGS)
-
-
-
-
-
-
-# change default compiler flags (TODO bring back --enable-debug)
-# - disable debugging (remove -g, set -DNDEBUG)
-# - enable exceptions for (i)cl
-
-  if test "$enable_msvc" = yes ; then
-    : ${FFLAGS:=""}
-    : ${FCFLAGS:=""}
-    : ${CFLAGS:="-DNDEBUG -nologo"}
-    : ${CXXFLAGS:="-DNDEBUG -EHsc -nologo"}
-    : ${AR:="lib"}
-    : ${AR_FLAGS:="-nologo -out:"}
-  else
-    : ${FFLAGS:=""}
-    : ${FCFLAGS:=""}
-    : ${CFLAGS:="-DNDEBUG"}
-    : ${CXXFLAGS:="-DNDEBUG"}
-  fi
-
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
   if test -f "$ac_dir/install-sh"; then
@@ -2266,6 +2227,119 @@ build_os=$*
 IFS=$ac_save_IFS
 case $build_os in *\ *) build_os=`echo "$build_os" | sed 's/ /-/g'`;; esac
 
+
+
+
+
+  # Check whether --enable-msvc was given.
+if test "${enable_msvc+set}" = set; then :
+  enableval=$enable_msvc; enable_msvc=$enableval
+else
+  enable_msvc=no
+     case $build in
+       *-mingw* | *-cygwin* | *-msys* )
+         for ac_prog in gcc clang icl cl
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_prog_CC+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -n "$CC"; then
+  ac_cv_prog_CC="$CC" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_prog_CC="$ac_prog"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+fi
+fi
+CC=$ac_cv_prog_CC
+if test -n "$CC"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CC" >&5
+$as_echo "$CC" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$CC" && break
+done
+
+         case "$CC" in *cl ) enable_msvc=yes ;; esac
+       ;;
+     esac
+fi
+
+
+
+  # We want --enable-msvc setup and checked
+
+
+  # Check whether --enable-debug was given.
+if test "${enable_debug+set}" = set; then :
+  enableval=$enable_debug; enable_debug=$enableval
+else
+  enable_debug=no
+fi
+
+
+# This macro should run before the compiler checks (doesn't seem to be
+# sufficient for CFLAGS)
+
+
+
+
+
+
+# change default compiler flags
+# - debugging enabled: enable debug symbols (-g/-Z7)
+# - debugging disabled: disable debug code (-DNDEBUG); enable (more) optimization (-O2)
+# - enable exceptions for (i)cl
+
+  if test "$enable_debug" = yes ; then
+    if test "$enable_msvc" = yes ; then
+      : ${FFLAGS:="-nologo -fpp -Z7 -MDd"}
+      : ${FCFLAGS:="-nologo -fpp -Z7 -MDd"}
+      : ${CFLAGS:="-nologo -Z7 -MDd"}
+      : ${CXXFLAGS:="-nologo -EHs -Z7 -MDd"}
+      : ${AR:="lib"}
+      : ${AR_FLAGS:="-nologo -out:"}
+    else
+      : ${FFLAGS:="-g"}
+      : ${FCFLAGS:="-g"}
+      : ${CFLAGS:="-g"}
+      : ${CXXFLAGS:="-g"}
+    fi
+  else
+    if test "$enable_msvc" = yes ; then
+      : ${FFLAGS:="-nologo -fpp -O2 -MD"}
+      : ${FCFLAGS:="-nologo -fpp -O2 -MD"}
+      : ${CFLAGS:="-nologo -DNDEBUG -O2 -MD"}
+      : ${CXXFLAGS:="-nologo -EHs -DNDEBUG -O2 -MD"}
+      : ${AR:="lib"}
+      : ${AR_FLAGS:="-nologo -out:"}
+    else
+      : ${FFLAGS:="-O2"}
+      : ${FCFLAGS:="-O2"}
+      : ${CFLAGS:="-O2 -DNDEBUG"}
+      : ${CXXFLAGS:="-O2 -DNDEBUG"}
+    fi
+  fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking host system type" >&5
 $as_echo_n "checking host system type... " >&6; }
@@ -2733,100 +2807,35 @@ rmdir .tst 2>/dev/null
 # Set the project's version numbers
 
 
+  # break up package version number in major.minor.release
+  # AC_PACKAGE_VERSION is defined by AC_INIT
+
+
+
+
+  # ac-define AC_PACKAGE_VERSION macros, use 9999 for missing values
 
 cat >>confdefs.h <<_ACEOF
-#define GLPK_VERSION "$PACKAGE_VERSION"
-_ACEOF
-
-
-# Parse package version, assuming major.minor.release. PACKAGE_VERSION is set
-# by AC_INIT. Force components to 9999 if they're empty; this deals with
-# things like `trunk' and other nonstandard forms.
-
-  coin_majorver=`echo $PACKAGE_VERSION | sed -n -e 's/^\([0-9]*\).*/\1/gp'`
-  coin_minorver=`echo $PACKAGE_VERSION | sed -n -e 's/^[0-9]*\.\([0-9]*\).*/\1/gp'`
-  coin_releasever=`echo $PACKAGE_VERSION | sed -n -e 's/^[0-9]*\.[0-9]*\.\([0-9]*\).*/\1/gp'`
-  test -z "$coin_majorver"   && coin_majorver=9999
-  test -z "$coin_minorver"   && coin_minorver=9999
-  test -z "$coin_releasever" && coin_releasever=9999
-
-cat >>confdefs.h <<_ACEOF
-#define GLPK_VERSION_MAJOR $coin_majorver
+#define GLPK_VERSION "trunk"
 _ACEOF
 
 
 cat >>confdefs.h <<_ACEOF
-#define GLPK_VERSION_MINOR $coin_minorver
+#define GLPK_VERSION_MAJOR 9999
 _ACEOF
 
 
 cat >>confdefs.h <<_ACEOF
-#define GLPK_VERSION_RELEASE $coin_releasever
+#define GLPK_VERSION_MINOR 9999
 _ACEOF
 
-
-# Create a variable set to the upper case version of the project name
-
-  COIN_PRJCT=GLPK
-
-# Set the project's SVN revision number. The complicated sed expression
-# (made worse by quadrigraphs) ensures that things like 4123:4168MS end up
-# as a single number.
-
-  # Extract the first word of "svnversion", so it can be a program name with args.
-set dummy svnversion; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_prog_have_svnversion+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  if test -n "$have_svnversion"; then
-  ac_cv_prog_have_svnversion="$have_svnversion" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_prog_have_svnversion="yes"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  test -z "$ac_cv_prog_have_svnversion" && ac_cv_prog_have_svnversion="no"
-fi
-fi
-have_svnversion=$ac_cv_prog_have_svnversion
-if test -n "$have_svnversion"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $have_svnversion" >&5
-$as_echo "$have_svnversion" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  if test "x$have_svnversion" = xyes; then
-
-    svn_rev_tmp=`LANG=en_EN svnversion $srcdir 2>/dev/null`
-    if test "x$svn_rev_tmp" != xexported -a "x$svn_rev_tmp" != x -a "x$svn_rev_tmp" != "xUnversioned directory"; then
-      GLPK_SVN_REV=`echo $svn_rev_tmp | sed -n -e 's/^[0-9]*://' -e 's/\([0-9]\)[^0-9]*$/\1/p'`
 
 cat >>confdefs.h <<_ACEOF
-#define GLPK_SVN_REV $GLPK_SVN_REV
+#define GLPK_VERSION_RELEASE 9999
 _ACEOF
 
-    fi
-  fi
 
 
-
-# Capture the libtool library version, if given.
 
 
 
@@ -3047,11 +3056,27 @@ fi
 
 
 
+# Figure out the path where libraries are installed.
+# Unless the user specifies --prefix, prefix is set to NONE until the
+# end of configuration, at which point it will be set to $ac_default_prefix.
+# Unless the user specifies --exec-prefix, exec-prefix is set to NONE until
+# the end of configuration, at which point it's set to '${prefix}'.
+# Sheesh.  So do the expansion, then back it out.
+  save_prefix=$prefix
+  save_exec_prefix=$exec_prefix
+  if test "x$prefix" = xNONE ; then
+    prefix=$ac_default_prefix
+  fi
+  if test "x$exec_prefix" = xNONE ; then
+    exec_prefix=$prefix
+  fi
+  expanded_libdir=$libdir
+  while expr "$expanded_libdir" : '.*$.*' >/dev/null 2>&1 ; do
+    eval expanded_libdir=$expanded_libdir
+  done
+  prefix=$save_prefix
+  exec_prefix=$save_exec_prefix
 
-# Make it appear as if --includedir was part of the command line, so that
-# glpk's install will put glpk.h in the proper place.
-
-ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin-or/ThirdParty"
 
 #############################################################################
 #                         Standard build tool stuff                         #
@@ -3125,28 +3150,82 @@ fi
 
 
 
-# Setting up libtool with LT_INIT will AC_REQUIRE AC_PROG_CC, but we want
-# to invoke it from this macro first so that we can supply a parameter.
+  # Setting up libtool with LT_INIT will AC_REQUIRE AC_PROG_CC, but we want
+  # to invoke it from this macro first so that we can supply a parameter.
 
 
-
-# If enable-msvc, then test only for MS and Intel (on Windows) C compiler
-# otherwise, test a long list of C compilers that comes into our mind
+  # If enable-msvc, then test for Intel (on Windows) and MS C compiler
+  # explicitly and add the compile wrapper before AC_PROG_CC. The compile
+  # wrapper works around issues related to finding MS link.exe. (Unix link.exe
+  # occurs first in PATH, which causes compile and link checks to fail.) For
+  # the same reason, set LD to use the compile wrapper. If CC remains unset
+  # (neither icl or cl was found, and CC was not set by the user), stop with
+  # an error.
 
   if test $enable_msvc = yes ; then
-    comps="icl cl"
-  else
-    # TODO old buildtools was doing some $build specific logic here, do we
-    # still need this?
-    comps="gcc clang cc icc icl cl cc xlc xlc_r pgcc"
+    for ac_prog in icl cl
+do
+  # Extract the first word of "$ac_prog", so it can be a program name with args.
+set dummy $ac_prog; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_prog_CC+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -n "$CC"; then
+  ac_cv_prog_CC="$CC" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_prog_CC="$ac_prog"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
   fi
+done
+  done
+IFS=$as_save_IFS
+
+fi
+fi
+CC=$ac_cv_prog_CC
+if test -n "$CC"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $CC" >&5
+$as_echo "$CC" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  test -n "$CC" && break
+done
+
+    if test -n "$CC" ; then
+      CC="$am_aux_dir/compile $CC"
+      ac_cv_prog_CC="$CC"
+      LD="$CC"
+    else
+      as_fn_error $? "Neither MS nor Intel C compiler found in PATH and CC is unset." "$LINENO" 5
+    fi
+  fi
+
+  # Look for some C compiler and check that it works. If the user has set CC
+  # or we found icl/cl above, this shouldn't overwrite CC. Unlike the macros
+  # that establish C++ or Fortran compilers, PROG_CC also takes care of adding
+  # the compile wrapper if needed.
+
   ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 if test -n "$ac_tool_prefix"; then
-  for ac_prog in $comps
+  for ac_prog in gcc clang cc icc icl cl cc xlc xlc_r pgcc
   do
     # Extract the first word of "$ac_tool_prefix$ac_prog", so it can be a program name with args.
 set dummy $ac_tool_prefix$ac_prog; ac_word=$2
@@ -3190,7 +3269,7 @@ fi
 fi
 if test -z "$CC"; then
   ac_ct_CC=$CC
-  for ac_prog in $comps
+  for ac_prog in gcc clang cc icc icl cl cc xlc xlc_r pgcc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -3926,7 +4005,7 @@ fi
 
 
 
-# Initialise libtool
+# Set up libtool.
 
 case `pwd` in
   *\ * | *\	*)
@@ -7621,19 +7700,6 @@ fi
 done
 
 
-# (lh, 180302) Sadly, we can't use the obvious libtool macros
-# (AC_{ENABLE,DISABLE}_{SHARED,STATIC}, nor parameters to LT_INIT,
-# precisely because these macros record the default behaviour by defining
-# a macro, _LT_ENABLE_{SHARED,STATIC}_DEFAULT. No shell code involved, hence
-# any shell conditional has no effect. Either we trust libtool or we need
-# something more inventive. The relevant libtool macros are in ltoptions.m4,
-# _LT_ENABLE_SHARED and _LT_ENABLE_STATIC.
-# That is, something like the following will not work:
-# case $host_os in
-#   cygwin* | mingw* | msys* ) AC_DISABLE_SHARED  ;;
-#   *) AC_DISABLE_STATIC ;;
-# esac
-
 # Create libtool.
 
 
@@ -9803,12 +9869,12 @@ fi
 
     cygwin* | mingw* | pw32* | cegcc*)
       # When not using gcc, we currently assume that we are using
-      # Microsoft Visual C++.
+      # Microsoft Visual C++ or Intel C++/Fortran Compiler.
       # hardcode_libdir_flag_spec is actually meaningless, as there is
       # no search path for DLLs.
       case $cc_basename in
-      cl*)
-	# Native MSVC
+      cl* | icl*| ifort*)
+	# Native MSVC or ICC or IFORT
 	hardcode_libdir_flag_spec=' '
 	allow_undefined_flag=unsupported
 	always_export_symbols=yes
@@ -9849,7 +9915,7 @@ fi
           fi'
 	;;
       *)
-	# Assume MSVC wrapper
+	# Assume MSVC and ICC and IFORT wrapper
 	hardcode_libdir_flag_spec=' '
 	allow_undefined_flag=unsupported
 	# Tell ltmain to make .lib files, not .a files.
@@ -10880,8 +10946,8 @@ cygwin* | mingw* | pw32* | cegcc*)
     dynamic_linker='Win32 ld.exe'
     ;;
 
-  *,cl*)
-    # Native MSVC
+  *,cl* | *,icl* | *,ifort*)
+    # Native MSVC or ICC or IFORT
     libname_spec='$name'
     soname_spec='$libname`echo $release | $SED -e 's/[.]/-/g'`$versuffix$shared_ext'
     library_names_spec='$libname.dll.lib'
@@ -11201,9 +11267,6 @@ fi
   # before this can be enabled.
   hardcode_into_libs=yes
 
-  # Add ABI-specific directories to the system library path.
-  sys_lib_dlsearch_path_spec="/lib64 /usr/lib64 /lib /usr/lib"
-
   # Ideally, we could use ldconfig to report *all* directores which are
   # searched for libraries, however this is still not possible.  Aside from not
   # being certain /sbin/ldconfig is available, command
@@ -11212,7 +11275,7 @@ fi
   # appending ld.so.conf contents (and includes) to the search path.
   if test -f /etc/ld.so.conf; then
     lt_ld_extra=`awk '/^include / { system(sprintf("cd /etc; cat %s 2>/dev/null", \$2)); skip = 1; } { if (!skip) print \$0; skip = 0; }' < /etc/ld.so.conf | $SED -e 's/#.*//;/^[	 ]*hwcap[	 ]/d;s/[:,	]/ /g;s/=[^=]*$//;s/=[^= ]* / /g;s/"//g;/^$/d' | tr '\n' ' '`
-    sys_lib_dlsearch_path_spec="$sys_lib_dlsearch_path_spec $lt_ld_extra"
+    sys_lib_dlsearch_path_spec="/lib /usr/lib $lt_ld_extra"
   fi
 
   # We used to test for /lib/ld.so.1 and disable shared libraries on
@@ -12232,36 +12295,72 @@ CC=$lt_save_CC
 
 
 
-# Patch libtool to eliminate a trailing space after AR_FLAGS. This needs to be
-# run after config.status has created libtool. Apparently necessary on
-# Windows when lib.exe is the archive tool.
+# Patch libtool to circumvent some issues when using MSVC and MS lib.
+# This needs to be run after config.status has created libtool.
+# 1. Eliminate a trailing space after AR_FLAGS. Apparently necessary on
+#    Windows when AR=lib.exe.
+# 2. Patch libtool's func_extract_an_archive in case of $AR=lib. The current
+#    libtool implementation assumes that it can do $AR x to extract an archive.
+#    We replace this two-liner in func_extract_an_archive by replacing the first
+#    line by something clunky that works with lib and making sure that the following
+#    line is ignored (by finishing with ": \"). We completely disregard running the
+#    command through func_show_eval and do not stop if it fails.
+# 3. Relax check which libraries can be used when linking a DLL.
+#    libtool's func_mode_link() would reject linking a .lib file when building a DLL,
+#    even though this .lib file may just be the one that eventually loads a depending DLL,
+#    e.g., mkl_core_dll.lib. Setting deplibs_check_method=pass_all will still print a
+#    warning, but the .lib is still passed to the linker.
+# 4. Ensure always_export_symbols=no if win32-dll. Even when we pass win32-dll,
+#    libtool forces always_export_symbols=yes for --tag=CXX if using MS compiler.
+#    This leads to a nm call that collects ALL C-functions from a library
+#    and explicitly dll-exporting them, leading to warnings about duplicates
+#    regarding those that are properly marked for dll-export in the source.
+#
+# Patch libtool also to circumvent some issues when using MinGW (Msys+GCC).
+# 1. Relax check which libraries can be used when linking a DLL.
+#    libtool's func_mode_link() would reject linking MinGW system libraries,
+#    e.g., -lmingw32, when building a DLL, because it does not find this
+#    library in the installation path, and then falls back to build only
+#    static libraries. Setting deplibs_check_method=pass_all will avoid
+#    this faulty check.
 
   case "$AR" in
     *lib* | *LIB* )
-      ac_config_commands="$ac_config_commands libtoolpatch"
+      ac_config_commands="$ac_config_commands libtoolclpatch"
 
+      ;;
+    * )
+      case $build in
+        *-mingw* )
+          ac_config_commands="$ac_config_commands libtoolmingwpatch"
+
+        ;;
+      esac
       ;;
   esac
 
-# Set up LT_LDFLAGS. Add the library version string to LT_LDFLAGS, if one
-# is supplied.
+  # Set up LT_LDFLAGS.
 
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if the library version is set" >&5
-$as_echo_n "checking if the library version is set... " >&6; }
-  if test x"$coin_libversion" != x ; then
-    LT_LDFLAGS="$LT_LDFLAGS -version-info $coin_libversion"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $coin_libversion" >&5
-$as_echo "$coin_libversion" >&6; }
-  else
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-  fi
+  # Use the libtool library info, if defined, otherwise use the project version info,
+  # if a full major.minor.release number was available
+
 
   # shared libraries should have no undefined symbols
   # for Windows DLLs, it is mandatory to add this
   LT_LDFLAGS="$LT_LDFLAGS -no-undefined"
 
+
+# Make it appear as if --includedir was part of the command line, so that
+# glpk's install will put glpk.h in the proper place. Suppress reentrancy &
+# static library generation. Pass CFLAGS via a cache variable to avoid
+# complaints about changing the environment.
+
+ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin-or/ThirdParty"
+ac_configure_args="$ac_configure_args --enable-reentrant=no"
+ac_configure_args="$ac_configure_args --enable-static=no"
+
+ctpglpk_cv_cflags="$CFLAGS"
 
 # Invoke glpk's native configuration
 
@@ -13299,7 +13398,8 @@ do
   case $ac_config_target in
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
-    "libtoolpatch") CONFIG_COMMANDS="$CONFIG_COMMANDS libtoolpatch" ;;
+    "libtoolclpatch") CONFIG_COMMANDS="$CONFIG_COMMANDS libtoolclpatch" ;;
+    "libtoolmingwpatch") CONFIG_COMMANDS="$CONFIG_COMMANDS libtoolmingwpatch" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "coinglpk.pc") CONFIG_FILES="$CONFIG_FILES coinglpk.pc" ;;
     "config_glpk.h") CONFIG_HEADERS="$CONFIG_HEADERS config_glpk.h" ;;
@@ -14538,9 +14638,16 @@ ltmain=$ac_aux_dir/ltmain.sh
   chmod +x "$ofile"
 
  ;;
-    "libtoolpatch":C) sed -e 's|AR_FLAGS |AR_FLAGS|g' libtool > libtool.tmp
+    "libtoolclpatch":C) sed -e 's|AR_FLAGS |AR_FLAGS|g' \
+             -e '/$AR x/s/.*/( cd $f_ex_an_ar_dir ; for f in `$AR -nologo -list "$f_ex_an_ar_oldlib" | tr "\\r" " "` ; do lib -nologo -extract:$f "$f_ex_an_ar_oldlib"; done ); : \\/g' \
+             -e '/^deplibs_check_method/s/.*/deplibs_check_method="pass_all"/g' \
+             -e 's|always_export_symbols=yes|always_export_symbols=no|g' \
+         libtool > libtool.tmp
          mv libtool.tmp libtool
          chmod 755 libtool ;;
+    "libtoolmingwpatch":C) sed -e '/^deplibs_check_method/s/.*/deplibs_check_method="pass_all"/g' libtool > libtool.tmp
+             mv libtool.tmp libtool
+             chmod 755 libtool ;;
 
   esac
 done # for ac_tag
@@ -14725,10 +14832,8 @@ $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
 
-  { $as_echo "$as_me:${as_lineno-$LINENO}: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&5
-$as_echo "$as_me: In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting" >&6;}
+  #AC_MSG_NOTICE([In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting])
   { $as_echo "$as_me:${as_lineno-$LINENO}: Configuration of $PACKAGE_NAME successful" >&5
 $as_echo "$as_me: Configuration of $PACKAGE_NAME successful" >&6;}
-
 
 

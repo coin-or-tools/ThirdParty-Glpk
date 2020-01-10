@@ -1,7 +1,8 @@
 #!/bin/sh
 
 set -e
-glpk_ver=4.48
+glpk_ver=4.65
+glpk_config_tar=glpk-${glpk_ver}_config.tar
 
 wgetcmd=wget
 wgetcount=`which wget 2>/dev/null | wc -l`
@@ -50,11 +51,19 @@ echo " "
 echo "Done downloading the source code for GLPK."
 echo "Applying patch file."
 
-patch -p0 < glpk.patch
+if test -r "$glpk_config_tar" ; then
+  echo "Installing modified configuration files."
+  tar -x -f ${glpk_config_tar} --directory=glpk
+fi 
 
 echo "Touch every source file to force rebuild of whole package."
 
-touch glpk/src/*.c glpk/src/*/*.c
+if ls glpk/src/*.c &>/dev/null ; then
+  touch glpk/src/*.c
+fi
+if ls glpk/src/*/*.c &>/dev/null ; then
+  touch glpk/src/*/*.c
+fi
 
 echo " "
 echo "Verify that there are no error message in the output above."

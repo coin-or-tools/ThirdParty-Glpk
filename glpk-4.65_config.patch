@@ -1,0 +1,77 @@
+--- glpk/configure.ac	2018-02-15 23:00:00.000000000 -0800
++++ glpk/configure.ac	2020-01-07 12:13:08.449766200 -0800
+@@ -8,6 +8,16 @@
+ 
+ AM_INIT_AUTOMAKE
+ 
++# Set defaults to disable automatic execution of autotools and use silent
++# rules. This matches COIN defaults. If you need to rebuild from autotools
++# sources, use COIN run_autotools. DO NOT use the libtool macros in the local
++# m4 directory (run_autotools will avoid this, but the maintainer mode rules
++# will not).
++
++AM_MAINTAINER_MODE
++AM_SILENT_RULES([yes])
++CFLAGS="$ctpglpk_cv_cflags"
++
+ AC_CONFIG_HEADERS([config.h])
+ 
+ AC_ARG_WITH(gmp,
+@@ -175,10 +185,12 @@
+    AC_MSG_RESULT([no])
+ fi
+ 
++# Patched to add Msys to the set of Windows environments.
++
+ AC_MSG_CHECKING(
+    [if libtool needs -no-undefined flag to build shared libraries])
+ case "${host}" in
+-   *-*-cygwin* | *-*-mingw* | *-*-aix*)
++   *-*-cygwin* | *-*-mingw* | *-*-aix* | *-*-msys*)
+       ## Add in the -no-undefined flag to LDFLAGS for libtool.
+       AC_MSG_RESULT([yes])
+       NOUNDEFINED=" -no-undefined"
+--- glpk/examples/Makefile.am	2018-02-15 23:00:00.000000000 -0800
++++ glpk/examples/Makefile.am	2020-01-07 10:19:20.000000000 -0800
+@@ -2,7 +2,9 @@
+ 
+ AM_CPPFLAGS = -I$(srcdir)/../src
+ 
+-LDADD = ../src/libglpk.la
++# Change name from libglpk to libcoinglpk.
++
++LDADD = ../src/libcoinglpk.la
+ 
+ bin_PROGRAMS = glpsol
+ 
+--- glpk/src/Makefile.am	2018-02-15 23:00:00.000000000 -0800
++++ glpk/src/Makefile.am	2020-01-07 10:18:54.000000000 -0800
+@@ -2,9 +2,11 @@
+ 
+ include_HEADERS = glpk.h
+ 
+-lib_LTLIBRARIES = libglpk.la
++# Change name from libglpk to libcoinglpk.
+ 
+-libglpk_la_CPPFLAGS = \
++lib_LTLIBRARIES = libcoinglpk.la
++
++libcoinglpk_la_CPPFLAGS = \
+ -I$(srcdir) \
+ -I$(srcdir)/amd \
+ -I$(srcdir)/api \
+@@ -21,12 +23,12 @@
+ -I$(srcdir)/simplex \
+ -I$(srcdir)/zlib
+ 
+-libglpk_la_LDFLAGS = \
++libcoinglpk_la_LDFLAGS = \
+ -version-info 43:0:3 \
+ -export-symbols-regex '^glp_*' \
+ ${NOUNDEFINED}
+ 
+-libglpk_la_SOURCES = \
++libcoinglpk_la_SOURCES = \
+ amd/amd_1.c \
+ amd/amd_2.c \
+ amd/amd_aat.c \

@@ -25,7 +25,7 @@ echo " "
 rm -f glpk*.tar.gz
 
 echo "Downloading the source code from ftp.gnu.org..."
-$wgetcmd ftp://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
+$wgetcmd http://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
 
 echo "Uncompressing the tarball..."
 gunzip -f glpk-${glpk_ver}.tar.gz

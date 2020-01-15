@@ -47,6 +47,9 @@ rm glpk-${glpk_ver}.tar
 
 mv glpk-${glpk_ver} glpk
 
+echo "Hiding glpk's m4 directory to avoid obsolete libtool macros."
+mv glpk/m4 glpk/m4.hidden
+
 echo "Patching configuration source files ..."
 patch -p0 < glpk_config.patch
 

@@ -40,15 +40,10 @@ AC_COIN_PROG_CC
 AC_COIN_PROG_LIBTOOL
 
 # Make it appear as if --includedir was part of the command line, so that
-# glpk's install will put glpk.h in the proper place. Suppress reentrancy &
-# static library generation. Pass CFLAGS via a cache variable to avoid
-# complaints about changing the environment.
+# glpk's install will put glpk.h in the proper place. Suppress reentrancy.
 
 ac_configure_args="$ac_configure_args --includedir=\\\${prefix}/include/coin-or/glpk"
 ac_configure_args="$ac_configure_args --enable-reentrant=no"
-ac_configure_args="$ac_configure_args --enable-static=no"
-
-ctpglpk_cv_cflags="$CFLAGS"
 
 # Invoke glpk's native configuration
 

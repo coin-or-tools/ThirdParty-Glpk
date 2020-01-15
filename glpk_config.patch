@@ -1,66 +1,71 @@
 --- glpk/configure.ac	2018-02-15 23:00:00.000000000 -0800
-+++ glpk/configure.ac	2020-01-07 12:13:08.449766200 -0800
-@@ -8,6 +8,16 @@
++++ glpk/configure.ac	2020-01-14 17:12:57.170996200 -0800
+@@ -4,9 +4,26 @@
  
- AM_INIT_AUTOMAKE
+ AC_CONFIG_SRCDIR([src/glpk.h])
  
-+# Set defaults to disable automatic execution of autotools and use silent
-+# rules. This matches COIN defaults. If you need to rebuild from autotools
-+# sources, use COIN run_autotools. DO NOT use the libtool macros in the local
-+# m4 directory (run_autotools will avoid this, but the maintainer mode rules
-+# will not).
+-AC_CONFIG_MACRO_DIR([m4])
++# Add standard COIN initialisation and build macros.
+ 
+-AM_INIT_AUTOMAKE
++AC_COIN_INITIALIZE(glpk)
 +
-+AM_MAINTAINER_MODE
-+AM_SILENT_RULES([yes])
-+CFLAGS="$ctpglpk_cv_cflags"
++# Get the name of the C compiler and appropriate compiler options. If the
++# compile script is already in the cached name from ThirdParty/Glpk's
++# configure, strip it. COIN_PROG_CC will wrap it again. Quadrigraphs
++# because autoconf processing eats square brackets.
 +
++if expr "$ac_cv_prog_CC" : '^.*/compile @<:@^ @:>@*$' >/dev/null 2>&1 ; then
++  ac_cv_prog_CC=`expr "$ac_cv_prog_CC" : '^.*/compile \(@<:@^ @:>@*\)$'`
++  CC=$ac_cv_prog_CC
++fi
++AC_COIN_PROG_CC
++
++# Set up libtool.
++
++AC_COIN_PROG_LIBTOOL
++
++# End of COIN macros.
+ 
  AC_CONFIG_HEADERS([config.h])
  
- AC_ARG_WITH(gmp,
-@@ -175,10 +185,12 @@
-    AC_MSG_RESULT([no])
- fi
+@@ -56,16 +73,6 @@
+       esac],
+    [enable_reentrant=yes])
  
-+# Patched to add Msys to the set of Windows environments.
-+
- AC_MSG_CHECKING(
-    [if libtool needs -no-undefined flag to build shared libraries])
- case "${host}" in
--   *-*-cygwin* | *-*-mingw* | *-*-aix*)
-+   *-*-cygwin* | *-*-mingw* | *-*-aix* | *-*-msys*)
-       ## Add in the -no-undefined flag to LDFLAGS for libtool.
-       AC_MSG_RESULT([yes])
-       NOUNDEFINED=" -no-undefined"
---- glpk/examples/Makefile.am	2018-02-15 23:00:00.000000000 -0800
-+++ glpk/examples/Makefile.am	2020-01-07 10:19:20.000000000 -0800
-@@ -2,7 +2,9 @@
- 
- AM_CPPFLAGS = -I$(srcdir)/../src
- 
--LDADD = ../src/libglpk.la
-+# Change name from libglpk to libcoinglpk.
-+
-+LDADD = ../src/libcoinglpk.la
- 
- bin_PROGRAMS = glpsol
+-dnl Disable unnecessary libtool tests
+-define([AC_LIBTOOL_LANG_CXX_CONFIG], [:])
+-define([AC_LIBTOOL_LANG_F77_CONFIG], [:])
+-define([AC_LIBTOOL_LANG_GCJ_CONFIG], [:])
+-
+-dnl Check for programs
+-AC_PROG_CC
+-AC_PROG_INSTALL
+-AC_PROG_LIBTOOL
+-
+ dnl Check for math library
+ AC_CHECK_LIB([m], [exp])
  
 --- glpk/src/Makefile.am	2018-02-15 23:00:00.000000000 -0800
-+++ glpk/src/Makefile.am	2020-01-07 10:18:54.000000000 -0800
-@@ -2,9 +2,11 @@
++++ glpk/src/Makefile.am	2020-01-14 14:24:47.532399900 -0800
+@@ -1,10 +1,14 @@
+ ## Process this file with automake to produce Makefile.in ##
  
++AUTOMAKE_OPTIONS = subdir-objects
++
  include_HEADERS = glpk.h
  
 -lib_LTLIBRARIES = libglpk.la
 +# Change name from libglpk to libcoinglpk.
++
++lib_LTLIBRARIES = libcoinglpk.la
  
 -libglpk_la_CPPFLAGS = \
-+lib_LTLIBRARIES = libcoinglpk.la
-+
 +libcoinglpk_la_CPPFLAGS = \
  -I$(srcdir) \
  -I$(srcdir)/amd \
  -I$(srcdir)/api \
-@@ -21,12 +23,12 @@
+@@ -21,12 +25,12 @@
  -I$(srcdir)/simplex \
  -I$(srcdir)/zlib
  
@@ -75,3 +80,16 @@
  amd/amd_1.c \
  amd/amd_2.c \
  amd/amd_aat.c \
+--- glpk/examples/Makefile.am	2018-02-15 23:00:00.000000000 -0800
++++ glpk/examples/Makefile.am	2020-01-14 13:46:52.053812700 -0800
+@@ -2,7 +2,9 @@
+ 
+ AM_CPPFLAGS = -I$(srcdir)/../src
+ 
+-LDADD = ../src/libglpk.la
++# Change name from libglpk to libcoinglpk.
++
++LDADD = ../src/libcoinglpk.la
+ 
+ bin_PROGRAMS = glpsol
+ 

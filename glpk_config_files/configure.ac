@@ -4,19 +4,26 @@ AC_INIT([GLPK], [4.65], [bug-glpk@gnu.org])
 
 AC_CONFIG_SRCDIR([src/glpk.h])
 
-AC_CONFIG_MACRO_DIR([m4])
+# Add standard COIN initialisation and build macros.
 
-AM_INIT_AUTOMAKE
+AC_COIN_INITIALIZE(glpk)
 
-# Set defaults to disable automatic execution of autotools and use silent
-# rules. This matches COIN defaults. If you need to rebuild from autotools
-# sources, use COIN run_autotools. DO NOT use the libtool macros in the local
-# m4 directory (run_autotools will avoid this, but the maintainer mode rules
-# will not).
+# Get the name of the C compiler and appropriate compiler options. If the
+# compile script is already in the cached name from ThirdParty/Glpk's
+# configure, strip it. COIN_PROG_CC will wrap it again. Quadrigraphs
+# because autoconf processing eats square brackets.
 
-AM_MAINTAINER_MODE
-AM_SILENT_RULES([yes])
-CFLAGS="$ctpglpk_cv_cflags"
+if expr "$ac_cv_prog_CC" : '^.*/compile @<:@^ @:>@*$' >/dev/null 2>&1 ; then
+  ac_cv_prog_CC=`expr "$ac_cv_prog_CC" : '^.*/compile \(@<:@^ @:>@*\)$'`
+  CC=$ac_cv_prog_CC
+fi
+AC_COIN_PROG_CC
+
+# Set up libtool.
+
+AC_COIN_PROG_LIBTOOL
+
+# End of COIN macros.
 
 AC_CONFIG_HEADERS([config.h])
 
@@ -65,16 +72,6 @@ AC_HELP_STRING([--enable-reentrant],
          [invalid value `$enableval' for --enable-reentrant]);;
       esac],
    [enable_reentrant=yes])
-
-dnl Disable unnecessary libtool tests
-define([AC_LIBTOOL_LANG_CXX_CONFIG], [:])
-define([AC_LIBTOOL_LANG_F77_CONFIG], [:])
-define([AC_LIBTOOL_LANG_GCJ_CONFIG], [:])
-
-dnl Check for programs
-AC_PROG_CC
-AC_PROG_INSTALL
-AC_PROG_LIBTOOL
 
 dnl Check for math library
 AC_CHECK_LIB([m], [exp])
@@ -185,12 +182,10 @@ else
    AC_MSG_RESULT([no])
 fi
 
-# Patched to add Msys to the set of Windows environments.
-
 AC_MSG_CHECKING(
    [if libtool needs -no-undefined flag to build shared libraries])
 case "${host}" in
-   *-*-cygwin* | *-*-mingw* | *-*-aix* | *-*-msys*)
+   *-*-cygwin* | *-*-mingw* | *-*-aix*)
       ## Add in the -no-undefined flag to LDFLAGS for libtool.
       AC_MSG_RESULT([yes])
       NOUNDEFINED=" -no-undefined"

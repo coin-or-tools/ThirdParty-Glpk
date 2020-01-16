@@ -6,8 +6,6 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-EXTRA_DIST = get.GLPK INSTALL.Glpk glpk.patch
-
 pkgconfiglibdir = $(libdir)/pkgconfig
 pkgconfiglib_DATA = coinglpk.pc
 
@@ -18,11 +16,3 @@ SUBDIRS=@subdirs@
 unitTest test:
 	@echo "Running glpk 'make check'"
 	@cd glpk ; $(MAKE) check
-
-########################################################################
-#                         Maintainer Stuff                             #
-########################################################################
-
-CLEANFILES =
-
-DISTCLEANFILES =

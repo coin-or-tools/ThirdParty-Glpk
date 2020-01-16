@@ -31,14 +31,6 @@ AC_COIN_INITIALIZE(Glpk)
 #                         Standard build tool stuff                         #
 #############################################################################
 
-# Get the name of the C compiler and appropriate compiler options.
-
-AC_COIN_PROG_CC
-
-# Set up libtool.
-
-AC_COIN_PROG_LIBTOOL
-
 # Make it appear as if --includedir was part of the command line, so that
 # glpk's install will put glpk.h in the proper place. Suppress reentrancy.
 
@@ -52,6 +44,5 @@ AC_CONFIG_SUBDIRS(glpk)
 # Finish up
 
 AC_CONFIG_FILES([Makefile coinglpk.pc])
-AC_CONFIG_HEADER([config_glpk.h])
 
 AC_COIN_FINALIZE

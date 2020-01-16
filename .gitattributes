@@ -8,7 +8,6 @@
 /config.guess -text
 /config.h -text
 /config.sub -text
-/config_glpk.h.in -text
 /configure -text
 /configure.ac -text
 /depcomp -text

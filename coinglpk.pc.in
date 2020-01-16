@@ -1,7 +1,8 @@
 prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
-includedir=@includedir@
+# cannot use @includedir@, as this is overwritten in configure
+includedir=@prefix@/include/coin-or/glpk
 
 Name: Glpk
 Description: Gnu Linear Programming Kit

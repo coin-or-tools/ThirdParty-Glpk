@@ -1,7 +1,7 @@
 #!/bin/sh
 
 set -e
-glpk_ver=4.48
+glpk_ver=4.65
 
 wgetcmd=wget
 wgetcount=`which wget 2>/dev/null | wc -l`
@@ -25,7 +25,7 @@ echo " "
 rm -f glpk*.tar.gz
 
 echo "Downloading the source code from ftp.gnu.org..."
-$wgetcmd ftp://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
+$wgetcmd http://ftp.gnu.org/gnu/glpk/glpk-${glpk_ver}.tar.gz
 
 echo "Uncompressing the tarball..."
 gunzip -f glpk-${glpk_ver}.tar.gz
@@ -48,13 +48,18 @@ mv glpk-${glpk_ver} glpk
 
 echo " "
 echo "Done downloading the source code for GLPK."
-echo "Applying patch file."
 
-patch -p0 < glpk.patch
+echo "Installing modified configuration files."
+cp -r glpk_config_files/* glpk/
 
 echo "Touch every source file to force rebuild of whole package."
 
-touch glpk/src/*.c glpk/src/*/*.c
+if ls glpk/src/*.c &>/dev/null ; then
+  touch glpk/src/*.c
+fi
+if ls glpk/src/*/*.c &>/dev/null ; then
+  touch glpk/src/*/*.c
+fi
 
 echo " "
 echo "Verify that there are no error message in the output above."

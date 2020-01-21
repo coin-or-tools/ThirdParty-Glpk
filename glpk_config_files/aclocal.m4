@@ -1281,8 +1281,7 @@ AC_DEFUN([AC_COIN_COMPFLAGS_DEFAULTS],
   AC_REQUIRE([AC_COIN_ENABLE_MSVC])
 
   AC_ARG_ENABLE([debug],
-    [AC_HELP_STRING([--enable-debug],
-       [build debugging symbols and turn off compiler optimization])],
+    [AC_HELP_STRING([--enable-debug],[build debugging symbols and turn off compiler optimization])],
     [enable_debug=$enableval],
     [enable_debug=no])
 
@@ -1301,31 +1300,31 @@ AC_DEFUN([AC_COIN_COMPFLAGS_DEFAULTS],
 
   if test "$enable_debug" = yes ; then
     if test "$enable_msvc" = yes ; then
-      : ${FFLAGS:="-nologo -fpp -Z7 -MDd"}
-      : ${FCFLAGS:="-nologo -fpp -Z7 -MDd"}
-      : ${CFLAGS:="-nologo -Z7 -MDd"}
-      : ${CXXFLAGS:="-nologo -EHs -Z7 -MDd"}
+      : ${FFLAGS:="-nologo -fpp -Z7 -MDd $ADD_FFLAGS"}
+      : ${FCFLAGS:="-nologo -fpp -Z7 -MDd $ADD_FCFLAGS"}
+      : ${CFLAGS:="-nologo -Z7 -MDd $ADD_CFLAGS"}
+      : ${CXXFLAGS:="-nologo -EHs -Z7 -MDd $ADD_CXXFLAGS"}
       : ${AR:="lib"}
       : ${AR_FLAGS:="-nologo -out:"}
     else
-      : ${FFLAGS:="-g"}
-      : ${FCFLAGS:="-g"}
-      : ${CFLAGS:="-g"}
-      : ${CXXFLAGS:="-g"}
+      : ${FFLAGS:="-g $ADD_FFLAGS"}
+      : ${FCFLAGS:="-g $ADD_FCFLAGS"}
+      : ${CFLAGS:="-g $ADD_CFLAGS"}
+      : ${CXXFLAGS:="-g $ADD_CXXFLAGS"}
     fi
   else
     if test "$enable_msvc" = yes ; then
-      : ${FFLAGS:="-nologo -fpp -O2 -MD"}
-      : ${FCFLAGS:="-nologo -fpp -O2 -MD"}
-      : ${CFLAGS:="-nologo -DNDEBUG -O2 -MD"}
-      : ${CXXFLAGS:="-nologo -EHs -DNDEBUG -O2 -MD"}
+      : ${FFLAGS:="-nologo -fpp -O2 -MD $ADD_FFLAGS"}
+      : ${FCFLAGS:="-nologo -fpp -O2 -MD $ADD_FCFLAGS"}
+      : ${CFLAGS:="-nologo -DNDEBUG -O2 -MD $ADD_CFLAGS"}
+      : ${CXXFLAGS:="-nologo -EHs -DNDEBUG -O2 -MD $ADD_CXXFLAGS"}
       : ${AR:="lib"}
       : ${AR_FLAGS:="-nologo -out:"}
     else
-      : ${FFLAGS:="-O2"}
-      : ${FCFLAGS:="-O2"}
-      : ${CFLAGS:="-O2 -DNDEBUG"}
-      : ${CXXFLAGS:="-O2 -DNDEBUG"}
+      : ${FFLAGS:="-O2 $ADD_FFLAGS"}
+      : ${FCFLAGS:="-O2 $ADD_FCFLAGS"}
+      : ${CFLAGS:="-O2 -DNDEBUG $ADD_CFLAGS"}
+      : ${CXXFLAGS:="-O2 -DNDEBUG $ADD_CXXFLAGS"}
     fi
   fi
 ])
@@ -1444,6 +1443,15 @@ AC_DEFUN([AC_COIN_INITIALIZE],
   done
   prefix=$save_prefix
   exec_prefix=$save_exec_prefix
+
+# add a configure flag to indicate whether .pc files should be made relocatable
+# off by default, as it creates libtool warnings
+  AC_ARG_ENABLE([relocatable],
+    [AC_HELP_STRING([--enable-relocatable],
+       [whether prefix in installed .pc files should be setup relative to pcfiledir])],
+    [coin_enable_relocatable=$enableval],
+    [coin_enable_relocatable=no])
+  AM_CONDITIONAL([COIN_RELOCATABLE], [test $coin_enable_relocatable = yes])
 ])
 
 
@@ -1574,6 +1582,9 @@ AC_DEFUN_ONCE([AC_COIN_PROG_CC],
   # the compile wrapper if needed.
 
   AC_PROG_CC([gcc clang cc icc icl cl cc xlc xlc_r pgcc])
+
+  # Declare precious variable for additional compiler flags
+  AC_ARG_VAR(ADD_CFLAGS,[Additional C compiler options (if not overwriting CFLAGS)])
 ])
 
 # Note that automake redefines AC_PROG_CXX to invoke _AM_DEPENDENCIES
@@ -1615,6 +1626,9 @@ AC_DEFUN_ONCE([AC_COIN_PROG_CXX],
   if test $ac_cv_prog_cxx_c_o = no ; then
     CXX="$am_aux_dir/compile $CXX"
   fi
+
+  # Declare precious variable for additional compiler flags
+  AC_ARG_VAR(ADD_CXXFLAGS,[Additional C++ compiler options (if not overwriting CXXFLAGS)])
 ])
 
 #                             COIN_CXXLIBS                                #

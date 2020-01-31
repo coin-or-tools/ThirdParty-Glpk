@@ -7,7 +7,7 @@ includedir=@prefix@/include/coin-or/glpk
 
 Name: Glpk
 Description: Gnu Linear Programming Kit
-URL: https://projects.coin-or.org/BuildTools
+URL: https://github.com/coin-or-tools/ThirdParty-Glpk
 Version: @PACKAGE_VERSION@
 Libs: -L${libdir} -lcoinglpk
 Cflags: -I${includedir}

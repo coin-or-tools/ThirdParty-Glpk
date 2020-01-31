@@ -9,8 +9,8 @@
 #############################################################################
 
 AC_INIT([ThirdPartyGlpk],[trunk],
-  [http://projects.coin-or.org/BuildTools/newticket],[thirdpartyglpk],
-  [http://projects.coin-or.org/BuildTools/browser/ThirdParty/Glpk])
+  [https://github.com/coin-or-tools/ThirdParty-Glpk/issues/new],[thirdpartyglpk],
+  [https://github.com/coin-or-tools/ThirdParty-Glpk/])
 
 AC_COPYRIGHT([
 Copyright 2007-2010 Stefan Vigerske and others.

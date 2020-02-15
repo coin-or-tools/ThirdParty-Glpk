@@ -1,5 +1,6 @@
 * text=auto !eol
 /INSTALL.Glpk -text
+/LICENSE -text
 /Makefile.am -text
 /Makefile.in -text
 /captureConfigFiles -text

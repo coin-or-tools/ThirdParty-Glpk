@@ -56,6 +56,66 @@ m4_ifndef([AC_AUTOCONF_VERSION],
   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
 _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
 
+# Copyright (C) 2011-2018 Free Software Foundation, Inc.
+#
+# This file is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# AM_PROG_AR([ACT-IF-FAIL])
+# -------------------------
+# Try to determine the archiver interface, and trigger the ar-lib wrapper
+# if it is needed.  If the detection of archiver interface fails, run
+# ACT-IF-FAIL (default is to abort configure with a proper error message).
+AC_DEFUN([AM_PROG_AR],
+[AC_BEFORE([$0], [LT_INIT])dnl
+AC_BEFORE([$0], [AC_PROG_LIBTOOL])dnl
+AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
+AC_REQUIRE_AUX_FILE([ar-lib])dnl
+AC_CHECK_TOOLS([AR], [ar lib "link -lib"], [false])
+: ${AR=ar}
+
+AC_CACHE_CHECK([the archiver ($AR) interface], [am_cv_ar_interface],
+  [AC_LANG_PUSH([C])
+   am_cv_ar_interface=ar
+   AC_COMPILE_IFELSE([AC_LANG_SOURCE([[int some_variable = 0;]])],
+     [am_ar_try='$AR cru libconftest.a conftest.$ac_objext >&AS_MESSAGE_LOG_FD'
+      AC_TRY_EVAL([am_ar_try])
+      if test "$ac_status" -eq 0; then
+        am_cv_ar_interface=ar
+      else
+        am_ar_try='$AR -NOLOGO -OUT:conftest.lib conftest.$ac_objext >&AS_MESSAGE_LOG_FD'
+        AC_TRY_EVAL([am_ar_try])
+        if test "$ac_status" -eq 0; then
+          am_cv_ar_interface=lib
+        else
+          am_cv_ar_interface=unknown
+        fi
+      fi
+      rm -f conftest.lib libconftest.a
+     ])
+   AC_LANG_POP([C])])
+
+case $am_cv_ar_interface in
+ar)
+  ;;
+lib)
+  # Microsoft lib, so override with the ar-lib wrapper script.
+  # FIXME: It is wrong to rewrite AR.
+  # But if we don't then we get into trouble of one sort or another.
+  # A longer-term fix would be to have automake use am__AR in this case,
+  # and then we could set am__AR="$am_aux_dir/ar-lib \$(AR)" or something
+  # similar.
+  AR="$am_aux_dir/ar-lib $AR"
+  ;;
+unknown)
+  m4_default([$1],
+             [AC_MSG_ERROR([could not determine $AR interface])])
+  ;;
+esac
+AC_SUBST([AR])dnl
+])
+
 # AM_AUX_DIR_EXPAND                                         -*- Autoconf -*-
 
 # Copyright (C) 2001-2018 Free Software Foundation, Inc.
@@ -1304,8 +1364,6 @@ AC_DEFUN([AC_COIN_COMPFLAGS_DEFAULTS],
       : ${FCFLAGS:="-nologo -fpp -Z7 -MDd $ADD_FCFLAGS"}
       : ${CFLAGS:="-nologo -Z7 -MDd $ADD_CFLAGS"}
       : ${CXXFLAGS:="-nologo -EHs -Z7 -MDd $ADD_CXXFLAGS"}
-      : ${AR:="lib"}
-      : ${AR_FLAGS:="-nologo -out:"}
     else
       : ${FFLAGS:="-g $ADD_FFLAGS"}
       : ${FCFLAGS:="-g $ADD_FCFLAGS"}
@@ -1318,8 +1376,6 @@ AC_DEFUN([AC_COIN_COMPFLAGS_DEFAULTS],
       : ${FCFLAGS:="-nologo -fpp -O2 -MD $ADD_FCFLAGS"}
       : ${CFLAGS:="-nologo -DNDEBUG -O2 -MD $ADD_CFLAGS"}
       : ${CXXFLAGS:="-nologo -EHs -DNDEBUG -O2 -MD $ADD_CXXFLAGS"}
-      : ${AR:="lib"}
-      : ${AR_FLAGS:="-nologo -out:"}
     else
       : ${FFLAGS:="-O2 $ADD_FFLAGS"}
       : ${FCFLAGS:="-O2 $ADD_FCFLAGS"}
@@ -1465,33 +1521,27 @@ AC_DEFUN([AC_COIN_INITIALIZE],
 
 AC_DEFUN([AC_COIN_PROG_LIBTOOL],
 [
-# Create libtool.
+# checkout AR and decide whether to use ar-lib wrapper
+  AM_PROG_AR
 
-  LT_INIT([disable-static pic-only m4_bmatch($1,no-win32-dll,,win32-dll)])
+# Create libtool.
+  LT_INIT(disable-static pic-only m4_bmatch($1,no-win32-dll,,win32-dll))
 
 # Patch libtool to circumvent some issues when using MSVC and MS lib.
 # This needs to be run after config.status has created libtool.
-# 1. Eliminate a trailing space after AR_FLAGS. Apparently necessary on
-#    Windows when AR=lib.exe.
-# 2. Patch libtool's func_extract_an_archive in case of $AR=lib. The current
-#    libtool implementation assumes that it can do $AR x to extract an archive.
-#    We replace this two-liner in func_extract_an_archive by replacing the first
-#    line by something clunky that works with lib and making sure that the following
-#    line is ignored (by finishing with ": \"). We completely disregard running the
-#    command through func_show_eval and do not stop if it fails.
-# 3. Relax check which libraries can be used when linking a DLL.
+# 1. Relax check which libraries can be used when linking a DLL.
 #    libtool's func_mode_link() would reject linking a .lib file when building a DLL,
 #    even though this .lib file may just be the one that eventually loads a depending DLL,
 #    e.g., mkl_core_dll.lib. Setting deplibs_check_method=pass_all will still print a
 #    warning, but the .lib is still passed to the linker.
-# 4. Ensure always_export_symbols=no if win32-dll. Even when we pass win32-dll,
+# 2. Ensure always_export_symbols=no if win32-dll. Even when we pass win32-dll,
 #    libtool forces always_export_symbols=yes for --tag=CXX if using MS compiler.
 #    This leads to a nm call that collects ALL C-functions from a library
 #    and explicitly dll-exporting them, leading to warnings about duplicates
 #    regarding those that are properly marked for dll-export in the source.
-# 5. Do not add mkl_*.lib to old_deplibs, which can result in trying to unpack and repack
+# 3. Do not add mkl_*.lib to old_deplibs, which can result in trying to unpack and repack
 #    the MKL libraries (which are pretty big). Instead, treat them like other -l<...> libs.
-# 6. Add MKL libraries to dependency_libs in .la file, which I guess should be
+# 4. Add MKL libraries to dependency_libs in .la file, which I guess should be
 #    the case due to point 5.
 #
 # Patch libtool also to circumvent some issues when using MinGW (Msys+GCC).
@@ -1502,12 +1552,10 @@ AC_DEFUN([AC_COIN_PROG_LIBTOOL],
 #    static libraries. Setting deplibs_check_method=pass_all will avoid
 #    this faulty check.
 
-  case "$AR" in
-    *lib* | *LIB* )
+  case "$am_cv_ar_interface" in
+    lib )
       AC_CONFIG_COMMANDS([libtoolclpatch],
-        [sed -e 's|AR_FLAGS |AR_FLAGS|g' \
-             -e '/$AR x/s/.*/( cd $f_ex_an_ar_dir ; for f in `$AR -nologo -list "$f_ex_an_ar_oldlib" | tr "\\r" " "` ; do lib -nologo -extract:$f "$f_ex_an_ar_oldlib"; done ); : \\/g' \
-             -e '/^deplibs_check_method/s/.*/deplibs_check_method="pass_all"/g' \
+        [sed -e '/^deplibs_check_method/s/.*/deplibs_check_method="pass_all"/g' \
              m4_bmatch($1,no-win32-dll,,[-e 's|always_export_symbols=yes|always_export_symbols=no|g']) \
              -e '/func_append old_deplibs/s/\(.*\)/case $arg in *mkl_*.lib) ;; *) \1 ;; esac/g' \
              -e '/static library .deplib is not portable/a case $deplib in *mkl_*.lib) newdependency_libs="$deplib $newdependency_libs" ;; esac' \
@@ -1579,6 +1627,7 @@ AC_DEFUN_ONCE([AC_COIN_PROG_CC],
       CC="$am_aux_dir/compile $CC"
       ac_cv_prog_CC="$CC"
       LD="$CC"
+      : ${AR:=lib}
     else
       AC_MSG_ERROR([Neither MS nor Intel C compiler found in PATH and CC is unset.])
     fi
@@ -1618,6 +1667,7 @@ AC_DEFUN_ONCE([AC_COIN_PROG_CXX],
       CXX="$am_aux_dir/compile $CXX"
       ac_cv_prog_CXX="$CXX"
       LD="$CXX"
+      : ${AR:=lib}
     else
       AC_MSG_ERROR([Neither MS nor Intel C++ compiler found in PATH and CXX is unset.])
     fi

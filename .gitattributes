@@ -3,6 +3,7 @@
 /LICENSE -text
 /Makefile.am -text
 /Makefile.in -text
+/ar-lib -text
 /captureConfigFiles -text
 /coinglpk.pc.in -text
 /compile -text

@@ -3,7 +3,6 @@
 /LICENSE -text
 /Makefile.am -text
 /Makefile.in -text
-/ar-lib -text
 /captureConfigFiles -text
 /coinglpk.pc.in -text
 /compile -text
@@ -17,6 +16,7 @@
 /glpk_config.patch -text
 glpk_config_files/Makefile.in -text
 glpk_config_files/aclocal.m4 -text
+glpk_config_files/ar-lib -text
 glpk_config_files/compile -text
 glpk_config_files/config.guess -text
 glpk_config_files/configure -text

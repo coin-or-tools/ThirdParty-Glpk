@@ -19,7 +19,7 @@ if [[ ! -r glpk_config.patch ]] ; then
 fi
 
 newConfigFiles=(configure.ac src/Makefile.am examples/Makefile.am)
-newConfigFiles+=(aclocal.m4 compile config.guess depcomp install-sh missing)
+newConfigFiles+=(compile ar-lib config.guess depcomp install-sh missing)
 newConfigFiles+=(ltmain.sh)
 newConfigFiles+=(configure Makefile.in src/Makefile.in examples/Makefile.in)
 

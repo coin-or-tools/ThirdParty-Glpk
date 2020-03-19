@@ -14,7 +14,6 @@
 /get.Glpk -text
 /glpk_config.patch -text
 glpk_config_files/Makefile.in -text
-glpk_config_files/aclocal.m4 -text
 glpk_config_files/ar-lib -text
 glpk_config_files/compile -text
 glpk_config_files/config.guess -text

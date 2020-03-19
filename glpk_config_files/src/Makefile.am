@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in ##
 
-AUTOMAKE_OPTIONS = subdir-objects
+AUTOMAKE_OPTIONS = gnu
 
 include_HEADERS = glpk.h
 

@@ -1412,12 +1412,14 @@ AC_DEFUN([AC_COIN_INITIALIZE],
   AM_SILENT_RULES([yes])
 
 # Initialize automake
+# - do not be as strict as for GNU projects
 # - don't AC_DEFINE PACKAGE or VERSION (but there're still defined as shell
 #   variables in configure, and as make variables).
 # - disable dist target
+# - place objects from sources in subdirs into corresponding subdirs
 # - enable all automake warnings
 
-  AM_INIT_AUTOMAKE([no-define no-dist -Wall])
+  AM_INIT_AUTOMAKE([foreign no-define no-dist subdir-objects -Wall])
 
 # Disable automatic rebuild of configure/Makefile. Use run_autotools.
 
@@ -1487,6 +1489,10 @@ AC_DEFUN([AC_COIN_PROG_LIBTOOL],
 #    This leads to a nm call that collects ALL C-functions from a library
 #    and explicitly dll-exporting them, leading to warnings about duplicates
 #    regarding those that are properly marked for dll-export in the source.
+# 5. Do not add mkl_*.lib to old_deplibs, which can result in trying to unpack and repack
+#    the MKL libraries (which are pretty big). Instead, treat them like other -l<...> libs.
+# 6. Add MKL libraries to dependency_libs in .la file, which I guess should be
+#    the case due to point 5.
 #
 # Patch libtool also to circumvent some issues when using MinGW (Msys+GCC).
 # 1. Relax check which libraries can be used when linking a DLL.
@@ -1503,6 +1509,8 @@ AC_DEFUN([AC_COIN_PROG_LIBTOOL],
              -e '/$AR x/s/.*/( cd $f_ex_an_ar_dir ; for f in `$AR -nologo -list "$f_ex_an_ar_oldlib" | tr "\\r" " "` ; do lib -nologo -extract:$f "$f_ex_an_ar_oldlib"; done ); : \\/g' \
              -e '/^deplibs_check_method/s/.*/deplibs_check_method="pass_all"/g' \
              m4_bmatch($1,no-win32-dll,,[-e 's|always_export_symbols=yes|always_export_symbols=no|g']) \
+             -e '/func_append old_deplibs/s/\(.*\)/case $arg in *mkl_*.lib) ;; *) \1 ;; esac/g' \
+             -e '/static library .deplib is not portable/a case $deplib in *mkl_*.lib) newdependency_libs="$deplib $newdependency_libs" ;; esac' \
          libtool > libtool.tmp
          mv libtool.tmp libtool
          chmod 755 libtool])
@@ -2221,7 +2229,7 @@ AC_DEFUN([AC_COIN_FIND_PRIM_PKG],
 # --with-prim is always present. If the client specified dataonly, its value
 # is assigned to prim_data.
 
-  withval=$m4_tolower(with_$1)
+  withval="$m4_tolower(with_$1)"
   if test -n "$withval" ; then
     case "$withval" in
       no )
@@ -2236,8 +2244,8 @@ AC_DEFUN([AC_COIN_FIND_PRIM_PKG],
       * )
         m4_tolower(coin_has_$1)=yes
         m4_if(m4_default($4,nodata),dataonly,
-          [m4_tolower($1_data)=$withval],
-          [m4_tolower($1_lflags)=$withval])
+          [m4_tolower($1_data)="$withval"],
+          [m4_tolower($1_lflags)="$withval"])
         ;;
     esac
   fi
@@ -2248,7 +2256,7 @@ AC_DEFUN([AC_COIN_FIND_PRIM_PKG],
 
   m4_if(m4_default($4,nodata),dataonly,[],
     [if test "$m4_tolower(coin_has_$1)" != skipping ; then
-       withval=$m4_tolower(with_$1_lflags)
+       withval="$m4_tolower(with_$1_lflags)"
        if test -n "$withval" ; then
          case "$withval" in
            build | no | yes )
@@ -2256,12 +2264,12 @@ AC_DEFUN([AC_COIN_FIND_PRIM_PKG],
              ;;
            * )
              m4_tolower(coin_has_$1)=yes
-             m4_tolower($1_lflags)=$withval
+             m4_tolower($1_lflags)="$withval"
              ;;
          esac
        fi
 
-       withval=$m4_tolower(with_$1_cflags)
+       withval="$m4_tolower(with_$1_cflags)"
        if test -n "$withval" ; then
          case "$withval" in
            build | no | yes )
@@ -2280,7 +2288,7 @@ AC_DEFUN([AC_COIN_FIND_PRIM_PKG],
 
   m4_if(m4_default($4,nodata),nodata,[],
     [if test "$m4_tolower(coin_has_$1)" != skipping ; then
-       withval=$m4_tolower(with_$1_data)
+       withval="$m4_tolower(with_$1_data)"
        if test -n "$withval" ; then
          case "$withval" in
            build | no | yes )
@@ -2357,14 +2365,14 @@ AC_DEFUN([AC_COIN_FIND_PRIM_PKG],
 
 # Define BUILDTOOLS_DEBUG to enable debugging output
 
-    if test "$BUILDTOOLS_DEBUG" = 1 ; then
-      AC_MSG_NOTICE([FIND_PRIM_PKG result for $1: "$m4_tolower(coin_has_$1)"])
-      AC_MSG_NOTICE([Collected values for package '$1'])
-      AC_MSG_NOTICE([m4_tolower($1_lflags) is "$m4_tolower($1_lflags)"])
-      AC_MSG_NOTICE([m4_tolower($1_cflags) is "$m4_tolower($1_cflags)"])
-      AC_MSG_NOTICE([m4_tolower($1_data) is "$m4_tolower($1_data)"])
-      AC_MSG_NOTICE([m4_tolower($1_pcfiles) is "$m4_tolower($1_pcfiles)"])
-    fi
+  if test "$BUILDTOOLS_DEBUG" = 1 ; then
+    AC_MSG_NOTICE([FIND_PRIM_PKG result for $1: "$m4_tolower(coin_has_$1)"])
+    AC_MSG_NOTICE([Collected values for package '$1'])
+    AC_MSG_NOTICE([m4_tolower($1_lflags) is "$m4_tolower($1_lflags)"])
+    AC_MSG_NOTICE([m4_tolower($1_cflags) is "$m4_tolower($1_cflags)"])
+    AC_MSG_NOTICE([m4_tolower($1_data) is "$m4_tolower($1_data)"])
+    AC_MSG_NOTICE([m4_tolower($1_pcfiles) is "$m4_tolower($1_pcfiles)"])
+  fi
 
 ])  # COIN_FIND_PRIM_PKG
 
@@ -3050,7 +3058,7 @@ AC_DEFUN([AC_COIN_CHK_LAPACK],
     ])
 
 # Set up command line arguments with DEF_PRIM_ARGS.
-  AC_COIN_DEF_PRIM_ARGS([lapack],yes,yes,yes,no)
+  AC_COIN_DEF_PRIM_ARGS([lapack],yes,yes,no,no)
 
 # Give FIND_PRIM_PKG a chance to look for user-specified lapack flags,
 # but skip any checks via a .pc file. The result (coin_has_lapack) will
@@ -3102,16 +3110,29 @@ dnl So for now the checks below will only work for shared MKL libs on Linux/Darw
       ;;
 
       *-cygwin* | *-mingw* | *-msys*)
-        # check for 64-bit sequential MKL
-        if test "$enable_shared" = yes ; then
-          AC_COIN_TRY_LINK([dsyev],[mkl_intel_lp64_dll.lib mkl_sequential_dll.lib mkl_core_dll.lib],[],
+        # check for 64-bit sequential MKL in $LIB
+        old_IFS="$IFS"
+        IFS=";"
+        for d in $LIB ; do
+          # turn $d into unix-style short path (no spaces); cannot do -us, so first do -ws, then -u
+          d=`cygpath -ws "$d"`
+          d=`cygpath -u "$d"`
+          if test "$enable_shared" = yes ; then
+            if test -e "$d/mkl_core_dll.lib" ; then
+              coin_mkl="$d/mkl_intel_lp64_dll.lib $d/mkl_sequential_dll.lib $d/mkl_core_dll.lib"
+              break
+            fi
+          else
+            if test -e "$d/mkl_core.lib" ; then
+              coin_mkl="$d/mkl_intel_lp64.lib $d/mkl_sequential.lib $d/mkl_core.lib"
+              break
+            fi
+          fi
+        done
+        IFS="$old_IFS"
+        AC_COIN_TRY_LINK([dsyev],[$coin_mkl],[],
             [coin_has_lapack=yes
-             lapack_lflags="mkl_intel_lp64_dll.lib mkl_sequential_dll.lib mkl_core_dll.lib"])
-        else
-          AC_COIN_TRY_LINK([dsyev],[mkl_intel_lp64.lib mkl_sequential.lib mkl_core.lib],[],
-            [coin_has_lapack=yes
-             lapack_lflags="mkl_intel_lp64.lib mkl_sequential.lib mkl_core.lib"])
-        fi
+             lapack_lflags="$coin_mkl"])
       ;;
 
       *-darwin*)

@@ -624,7 +624,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AUTOMAKE_OPTIONS = subdir-objects
+AUTOMAKE_OPTIONS = gnu
 include_HEADERS = glpk.h
 
 # Change name from libglpk to libcoinglpk.

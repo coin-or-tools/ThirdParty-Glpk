@@ -2,6 +2,8 @@
 
 AM_CPPFLAGS = -I$(srcdir)/../src
 
+AUTOMAKE_OPTIONS = gnu
+
 # Change name from libglpk to libcoinglpk.
 
 LDADD = ../src/libcoinglpk.la

@@ -5,7 +5,6 @@
 /Makefile.in -text
 /captureConfigFiles -text
 /coinglpk.pc.in -text
-/compile -text
 /config.guess -text
 /config.h -text
 /config.sub -text
@@ -29,5 +28,4 @@ glpk_config_files/missing -text
 glpk_config_files/src/Makefile.am -text
 glpk_config_files/src/Makefile.in -text
 /install-sh -text
-/ltmain.sh -text
 /missing -text

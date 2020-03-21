@@ -294,6 +294,7 @@ AUTOMAKE_OPTIONS = gnu
 
 # Change name from libglpk to libcoinglpk.
 LDADD = ../src/libcoinglpk.la
+AM_LDFLAGS = $(LT_LDFLAGS)
 glpsol_SOURCES = glpsol.c
 all: all-am
 

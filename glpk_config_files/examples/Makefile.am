@@ -8,6 +8,8 @@ AUTOMAKE_OPTIONS = gnu
 
 LDADD = ../src/libcoinglpk.la
 
+AM_LDFLAGS = $(LT_LDFLAGS)
+
 bin_PROGRAMS = glpsol
 
 glpsol_SOURCES = glpsol.c

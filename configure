@@ -2402,9 +2402,7 @@ rmdir .tst 2>/dev/null
 # Enforce the required autoconf version
 
 
-
 # Set the project's version numbers
-
 
   # break up package version number in major.minor.release
   # AC_PACKAGE_VERSION is defined by AC_INIT
@@ -2438,7 +2436,6 @@ _ACEOF
 
 
 # A useful makefile conditional that is always false
-
    if false; then
   ALWAYS_FALSE_TRUE=
   ALWAYS_FALSE_FALSE='#'
@@ -2452,14 +2449,11 @@ fi
 # AC_CANONICAL_BUILD.
 
 
-
 # Get the build and host types
 
 
 
-
 # libtool has some magic for host_os and build_os being mingw, but doesn't know about msys
-
   if test $host_os = msys ; then
     host_os=mingw
     host=`echo $host | sed -e 's/msys/mingw/'`
@@ -2473,7 +2467,6 @@ fi
 # Make silent build rules the default (https://www.gnu.org/software/automake/
 # manual/html_node/Automake-Silent-Rules.html). Run before AM_INIT_AUTOMAKE,
 # which will AC_REQUIRE it anyway.
-
   # Check whether --enable-silent-rules was given.
 if test "${enable_silent_rules+set}" = set; then :
   enableval=$enable_silent_rules;
@@ -2521,7 +2514,6 @@ AM_BACKSLASH='\'
 # - disable dist target
 # - place objects from sources in subdirs into corresponding subdirs
 # - enable all automake warnings
-
   if test "`cd $srcdir && pwd`" != "`pwd`"; then
   # Use -I$(srcdir) only when $(srcdir) != ., so that make's output
   # is not polluted with repeated "-I."
@@ -2630,7 +2622,6 @@ fi
 
 
 # Disable automatic rebuild of configure/Makefile. Use run_autotools.
-
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
 $as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }

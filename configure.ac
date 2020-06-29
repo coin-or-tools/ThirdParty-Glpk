@@ -7,7 +7,7 @@
 #                       Names and other basic things                        #
 #############################################################################
 
-AC_INIT([ThirdPartyGlpk],[trunk],
+AC_INIT([ThirdPartyGlpk],[devel],
   [https://github.com/coin-or-tools/ThirdParty-Glpk/issues/new],[thirdpartyglpk],
   [https://github.com/coin-or-tools/ThirdParty-Glpk/])
 

@@ -12,9 +12,9 @@
 # gives unlimited permission to copy, distribute and modify it.
 #
 #
-# Copyright 2007-2010 Stefan Vigerske and others.
+# Copyright 2007-2020 COIN-OR
 # All Rights Reserved.
-# This file is part of the open source package ThirdParty/Glpk which is
+# This file is part of the open source package ThirdParty-Glpk which is
 # distributed under the Eclipse Public License.
 ## -------------------- ##
 ## M4sh Initialization. ##
@@ -598,9 +598,6 @@ LIBOBJS
 subdirs
 COIN_RELOCATABLE_FALSE
 COIN_RELOCATABLE_TRUE
-MAINT
-MAINTAINER_MODE_FALSE
-MAINTAINER_MODE_TRUE
 am__untar
 am__tar
 AMTAR
@@ -624,6 +621,9 @@ am__isrc
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
+MAINT
+MAINTAINER_MODE_FALSE
+MAINTAINER_MODE_TRUE
 AM_BACKSLASH
 AM_DEFAULT_VERBOSITY
 AM_DEFAULT_V
@@ -637,8 +637,6 @@ build_os
 build_vendor
 build_cpu
 build
-ALWAYS_FALSE_FALSE
-ALWAYS_FALSE_TRUE
 target_alias
 host_alias
 build_alias
@@ -1391,9 +1389,9 @@ This configure script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it.
 
 
-Copyright 2007-2010 Stefan Vigerske and others.
+Copyright 2007-2020 COIN-OR
 All Rights Reserved.
-This file is part of the open source package ThirdParty/Glpk which is
+This file is part of the open source package ThirdParty-Glpk which is
 distributed under the Eclipse Public License.
 _ACEOF
   exit
@@ -1761,9 +1759,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 # the package is actually there.
 
 
-
 # Do some generic initialization work.
-
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
   if test -f "$ac_dir/install-sh"; then
@@ -1890,7 +1886,6 @@ fi
 
 
 
-  # We want --enable-msvc setup and checked
 
 
   # Check whether --enable-debug was given.
@@ -1901,18 +1896,10 @@ else
 fi
 
 
-# This macro should run before the compiler checks (doesn't seem to be
-# sufficient for CFLAGS)
 
 
 
 
-
-
-# change default compiler flags
-# - debugging enabled: enable debug symbols (-g/-Z7)
-# - debugging disabled: disable debug code (-DNDEBUG); enable (more) optimization (-O2)
-# - enable exceptions for (i)cl
 
   if test "$enable_debug" = yes ; then
     if test "$enable_msvc" = yes ; then
@@ -2399,18 +2386,13 @@ fi
 rmdir .tst 2>/dev/null
 
 
-# Enforce the required autoconf version
-
-
-# Set the project's version numbers
-
-  # break up package version number in major.minor.release
-  # AC_PACKAGE_VERSION is defined by AC_INIT
 
 
 
 
-  # ac-define AC_PACKAGE_VERSION macros, use 9999 for missing values
+
+
+
 
 cat >>confdefs.h <<_ACEOF
 #define THIRDPARTYGLPK_VERSION "trunk"
@@ -2435,25 +2417,12 @@ _ACEOF
 
 
 
-# A useful makefile conditional that is always false
-   if false; then
-  ALWAYS_FALSE_TRUE=
-  ALWAYS_FALSE_FALSE='#'
-else
-  ALWAYS_FALSE_TRUE='#'
-  ALWAYS_FALSE_FALSE=
-fi
-
-
-# Change the default compiler flags. This needs to run before
-# AC_CANONICAL_BUILD.
-
-
-# Get the build and host types
 
 
 
-# libtool has some magic for host_os and build_os being mingw, but doesn't know about msys
+
+
+  # libtool has some magic for host_os and build_os being mingw, but doesn't know about msys
   if test $host_os = msys ; then
     host_os=mingw
     host=`echo $host | sed -e 's/msys/mingw/'`
@@ -2464,9 +2433,6 @@ fi
     build=`echo $build | sed -e 's/msys/mingw/'`
   fi
 
-# Make silent build rules the default (https://www.gnu.org/software/automake/
-# manual/html_node/Automake-Silent-Rules.html). Run before AM_INIT_AUTOMAKE,
-# which will AC_REQUIRE it anyway.
   # Check whether --enable-silent-rules was given.
 if test "${enable_silent_rules+set}" = set; then :
   enableval=$enable_silent_rules;
@@ -2507,13 +2473,30 @@ fi
 AM_BACKSLASH='\'
 
 
-# Initialize automake
-# - do not be as strict as for GNU projects
-# - don't AC_DEFINE PACKAGE or VERSION (but there're still defined as shell
-#   variables in configure, and as make variables).
-# - disable dist target
-# - place objects from sources in subdirs into corresponding subdirs
-# - enable all automake warnings
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
+$as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
+    # Check whether --enable-maintainer-mode was given.
+if test "${enable_maintainer_mode+set}" = set; then :
+  enableval=$enable_maintainer_mode; USE_MAINTAINER_MODE=$enableval
+else
+  USE_MAINTAINER_MODE=no
+fi
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $USE_MAINTAINER_MODE" >&5
+$as_echo "$USE_MAINTAINER_MODE" >&6; }
+   if test $USE_MAINTAINER_MODE = yes; then
+  MAINTAINER_MODE_TRUE=
+  MAINTAINER_MODE_FALSE='#'
+else
+  MAINTAINER_MODE_TRUE='#'
+  MAINTAINER_MODE_FALSE=
+fi
+
+  MAINT=$MAINTAINER_MODE_TRUE
+
+
+
   if test "`cd $srcdir && pwd`" != "`pwd`"; then
   # Use -I$(srcdir) only when $(srcdir) != ., so that make's output
   # is not polluted with repeated "-I."
@@ -2621,37 +2604,12 @@ END
 fi
 
 
-# Disable automatic rebuild of configure/Makefile. Use run_autotools.
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
-$as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
-    # Check whether --enable-maintainer-mode was given.
-if test "${enable_maintainer_mode+set}" = set; then :
-  enableval=$enable_maintainer_mode; USE_MAINTAINER_MODE=$enableval
-else
-  USE_MAINTAINER_MODE=no
-fi
-
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $USE_MAINTAINER_MODE" >&5
-$as_echo "$USE_MAINTAINER_MODE" >&6; }
-   if test $USE_MAINTAINER_MODE = yes; then
-  MAINTAINER_MODE_TRUE=
-  MAINTAINER_MODE_FALSE='#'
-else
-  MAINTAINER_MODE_TRUE='#'
-  MAINTAINER_MODE_FALSE=
-fi
-
-  MAINT=$MAINTAINER_MODE_TRUE
-
-
-
-# Figure out the path where libraries are installed.
-# Unless the user specifies --prefix, prefix is set to NONE until the
-# end of configuration, at which point it will be set to $ac_default_prefix.
-# Unless the user specifies --exec-prefix, exec-prefix is set to NONE until
-# the end of configuration, at which point it's set to '${prefix}'.
-# Sheesh.  So do the expansion, then back it out.
+  # Figure out the path where libraries are installed.
+  # Unless the user specifies --prefix, prefix is set to NONE until the
+  # end of configuration, at which point it will be set to $ac_default_prefix.
+  # Unless the user specifies --exec-prefix, exec-prefix is set to NONE until
+  # the end of configuration, at which point it's set to '${prefix}'.
+  # Sheesh.  So do the expansion, then back it out.
   save_prefix=$prefix
   save_exec_prefix=$exec_prefix
   if test "x$prefix" = xNONE ; then
@@ -2667,8 +2625,6 @@ fi
   prefix=$save_prefix
   exec_prefix=$save_exec_prefix
 
-# add a configure flag to indicate whether .pc files should be made relocatable
-# off by default, as it creates libtool warnings
   # Check whether --enable-relocatable was given.
 if test "${enable_relocatable+set}" = set; then :
   enableval=$enable_relocatable; coin_enable_relocatable=$enableval
@@ -2699,12 +2655,10 @@ ac_configure_args="$ac_configure_args --enable-reentrant=no"
 # Invoke glpk's native configuration
 
 
-
 subdirs="$subdirs glpk"
 
 
 # Finish up
-
 ac_config_files="$ac_config_files Makefile coinglpk.pc"
 
 
@@ -2854,8 +2808,8 @@ LIBOBJS=$ac_libobjs
 LTLIBOBJS=$ac_ltlibobjs
 
 
-if test -z "${ALWAYS_FALSE_TRUE}" && test -z "${ALWAYS_FALSE_FALSE}"; then
-  as_fn_error $? "conditional \"ALWAYS_FALSE\" was never defined.
+if test -z "${MAINTAINER_MODE_TRUE}" && test -z "${MAINTAINER_MODE_FALSE}"; then
+  as_fn_error $? "conditional \"MAINTAINER_MODE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking that generated files are newer than configure" >&5
@@ -2867,10 +2821,6 @@ $as_echo_n "checking that generated files are newer than configure... " >&6; }
    { $as_echo "$as_me:${as_lineno-$LINENO}: result: done" >&5
 $as_echo "done" >&6; }
 
-if test -z "${MAINTAINER_MODE_TRUE}" && test -z "${MAINTAINER_MODE_FALSE}"; then
-  as_fn_error $? "conditional \"MAINTAINER_MODE\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${COIN_RELOCATABLE_TRUE}" && test -z "${COIN_RELOCATABLE_FALSE}"; then
   as_fn_error $? "conditional \"COIN_RELOCATABLE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
@@ -4047,7 +3997,6 @@ $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
 
-  #AC_MSG_NOTICE([In case of trouble, first consult the troubleshooting page at https://projects.coin-or.org/BuildTools/wiki/user-troubleshooting])
   { $as_echo "$as_me:${as_lineno-$LINENO}: Configuration of $PACKAGE_NAME successful" >&5
 $as_echo "$as_me: Configuration of $PACKAGE_NAME successful" >&6;}
 

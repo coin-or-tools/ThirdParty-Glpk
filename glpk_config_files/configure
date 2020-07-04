@@ -12531,9 +12531,7 @@ CC=$lt_save_CC
 
 
 
-  LT_LDFLAGS="$LT_LDFLAGS -version-info glpk"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: libtool version info: -version-info glpk" >&5
-$as_echo "$as_me: libtool version info: -version-info glpk" >&6;}
+
 
   LT_LDFLAGS="$LT_LDFLAGS -no-undefined"
 

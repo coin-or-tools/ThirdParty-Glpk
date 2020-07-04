@@ -6,7 +6,7 @@ AC_CONFIG_SRCDIR([src/glpk.h])
 
 # Add standard COIN initialisation and build macros.
 
-AC_COIN_INITIALIZE(glpk)
+AC_COIN_INITIALIZE
 
 # Get the name of the C compiler and appropriate compiler options. If the
 # compile script is already in the cached name from ThirdParty/Glpk's

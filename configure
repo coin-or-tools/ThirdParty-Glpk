@@ -1965,7 +1965,7 @@ else case e in #(
   e) enable_msvc=no
      case $build in
        *-mingw* | *-cygwin* | *-msys* )
-         for ac_prog in gcc clang icl cl
+         for ac_prog in gcc clang icx icl cl
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -2013,7 +2013,7 @@ fi
   test -n "$CC" && break
 done
 
-         case "$CC" in *cl ) enable_msvc=yes ;; esac
+         case "$CC" in *cl | *icx ) enable_msvc=yes ;; esac
        ;;
      esac ;;
 esac
